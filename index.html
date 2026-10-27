@@ -456,4 +456,1266 @@
             </div>
           </div>
 
-          <button onclick="enableProfileEditMode()" class="w-full bg
+          <button onclick="enableProfileEditMode()" class="w-full bg-tealElectric hover:bg-tealElectric/90 py-3 rounded-xl font-bold text-xs text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-pen"></i> Edit Informasi Profil
+          </button>
+        </div>
+
+        <form id="profileEditForm" onsubmit="saveProfileChanges(event)" class="space-y-4 hidden">
+          <div>
+            <label class="block text-xs font-bold text-navyDark mb-1 uppercase tracking-wider">Nama Lengkap</label>
+            <input type="text" id="editNama" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-2.5 text-xs font-semibold text-navyDark">
+          </div>
+          
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-navyDark mb-1 uppercase tracking-wider">Kelas</label>
+              <select id="editKelas" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-3 py-2.5 text-xs font-semibold text-navyDark">
+                <option value="12 SMA">12 SMA</option>
+                <option value="Gap Year">Gap Year</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-navyDark mb-1 uppercase tracking-wider">Asal Sekolah</label>
+              <input type="text" id="editSekolah" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-2.5 text-xs font-semibold text-navyDark">
+            </div>
+          </div>
+
+          <div class="p-3 bg-creamWhite rounded-xl border border-slateSubtle space-y-2">
+            <p class="text-[11px] font-extrabold text-tealElectric uppercase">Pilihan 1</p>
+            <div class="grid grid-cols-2 gap-2">
+              <input type="text" id="editUniv1" placeholder="Univ 1" required class="bg-white border border-slateSubtle rounded-lg px-3 py-2 text-xs font-semibold">
+              <input type="text" id="editJurusan1" placeholder="Jurusan 1" required class="bg-white border border-slateSubtle rounded-lg px-3 py-2 text-xs font-semibold">
+            </div>
+          </div>
+
+          <div class="p-3 bg-creamWhite rounded-xl border border-slateSubtle space-y-2">
+            <p class="text-[11px] font-extrabold text-amber-600 uppercase">Pilihan 2</p>
+            <div class="grid grid-cols-2 gap-2">
+              <input type="text" id="editUniv2" placeholder="Univ 2" required class="bg-white border border-slateSubtle rounded-lg px-3 py-2 text-xs font-semibold">
+              <input type="text" id="editJurusan2" placeholder="Jurusan 2" required class="bg-white border border-slateSubtle rounded-lg px-3 py-2 text-xs font-semibold">
+            </div>
+          </div>
+
+          <div class="flex gap-2 pt-2">
+            <button type="button" onclick="cancelProfileEdit()" class="w-1/3 bg-slateLight text-navyDark font-bold py-2.5 rounded-xl text-xs">Batal</button>
+            <button type="submit" class="w-2/3 bg-tealElectric hover:bg-tealElectric/90 text-white font-bold py-2.5 rounded-xl text-xs shadow-soft-glow">Simpan Perubahan</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <!-- 5. PRE-QUIZ MODAL -->
+    <div id="preQuizModal" class="hidden fixed inset-0 bg-navyDark/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div class="bg-white max-w-md w-full p-6 sm:p-8 rounded-3xl border border-slateSubtle shadow-2xl space-y-6">
+        <div class="flex justify-between items-start border-b border-slateSubtle pb-4">
+          <div>
+            <span id="modalSubtes" class="font-black text-lg text-tealElectric font-poppins">Subtes</span>
+            <p class="text-xs font-semibold text-slateText">Konfirmasi Pelaksanaan Tes</p>
+          </div>
+          <button onclick="closePreQuizModal()" class="w-8 h-8 rounded-full bg-slateLight text-slateText hover:text-navyDark font-bold flex items-center justify-center transition">✕</button>
+        </div>
+
+        <div id="modalStatusBox" class="bg-creamWhite p-4 rounded-2xl border border-slateSubtle space-y-2.5 text-xs"></div>
+        <div id="modalActionButtons" class="flex gap-3 pt-2"></div>
+      </div>
+    </div>
+
+    <!-- 6. QUIZ RUNNER INTERFACE -->
+    <div id="quizSection" class="hidden max-w-3xl mx-auto space-y-6 my-4">
+      <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slateSubtle shadow-card space-y-6">
+        <div class="flex justify-between items-center border-b border-slateSubtle pb-4">
+          <div>
+            <span id="quizSubtes" class="text-xs font-bold bg-navyDark text-cyanFresh px-3 py-1 rounded-lg uppercase tracking-wider">Subtes</span>
+            <h3 class="text-base font-extrabold text-navyDark mt-2">Soal No. <span id="quizCurrentNo" class="text-tealElectric">1</span> dari <span id="quizTotalNo">30</span></h3>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="backToDashboardDuringQuiz()" class="text-xs bg-slateLight hover:bg-slateSubtle text-navyDark font-bold px-3.5 py-2 rounded-xl transition">
+              <i class="fa-solid fa-house mr-1"></i> Dashboard
+            </button>
+            <div class="text-right bg-amberLight px-4 py-2 rounded-2xl border border-amberWarm/40">
+              <p class="text-[10px] text-amber-900 font-extrabold uppercase tracking-wider">Sisa Waktu</p>
+              <p id="quizTimer" class="font-mono text-2xl font-black text-amber-600">30:00</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-creamWhite p-4 rounded-2xl border border-slateSubtle space-y-2">
+          <div class="flex justify-between items-center text-xs font-bold text-slateText">
+            <span>Navigasi Nomor Soal</span>
+            <span class="text-[10px]">Klik nomor untuk lompat soal</span>
+          </div>
+          <div id="numberGrid" class="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-36 overflow-y-auto pr-1 custom-scrollbar"></div>
+        </div>
+
+        <div id="quizQuestion" class="text-base text-navyDark leading-relaxed font-semibold bg-creamWhite p-6 rounded-2xl border border-slateSubtle whitespace-pre-line min-h-[140px]">
+          Sedang memuat soal...
+        </div>
+
+        <div id="quizOptions" class="space-y-3"></div>
+
+        <div class="flex justify-between items-center pt-6 border-t border-slateSubtle">
+          <button id="btnPrev" onclick="prevQuestion()" class="px-5 py-3 rounded-xl text-xs font-bold bg-slateLight hover:bg-slateSubtle text-navyDark transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> <span>Sebelumnya</span>
+          </button>
+          
+          <button id="btnNext" onclick="nextQuestion()" class="px-6 py-3 rounded-xl text-xs font-bold bg-tealElectric hover:bg-tealElectric/90 text-white shadow-soft-glow transition active:scale-95 flex items-center gap-2">
+            <span>Berikutnya</span> <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          
+          <button id="btnFinish" onclick="submitQuiz()" class="hidden px-6 py-3 rounded-xl text-xs font-extrabold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition active:scale-95 flex items-center gap-2">
+            <i class="fa-solid fa-check-circle"></i> <span>Selesai & Simpan Skor</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. HASIL & PEMBAHASAN -->
+    <div id="resultSection" class="hidden max-w-3xl mx-auto space-y-6 my-4">
+      <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card text-center flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-4 text-left">
+          <div class="w-14 h-14 rounded-2xl bg-tealElectric/10 text-tealElectric flex items-center justify-center text-2xl shadow-xs">
+            <i class="fa-solid fa-trophy text-amberWarm"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-black text-navyDark font-poppins">Hasil: <span id="reviewSubtesNama">Subtes</span></h2>
+            <p class="text-xs text-slateText font-medium">Jumlah Benar: <b id="resultCorrect" class="text-emerald-600">0</b> dari <span id="resultTotal">30</span> Soal</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="text-3xl font-black text-tealElectric font-poppins" id="resultScore">0 / 100</div>
+          <button onclick="finishAndReturn()" class="bg-tealElectric hover:bg-tealElectric/90 px-5 py-2.5 rounded-xl font-bold text-xs text-white shadow-soft-glow transition active:scale-95 flex items-center gap-2">
+            <i class="fa-solid fa-house"></i> <span>Dashboard</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slateSubtle shadow-card space-y-6">
+        <div class="flex justify-between items-center border-b border-slateSubtle pb-4">
+          <div>
+            <span class="text-xs font-bold bg-slateLight text-navyDark px-3 py-1 rounded-lg uppercase tracking-wider">Mode Pembahasan</span>
+            <h3 class="text-base font-extrabold text-navyDark mt-2">Soal No. <span id="reviewCurrentNo" class="text-tealElectric">1</span> dari <span id="reviewTotalNo">30</span></h3>
+          </div>
+          <div id="reviewStatusBadge"></div>
+        </div>
+
+        <div class="bg-creamWhite p-4 rounded-2xl border border-slateSubtle space-y-2">
+          <div class="flex justify-between items-center text-xs font-bold text-slateText">
+            <span>Pilih Nomor Pembahasan</span>
+            <div class="flex items-center gap-3 text-[10px]">
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Benar</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Salah</span>
+            </div>
+          </div>
+          <div id="reviewNumberGrid" class="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-36 overflow-y-auto pr-1 custom-scrollbar"></div>
+        </div>
+
+        <div id="reviewQuestionText" class="text-base text-navyDark leading-relaxed font-semibold bg-creamWhite p-6 rounded-2xl border border-slateSubtle whitespace-pre-line">-</div>
+
+        <div id="reviewOptionsBox" class="space-y-3"></div>
+
+        <div class="bg-cyanLight/40 p-6 rounded-2xl border border-tealElectric/30 text-navyDark leading-relaxed space-y-2">
+          <h4 class="font-extrabold text-sm text-tealElectric flex items-center gap-2">
+            <i class="fa-solid fa-lightbulb text-amberWarm"></i> Pembahasan Lengkap:
+          </h4>
+          <div id="reviewExplanationText" class="text-sm font-medium whitespace-pre-line text-slateBlue">-</div>
+        </div>
+
+        <div class="flex justify-between items-center pt-4 border-t border-slateSubtle">
+          <button id="btnReviewPrev" onclick="prevReviewQuestion()" class="px-5 py-3 rounded-xl text-xs font-bold bg-slateLight hover:bg-slateSubtle text-navyDark transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> <span>Sebelumnya</span>
+          </button>
+          <button id="btnReviewNext" onclick="nextReviewQuestion()" class="px-6 py-3 rounded-xl text-xs font-bold bg-tealElectric hover:bg-tealElectric/90 text-white shadow-soft-glow transition active:scale-95 flex items-center gap-2">
+            <span>Berikutnya</span> <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. MODAL VIEWER PPT -->
+    <div id="pptModal" class="hidden fixed inset-0 bg-navyDark/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div class="bg-white max-w-4xl w-full p-5 sm:p-6 rounded-3xl border border-slateSubtle shadow-2xl space-y-4 max-h-[92vh] flex flex-col">
+        <div class="flex justify-between items-center border-b border-slateSubtle pb-3">
+          <div>
+            <h3 id="pptModalTitle" class="font-bold text-lg text-navyDark font-poppins">Slide Materi</h3>
+            <p class="text-xs text-slateText font-medium">Modul Pembelajaran PPT LockIn Edu</p>
+          </div>
+          <button onclick="closePPTModal()" class="w-8 h-8 rounded-full bg-slateLight text-slateText hover:text-navyDark font-bold flex items-center justify-center transition">✕</button>
+        </div>
+        
+        <div class="flex-grow w-full bg-slate-900 rounded-2xl overflow-hidden min-h-[450px] relative flex items-center justify-center">
+          <div id="pptLoader" class="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center gap-3 z-10">
+            <div class="w-10 h-10 border-4 border-tealElectric border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-xs font-bold text-cyanFresh font-poppins animate-pulse">Memuat Slide Presentasi...</p>
+          </div>
+          <iframe id="pptIframe" src="" onload="hidePPTLoader()" class="w-full h-full min-h-[450px] relative z-0" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="text-center p-6 border-t border-slateSubtle text-xs text-slateText bg-white">
+    &copy; 2026 LockIn Edu. All rights reserved. Focus. Master. Conquer.
+  </footer>
+
+  <script>
+    const GAS_API_URL = "https://script.google.com/macros/s/AKfycbyBYAOsE2m84xbumOra0A_vcqSHNUpD__Z_Ks_yp6uIDx7eJTudrKyBSQB4MwsyDLUdEg/exec";
+
+    let currentUser = null;
+    let historyResults = [];
+
+    try {
+      currentUser = JSON.parse(localStorage.getItem("lockin_user")) || null;
+      historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
+    } catch (e) {
+      console.error("Storage read error:", e);
+      currentUser = null;
+      historyResults = [];
+    }
+
+    let currentSoalList = [];
+    let userAnswers = {};
+    let currentIndex = 0;
+    let timerInterval = null;
+    let targetEndTime = 0;
+    let activeQuizSubtes = "";
+    let activeQuizDurasi = 0;
+    let selectedSubtes = "";
+    let selectedDurasi = 0;
+
+    const subtesMasterData = [
+      { id: "PU", nama: "Penalaran Umum (PU)", tipe: "TPS", drillPacks: [
+        { packId: "PU-DP1", judul: "Lockin Drill-Pack 1 (Penalaran Umum)", soalCount: 30, durasi: 30 },
+        { packId: "PU-DP2", judul: "Lockin Drill-Pack 2 (Penalaran Umum)", soalCount: 30, durasi: 30 }
+      ]},
+      { id: "PPU", nama: "Pengetahuan & Pemahaman Umum (PPU)", tipe: "TPS", drillPacks: [
+        { packId: "PPU-DP1", judul: "Lockin Drill-Pack 1 (PPU)", soalCount: 20, durasi: 15 },
+        { packId: "PPU-DP2", judul: "Lockin Drill-Pack 2 (PPU)", soalCount: 20, durasi: 15 }
+      ]},
+      { id: "PBM", nama: "Pemahaman Bacaan & Menulis (PBM)", tipe: "TPS", drillPacks: [
+        { packId: "PBM-DP1", judul: "Lockin Drill-Pack 1 (PBM)", soalCount: 20, durasi: 25 },
+        { packId: "PBM-DP2", judul: "Lockin Drill-Pack 2 (PBM)", soalCount: 20, durasi: 25 }
+      ]},
+      { id: "PK", nama: "Pengetahuan Kuantitatif (PK)", tipe: "TPS", drillPacks: [
+        { packId: "PK-DP1", judul: "Lockin Drill-Pack 1 (Pengetahuan Kuantitatif)", soalCount: 20, durasi: 20 },
+        { packId: "PK-DP2", judul: "Lockin Drill-Pack 2 (Pengetahuan Kuantitatif)", soalCount: 20, durasi: 20 }
+      ]},
+      { id: "LBI", nama: "Literasi dalam Bahasa Indonesia", tipe: "Tes Literasi", drillPacks: [
+        { packId: "LBI-DP1", judul: "Lockin Drill-Pack 1 (Literasi B. Indo)", soalCount: 30, durasi: 42.5 },
+        { packId: "LBI-DP2", judul: "Lockin Drill-Pack 2 (Literasi B. Indo)", soalCount: 30, durasi: 42.5 }
+      ]},
+      { id: "BIG", nama: "Literasi dalam Bahasa Inggris", tipe: "Tes Literasi", drillPacks: [
+        { packId: "BIG-DP1", judul: "Lockin Drill-Pack 1 (Literasi B. Inggris)", soalCount: 20, durasi: 20 },
+        { packId: "BIG-DP2", judul: "Lockin Drill-Pack 2 (Literasi B. Inggris)", soalCount: 20, durasi: 20 }
+      ]},
+      { id: "PM", nama: "Penalaran Matematika (PM)", tipe: "Tes Literasi", drillPacks: [
+        { packId: "PM-DP1", judul: "Lockin Drill-Pack 1 (Penalaran Matematika)", soalCount: 20, durasi: 42.5 },
+        { packId: "PM-DP2", judul: "Lockin Drill-Pack 2 (Penalaran Matematika)", soalCount: 20, durasi: 42.5 }
+      ]}
+    ];
+
+    const liveSessionsData = [
+      { week: "Week 1", topik: "Pengetahuan Kuantitatif & Asesmen Awal", jadwal: "Sabtu, 14.00 WIB", status: "Selesai", recording: "https://youtube.com" },
+      { week: "Week 2", topik: "Penalaran Matematika (Konstruksi Soal Cerita)", jadwal: "Sabtu, 14.00 WIB", status: "Selesai", recording: "https://youtube.com" },
+      { week: "Week 3", topik: "Penalaran Umum (Deduktif vs Induktif)", jadwal: "Sabtu, 14.00 WIB", status: "Selesai", recording: "https://youtube.com" },
+      { week: "Week 4", topik: "Literasi Bahasa Indonesia (Teks Analitis)", jadwal: "Sabtu, 14.00 WIB", status: "Mendatang", recording: "" },
+      { week: "Week 5", topik: "Literasi Bahasa Inggris (Reading Speed Trik)", jadwal: "Sabtu, 14.00 WIB", status: "Mendatang", recording: "" },
+      { week: "Week 6", topik: "Pengetahuan & Pemahaman Umum (PPU Bedah Teks)", jadwal: "Sabtu, 14.00 WIB", status: "Mendatang", recording: "" },
+      { week: "Week 7", topik: "Tryout Penuh & Strategi Alokasi Waktu", jadwal: "Sabtu, 14.00 WIB", status: "Mendatang", recording: "" },
+      { week: "Week 8", topik: "Pemantapan Akhir & Drill Soal Hots", jadwal: "Sabtu, 14.00 WIB", status: "Mendatang", recording: "" },
+    ];
+
+    let reviewIndex = 0;
+    let reviewSubtesNama = "";
+    let reviewSoalList = [];
+    let reviewAnswersList = {};
+
+    window.onload = function() {
+      try {
+        historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
+      } catch (e) {
+        historyResults = [];
+      }
+
+      if (currentUser && currentUser.nama) {
+        showDashboard();
+      } else {
+        showAuthForm();
+      }
+    };
+
+    function syncUserToGoogleSheets(userData) {
+      const payload = {
+        action: 'registerUser',
+        userId: userData.userId,
+        email: userData.email || '',
+        password: userData.password || '123456',
+        nama: userData.nama || '',
+        kelas: userData.kelas || '',
+        asalSekolah: userData.asalSekolah || '',
+        univ1: userData.univ1 || '',
+        jurusan1: userData.jurusan1 || '',
+        univ2: userData.univ2 || '',
+        jurusan2: userData.jurusan2 || ''
+      };
+
+      try {
+        fetch(GAS_API_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.log("Sync error:", err);
+      }
+    }
+
+    function showAuthForm() {
+      const auth = document.getElementById('authSection');
+      const prof = document.getElementById('profileSection');
+      const dash = document.getElementById('dashboardSection');
+      const badge = document.getElementById('userBadge');
+      if (auth) auth.classList.remove('hidden');
+      if (prof) prof.classList.add('hidden');
+      if (dash) dash.classList.add('hidden');
+      if (badge) badge.classList.add('hidden');
+    }
+
+    function handleLogoClick() {
+      const quizSec = document.getElementById('quizSection');
+      if (quizSec && !quizSec.classList.contains('hidden')) {
+        if (confirm("Kuis sedang berjalan. Yakin ingin keluar? Progress dan waktu akan tetap tersimpan.")) {
+          backToDashboardDuringQuiz();
+        }
+      } else if (currentUser && currentUser.nama) {
+        showDashboard();
+        switchMenu('beranda');
+      } else {
+        showAuthForm();
+      }
+    }
+
+    function openProfileModal() {
+      if (!currentUser) return;
+      document.getElementById('profViewNama').innerText = currentUser.nama || "-";
+      document.getElementById('profViewEmail').innerText = currentUser.email || "-";
+      document.getElementById('profViewKelas').innerText = currentUser.kelas || "12 SMA";
+      document.getElementById('profViewSekolah').innerText = currentUser.asalSekolah || "-";
+
+      const p1 = (currentUser.univ1 && currentUser.jurusan1) ? `${currentUser.univ1} - ${currentUser.jurusan1}` : "-";
+      const p2 = (currentUser.univ2 && currentUser.jurusan2) ? `${currentUser.univ2} - ${currentUser.jurusan2}` : "-";
+
+      document.getElementById('profViewPilihan1').innerText = p1;
+      document.getElementById('profViewPilihan2').innerText = p2;
+
+      document.getElementById('profileViewDetails').classList.remove('hidden');
+      document.getElementById('profileEditForm').classList.add('hidden');
+      document.getElementById('profileModal').classList.remove('hidden');
+    }
+
+    function closeProfileModal() {
+      document.getElementById('profileModal').classList.add('hidden');
+    }
+
+    function enableProfileEditMode() {
+      document.getElementById('editNama').value = currentUser.nama || "";
+      document.getElementById('editKelas').value = currentUser.kelas || "12 SMA";
+      document.getElementById('editSekolah').value = currentUser.asalSekolah || "";
+      document.getElementById('editUniv1').value = currentUser.univ1 || "";
+      document.getElementById('editJurusan1').value = currentUser.jurusan1 || "";
+      document.getElementById('editUniv2').value = currentUser.univ2 || "";
+      document.getElementById('editJurusan2').value = currentUser.jurusan2 || "";
+
+      document.getElementById('profileViewDetails').classList.add('hidden');
+      document.getElementById('profileEditForm').classList.remove('hidden');
+    }
+
+    function cancelProfileEdit() {
+      document.getElementById('profileViewDetails').classList.remove('hidden');
+      document.getElementById('profileEditForm').classList.add('hidden');
+    }
+
+    function saveProfileChanges(e) {
+      e.preventDefault();
+      currentUser.nama = document.getElementById('editNama').value;
+      currentUser.kelas = document.getElementById('editKelas').value;
+      currentUser.asalSekolah = document.getElementById('editSekolah').value;
+      currentUser.univ1 = document.getElementById('editUniv1').value;
+      currentUser.jurusan1 = document.getElementById('editJurusan1').value;
+      currentUser.univ2 = document.getElementById('editUniv2').value;
+      currentUser.jurusan2 = document.getElementById('editJurusan2').value;
+
+      localStorage.setItem("lockin_user", JSON.stringify(currentUser));
+      syncUserToGoogleSheets(currentUser);
+      showDashboard();
+      openProfileModal();
+      alert("Profil berhasil diperbarui!");
+    }
+
+    function switchAuthTab(tab) {
+      if (tab === 'login') {
+        document.getElementById('formLogin').classList.remove('hidden');
+        document.getElementById('formRegister').classList.add('hidden');
+        document.getElementById('btnTabLogin').className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-tealElectric text-white shadow-soft-glow transition";
+        document.getElementById('btnTabRegister').className = "flex-1 py-2.5 text-xs font-bold rounded-xl text-slateText hover:text-navyDark transition";
+      } else {
+        document.getElementById('formLogin').classList.add('hidden');
+        document.getElementById('formRegister').classList.remove('hidden');
+        document.getElementById('btnTabRegister').className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-tealElectric text-white shadow-soft-glow transition";
+        document.getElementById('btnTabLogin').className = "flex-1 py-2.5 text-xs font-bold rounded-xl text-slateText hover:text-navyDark transition";
+      }
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const inputEmail = document.getElementById('loginEmail').value.trim();
+      const inputPassword = document.getElementById('loginPassword').value;
+      
+      let existingUsers = [];
+      try {
+        existingUsers = JSON.parse(localStorage.getItem("lockin_all_users")) || [];
+      } catch (err) {
+        existingUsers = [];
+      }
+
+      let found = existingUsers.find(u => u.email && u.email.toLowerCase() === inputEmail.toLowerCase());
+
+      if (found) {
+        currentUser = found;
+      } else {
+        currentUser = { 
+          userId: "USER-" + new Date().getTime(), 
+          email: inputEmail, 
+          password: inputPassword,
+          nama: inputEmail.split('@')[0], 
+          kelas: "12 SMA",
+          asalSekolah: "SMA Negeri 1",
+          univ1: "UNS", jurusan1: "Informatika",
+          univ2: "UNS", jurusan2: "Matematika"
+        };
+        existingUsers.push(currentUser);
+        localStorage.setItem("lockin_all_users", JSON.stringify(existingUsers));
+      }
+      
+      localStorage.setItem("lockin_user", JSON.stringify(currentUser));
+      try {
+        historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
+      } catch (err) {
+        historyResults = [];
+      }
+
+      syncUserToGoogleSheets(currentUser);
+      showDashboard();
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      currentUser = { 
+        userId: "USER-" + new Date().getTime(), 
+        nama: document.getElementById('regNama').value, 
+        email: document.getElementById('regEmail').value,
+        password: document.getElementById('regPassword').value,
+        kelas: "12 SMA", asalSekolah: "",
+        univ1: "", jurusan1: "", univ2: "", jurusan2: ""
+      };
+      
+      localStorage.setItem("lockin_user", JSON.stringify(currentUser));
+      let existingUsers = [];
+      try {
+        existingUsers = JSON.parse(localStorage.getItem("lockin_all_users")) || [];
+      } catch (err) {
+        existingUsers = [];
+      }
+      existingUsers.push(currentUser);
+      localStorage.setItem("lockin_all_users", JSON.stringify(existingUsers));
+
+      try {
+        historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
+      } catch (err) {
+        historyResults = [];
+      }
+
+      syncUserToGoogleSheets(currentUser);
+      showProfileForm();
+    }
+
+    function handleSaveProfile(e) {
+      e.preventDefault();
+      currentUser.kelas = document.getElementById('profKelas').value;
+      currentUser.asalSekolah = document.getElementById('profSekolah').value;
+      currentUser.univ1 = document.getElementById('profUniv1').value;
+      currentUser.jurusan1 = document.getElementById('profJurusan1').value;
+      currentUser.univ2 = document.getElementById('profUniv2').value;
+      currentUser.jurusan2 = document.getElementById('profJurusan2').value;
+
+      localStorage.setItem("lockin_user", JSON.stringify(currentUser));
+      
+      let existingUsers = [];
+      try {
+        existingUsers = JSON.parse(localStorage.getItem("lockin_all_users")) || [];
+      } catch (err) {
+        existingUsers = [];
+      }
+
+      let idx = existingUsers.findIndex(u => u.userId === currentUser.userId);
+      if (idx !== -1) {
+        existingUsers[idx] = currentUser;
+      } else {
+        existingUsers.push(currentUser);
+      }
+      localStorage.setItem("lockin_all_users", JSON.stringify(existingUsers));
+
+      syncUserToGoogleSheets(currentUser);
+      showDashboard();
+      renderHistory();
+      renderLatsoSubtesList();
+      renderPPTSubtesList();
+      renderLiveSessions();
+    }
+
+    function showProfileForm() {
+      document.getElementById('authSection').classList.add('hidden');
+      document.getElementById('profileSection').classList.remove('hidden');
+      document.getElementById('dashboardSection').classList.add('hidden');
+    }
+
+    function showDashboard() {
+      document.getElementById('authSection').classList.add('hidden');
+      document.getElementById('profileSection').classList.add('hidden');
+      document.getElementById('dashboardSection').classList.remove('hidden');
+      document.getElementById('userBadge').classList.remove('hidden');
+
+      document.getElementById('navUserName').innerText = currentUser.nama || "Siswa";
+      document.getElementById('dashNama').innerText = currentUser.nama || "Siswa";
+      
+      const p1 = (currentUser.univ1 && currentUser.jurusan1) ? `${currentUser.univ1} - ${currentUser.jurusan1}` : (currentUser.univ1 || "-");
+      const p2 = (currentUser.univ2 && currentUser.jurusan2) ? `${currentUser.univ2} - ${currentUser.jurusan2}` : (currentUser.univ2 || "-");
+      
+      document.getElementById('dashPilihan1').innerText = p1;
+      document.getElementById('dashPilihan2').innerText = p2;
+
+      renderLatsoSubtesList();
+      renderPPTSubtesList();
+      renderHistory();
+      checkActiveSessionOnLoad();
+    }
+
+    function renderLatsoSubtesList() {
+      const box = document.getElementById('latsoSubtesListContainer');
+      if (!box) return;
+      box.innerHTML = "";
+
+      subtesMasterData.forEach((st, idx) => {
+        const div = document.createElement('div');
+        div.className = "bg-white p-5 rounded-2xl border border-slateSubtle hover:border-tealElectric shadow-xs transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+        div.innerHTML = `
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-tealElectric bg-cyanLight px-2.5 py-0.5 rounded-md mb-1 inline-block">Subtes ${idx + 1}</span>
+            <h4 class="font-extrabold text-navyDark text-base">${st.nama}</h4>
+            <p class="text-xs text-slateText">2x Lockin Drill-Pack • ${st.tipe}</p>
+          </div>
+          <button onclick="openLatsoSubBab('${st.id}')" class="w-full sm:w-auto bg-tealElectric hover:bg-tealElectric/90 px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2">
+            <span>Pilih Paket Drill</span>
+            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+          </button>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    function openLatsoSubBab(subtesId) {
+      const subtes = subtesMasterData.find(s => s.id === subtesId);
+      if (!subtes) return;
+
+      document.getElementById('latsoSelectedSubtesTitle').innerText = subtes.nama;
+      const box = document.getElementById('latsoSubBabListContainer');
+      box.innerHTML = "";
+
+      subtes.drillPacks.forEach(dp => {
+        const div = document.createElement('div');
+        div.className = "bg-creamWhite p-5 rounded-2xl border border-slateSubtle shadow-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+        div.innerHTML = `
+          <div>
+            <span class="text-[10px] font-bold text-tealElectric uppercase bg-cyanLight px-2 py-0.5 rounded-md mb-1 inline-block">Mandiri 24/7</span>
+            <h4 class="font-extrabold text-navyDark text-sm">${dp.judul}</h4>
+            <p class="text-xs text-slateText font-medium mt-0.5">${dp.soalCount} Soal • Durasi: ${dp.durasi} Menit</p>
+          </div>
+          <button onclick="openPreQuizModal('${dp.judul}', ${dp.soalCount}, ${dp.durasi})" class="w-full sm:w-auto bg-tealElectric hover:bg-tealElectric/90 px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95">
+            Kerjakan Paket Ini
+          </button>
+        `;
+        box.appendChild(div);
+      });
+
+      document.getElementById('latsoMainView').classList.add('hidden');
+      document.getElementById('latsoSubBabView').classList.remove('hidden');
+    }
+
+    function backToLatsoMain() {
+      document.getElementById('latsoMainView').classList.remove('hidden');
+      document.getElementById('latsoSubBabView').classList.add('hidden');
+    }
+
+    function renderPPTSubtesList() {
+      const box = document.getElementById('pptSubtesListContainer');
+      if (!box) return;
+      box.innerHTML = "";
+
+      subtesMasterData.forEach((st, idx) => {
+        const div = document.createElement('div');
+        div.className = "bg-white p-5 rounded-2xl border border-slateSubtle hover:border-tealElectric shadow-xs transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+        div.innerHTML = `
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-tealElectric bg-cyanLight px-2.5 py-0.5 rounded-md mb-1 inline-block">Modul ${idx + 1}</span>
+            <h4 class="font-extrabold text-navyDark text-base">${st.nama}</h4>
+            <p class="text-xs text-slateText">3 Bab PPT Ringkasan Material Available</p>
+          </div>
+          <button onclick="openPPTSubBabList('${st.nama}')" class="w-full sm:w-auto bg-tealElectric hover:bg-tealElectric/90 px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2">
+            <span>Lihat Bab PPT</span>
+            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+          </button>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    async function openPPTSubBabList(subtesNama) {
+      document.getElementById('pptSelectedSubtesTitle').innerText = subtesNama;
+      const box = document.getElementById('pptSubBabListContainer');
+      box.innerHTML = `<p class="text-xs text-slateText p-4 font-bold">Memuat modul dari Google Sheets...</p>`;
+
+      document.getElementById('pptMainView').classList.add('hidden');
+      document.getElementById('pptSubBabView').classList.remove('hidden');
+
+      try {
+        const response = await fetch(`${GAS_API_URL}?action=getMateri&subtes=${encodeURIComponent(subtesNama)}`);
+        const result = await response.json();
+
+        box.innerHTML = "";
+        if (result.status === 'success' && result.materi.length > 0) {
+          result.materi.forEach(b => {
+            const div = document.createElement('div');
+            div.className = "bg-creamWhite p-5 rounded-2xl border border-slateSubtle shadow-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+            div.innerHTML = `
+              <div>
+                <span class="text-[10px] font-bold text-tealElectric bg-cyanLight px-2.5 py-0.5 rounded-md mb-1 inline-block">${b.jumlahSlides || 'Slides'}</span>
+                <h4 class="font-extrabold text-navyDark text-sm">${b.judul}</h4>
+                <p class="text-xs text-slateText mt-0.5">${b.deskripsi || ''}</p>
+              </div>
+              <button onclick="openPPTModalViewer('${subtesNama}', '${b.judul}', '${b.babId}')" class="w-full sm:w-auto bg-tealElectric hover:bg-tealElectric/90 px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-file-powerpoint"></i> Buka Slides PPT
+              </button>
+            `;
+            box.appendChild(div);
+          });
+        } else {
+          box.innerHTML = `<p class="text-xs text-red-600 p-4 font-bold">Belum ada data materi untuk subtes ini di Google Sheets.</p>`;
+        }
+      } catch (err) {
+        box.innerHTML = `<p class="text-xs text-red-600 p-4 font-bold">Gagal memuat data dari spreadsheet.</p>`;
+      }
+    }
+
+    function backToPptMain() {
+      document.getElementById('pptMainView').classList.remove('hidden');
+      document.getElementById('pptSubBabView').classList.add('hidden');
+    }
+
+    async function openPPTModalViewer(subtesNama, babJudul, babId) {
+      document.getElementById('pptModalTitle').innerText = babJudul;
+      document.getElementById('pptLoader').classList.remove('hidden');
+      document.getElementById('pptIframe').src = "";
+      document.getElementById('pptModal').classList.remove('hidden');
+
+      try {
+        const response = await fetch(`${GAS_API_URL}?action=getMateri&subtes=${encodeURIComponent(subtesNama)}`);
+        const result = await response.json();
+
+        if (result.status === 'success' && result.materi.length > 0) {
+          const materiBab = result.materi.find(m => m.babId === babId || m.judul.toLowerCase() === babJudul.toLowerCase()) || result.materi[0];
+          if (materiBab && materiBab.linkEmbed) {
+            document.getElementById('pptIframe').src = materiBab.linkEmbed;
+          } else {
+            alert("Link embed PPT belum diisi di Google Sheets.");
+            document.getElementById('pptLoader').classList.add('hidden');
+          }
+        } else {
+          alert("Materi PPT untuk subtes ini belum tersedia di Google Sheets.");
+          document.getElementById('pptLoader').classList.add('hidden');
+        }
+      } catch (err) {
+        alert("Gagal memuat materi PPT.");
+        document.getElementById('pptLoader').classList.add('hidden');
+      }
+    }
+
+    function hidePPTLoader() {
+      const loader = document.getElementById('pptLoader');
+      if (loader) {
+        loader.classList.add('hidden');
+      }
+    }
+
+    function closePPTModal() {
+      document.getElementById('pptIframe').src = "";
+      document.getElementById('pptLoader').classList.add('hidden');
+      document.getElementById('pptModal').classList.add('hidden');
+    }
+
+    function renderLiveSessions() {
+      const box = document.getElementById('liveSessionList');
+      if (!box) return;
+      box.innerHTML = "";
+
+      liveSessionsData.forEach(s => {
+        const div = document.createElement('div');
+        div.className = "bg-white p-5 rounded-2xl border border-slateSubtle shadow-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+        
+        const hasRec = s.recording !== "";
+        div.innerHTML = `
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] font-extrabold uppercase bg-slateLight text-navyDark px-2.5 py-0.5 rounded-md">${s.week}</span>
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-md ${s.status === 'Selesai' ? 'bg-emerald-100 text-emerald-800' : 'bg-amberLight text-amber-900'}">${s.status}</span>
+            </div>
+            <h4 class="font-extrabold text-navyDark text-base">${s.topik}</h4>
+            <p class="text-xs text-slateText"><i class="fa-regular fa-clock mr-1"></i> ${s.jadwal}</p>
+          </div>
+          <div>
+            ${hasRec ? `
+              <a href="${s.recording}" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-xs transition">
+                <i class="fa-solid fa-circle-play"></i> Tonton Rekaman
+              </a>
+            ` : `
+              <button disabled class="w-full sm:w-auto bg-slateLight text-slateText px-5 py-2.5 rounded-xl text-xs font-bold cursor-not-allowed">
+                Sesi Belum Dimulai
+              </button>
+            `}
+          </div>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    function openPreQuizModal(subtesJudul, jumlahSoal, durasiMenit) {
+      selectedSubtes = subtesJudul;
+      selectedDurasi = durasiMenit;
+      
+      document.getElementById('modalSubtes').innerText = subtesJudul;
+      const modalBox = document.getElementById('modalStatusBox');
+      const actionBox = document.getElementById('modalActionButtons');
+
+      const currentUserId = currentUser ? currentUser.userId : "";
+      const lastAttempt = historyResults.find(r => r.subtes === subtesJudul && r.userId === currentUserId);
+
+      if (lastAttempt) {
+        modalBox.innerHTML = `
+          <div class="flex justify-between items-center text-navyDark">
+            <span class="font-semibold">Status Pengerjaan:</span>
+            <span class="font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-lg">Selesai</span>
+          </div>
+          <div class="flex justify-between items-center text-navyDark">
+            <span class="font-semibold">Skor Terakhir:</span>
+            <span class="font-black text-tealElectric text-base font-poppins">${lastAttempt.skor} / 100</span>
+          </div>
+          <div class="flex justify-between items-center text-slateText text-[11px]">
+            <span>Tanggal Pengerjaan:</span>
+            <span class="font-semibold">${lastAttempt.waktu}</span>
+          </div>
+        `;
+
+        actionBox.innerHTML = `
+          <button onclick="reviewPastAnswers('${subtesJudul}')" class="flex-1 bg-slateLight hover:bg-slateSubtle text-navyDark font-bold py-3 rounded-xl text-xs transition">Lihat Pembahasan</button>
+          <button onclick="confirmStartQuiz()" class="flex-1 bg-tealElectric hover:bg-tealElectric/90 text-white font-bold py-3 rounded-xl text-xs shadow-soft-glow transition">Kerjakan Ulang</button>
+        `;
+      } else {
+        modalBox.innerHTML = `
+          <div class="flex justify-between items-center text-navyDark">
+            <span class="font-semibold">Status Pengerjaan:</span>
+            <span class="font-bold text-amber-900 bg-amberLight border border-amberWarm/30 px-2.5 py-0.5 rounded-lg">Belum Dikerjakan</span>
+          </div>
+          <div class="flex justify-between items-center text-navyDark">
+            <span class="font-semibold">Jumlah Soal:</span>
+            <span class="font-bold text-navyDark">${jumlahSoal} Soal</span>
+          </div>
+          <div class="flex justify-between items-center text-navyDark">
+            <span class="font-semibold">Durasi Pengerjaan:</span>
+            <span class="font-bold text-navyDark">${durasiMenit} Menit</span>
+          </div>
+        `;
+
+        actionBox.innerHTML = `
+          <button onclick="closePreQuizModal()" class="w-1/3 bg-slateLight hover:bg-slateSubtle text-navyDark font-bold py-3 rounded-xl text-xs transition">Batal</button>
+          <button onclick="confirmStartQuiz()" class="w-2/3 bg-tealElectric hover:bg-tealElectric/90 text-white font-bold py-3 rounded-xl text-xs shadow-soft-glow transition">Mulai Latihan</button>
+        `;
+      }
+
+      document.getElementById('preQuizModal').classList.remove('hidden');
+    }
+
+    function closePreQuizModal() {
+      document.getElementById('preQuizModal').classList.add('hidden');
+    }
+
+    function confirmStartQuiz() {
+      closePreQuizModal();
+      startQuiz(selectedSubtes, selectedDurasi);
+    }
+
+    async function startQuiz(subtes, durasiMenit, isResuming = false) {
+      document.getElementById('dashboardSection').classList.add('hidden');
+      document.getElementById('quizSection').classList.remove('hidden');
+      document.getElementById('resultSection').classList.add('hidden');
+      
+      document.getElementById('quizSubtes').innerText = subtes;
+
+      if (!isResuming) {
+        document.getElementById('quizQuestion').innerText = "Sedang mengambil data soal dari Google Sheets...";
+        document.getElementById('quizOptions').innerHTML = "";
+
+        try {
+          let queryParam = subtes;
+          if (subtes.includes("Penalaran Umum")) queryParam = "PU";
+          else if (subtes.includes("PPU")) queryParam = "PPU";
+          else if (subtes.includes("PBM")) queryParam = "PBM";
+          else if (subtes.includes("Kuantitatif")) queryParam = "PK";
+          else if (subtes.includes("Literasi B. Indo")) queryParam = "LBI";
+          else if (subtes.includes("Literasi B. Inggris")) queryParam = "BIG";
+          else if (subtes.includes("Penalaran Matematika")) queryParam = "PM";
+
+          const response = await fetch(`${GAS_API_URL}?action=getSoal&subtes=${encodeURIComponent(queryParam)}`);
+          const result = await response.json();
+
+          if (result.status === 'success' && result.soal.length > 0) {
+            currentSoalList = result.soal;
+            currentIndex = 0;
+            userAnswers = {};
+            targetEndTime = new Date().getTime() + (durasiMenit * 60 * 1000);
+            activeQuizSubtes = subtes;
+            activeQuizDurasi = durasiMenit;
+
+            saveActiveSession();
+            document.getElementById('quizTotalNo').innerText = currentSoalList.length;
+            renderQuestion();
+            renderNumberGrid();
+            startTimer();
+          } else {
+            alert(`Belum ada soal untuk "${subtes}" di Google Sheets.`);
+            location.reload();
+          }
+        } catch (err) {
+          alert("Gagal terhubung ke Google Apps Script.");
+          location.reload();
+        }
+      } else {
+        document.getElementById('quizTotalNo').innerText = currentSoalList.length;
+        renderQuestion();
+        renderNumberGrid();
+        startTimer();
+      }
+    }
+
+    function saveActiveSession() {
+      const sessionData = {
+        userId: currentUser ? currentUser.userId : "",
+        subtes: activeQuizSubtes,
+        soalList: currentSoalList,
+        answers: userAnswers,
+        currentIndex: currentIndex,
+        targetEndTime: targetEndTime,
+        durasi: activeQuizDurasi
+      };
+      localStorage.setItem("lockin_active_quiz", JSON.stringify(sessionData));
+    }
+
+    function checkActiveSessionOnLoad() {
+      const savedQuiz = JSON.parse(localStorage.getItem("lockin_active_quiz"));
+      if (savedQuiz && savedQuiz.userId === (currentUser ? currentUser.userId : "")) {
+        const now = new Date().getTime();
+        if (savedQuiz.targetEndTime && savedQuiz.targetEndTime > now && savedQuiz.soalList && savedQuiz.soalList.length > 0) {
+          activeQuizSubtes = savedQuiz.subtes;
+          currentSoalList = savedQuiz.soalList;
+          userAnswers = savedQuiz.answers || {};
+          currentIndex = savedQuiz.currentIndex || 0;
+          targetEndTime = savedQuiz.targetEndTime;
+          activeQuizDurasi = savedQuiz.durasi || 30;
+
+          const banner = document.getElementById('activeSessionBanner');
+          if (banner) banner.classList.remove('hidden');
+        } else {
+          localStorage.removeItem("lockin_active_quiz");
+        }
+      }
+    }
+
+    function resumeActiveQuiz() {
+      const savedQuiz = JSON.parse(localStorage.getItem("lockin_active_quiz"));
+      if (savedQuiz) {
+        activeQuizSubtes = savedQuiz.subtes;
+        currentSoalList = savedQuiz.soalList;
+        userAnswers = savedQuiz.answers || {};
+        currentIndex = savedQuiz.currentIndex || 0;
+        targetEndTime = savedQuiz.targetEndTime;
+        activeQuizDurasi = savedQuiz.durasi || 30;
+
+        document.getElementById('activeSessionBanner').classList.add('hidden');
+        startQuiz(activeQuizSubtes, activeQuizDurasi, true);
+      }
+    }
+
+    function backToDashboardDuringQuiz() {
+      clearInterval(timerInterval);
+      saveActiveSession();
+      showDashboard();
+      checkActiveSessionOnLoad();
+    }
+
+    function renderQuestion() {
+      const q = currentSoalList[currentIndex];
+      document.getElementById('quizCurrentNo').innerText = currentIndex + 1;
+      document.getElementById('quizQuestion').innerText = q.pertanyaan;
+
+      const optsBox = document.getElementById('quizOptions');
+      optsBox.innerHTML = "";
+
+      ['A', 'B', 'C', 'D', 'E'].forEach(optKey => {
+        if (q.options && q.options[optKey]) {
+          const isSelected = userAnswers[currentIndex] === optKey;
+          const btn = document.createElement('button');
+          
+          btn.className = `w-full text-left p-4 rounded-2xl border text-sm font-semibold flex items-center gap-3.5 transition ${
+            isSelected 
+              ? 'bg-tealElectric/10 border-tealElectric text-tealElectric font-bold shadow-xs' 
+              : 'bg-creamWhite border-slateSubtle text-navyDark hover:border-slate-300'
+          }`;
+          
+          btn.onclick = () => selectOption(optKey);
+          btn.innerHTML = `
+            <span class="w-8 h-8 rounded-xl ${isSelected ? 'bg-tealElectric text-white' : 'bg-slateLight text-navyDark'} flex items-center justify-center font-bold text-xs">${optKey}</span> 
+            <span>${q.options[optKey]}</span>
+          `;
+          optsBox.appendChild(btn);
+        }
+      });
+
+      document.getElementById('btnPrev').style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
+      if (currentIndex === currentSoalList.length - 1) {
+        document.getElementById('btnNext').classList.add('hidden');
+        document.getElementById('btnFinish').classList.remove('hidden');
+      } else {
+        document.getElementById('btnNext').classList.remove('hidden');
+        document.getElementById('btnFinish').classList.add('hidden');
+      }
+
+      renderNumberGrid();
+      saveActiveSession();
+    }
+
+    function renderNumberGrid() {
+      const gridBox = document.getElementById('numberGrid');
+      if (!gridBox) return;
+      gridBox.innerHTML = "";
+
+      currentSoalList.forEach((_, idx) => {
+        const isAnswered = userAnswers[idx] !== undefined;
+        const isCurrent = idx === currentIndex;
+
+        let btnClass = "bg-creamWhite text-navyDark border-slateSubtle hover:border-slate-300";
+        if (isAnswered) btnClass = "bg-tealElectric text-white font-bold border-tealElectric shadow-xs";
+        if (isCurrent) btnClass += " ring-2 ring-tealElectric border-tealElectric font-bold bg-cyanLight text-teal-900";
+
+        const btn = document.createElement('button');
+        btn.className = `h-9 w-full rounded-xl text-xs font-bold border flex items-center justify-center transition ${btnClass}`;
+        btn.innerText = idx + 1;
+        btn.onclick = () => jumpToQuestion(idx);
+        gridBox.appendChild(btn);
+      });
+    }
+
+    function jumpToQuestion(idx) {
+      currentIndex = idx;
+      renderQuestion();
+    }
+
+    function selectOption(optKey) {
+      userAnswers[currentIndex] = optKey;
+      renderQuestion();
+    }
+
+    function nextQuestion() {
+      if (currentIndex < currentSoalList.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+      }
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const remainMs = targetEndTime - now;
+        const remainSeconds = Math.floor(remainMs / 1000);
+
+        let m = Math.floor(remainSeconds / 60);
+        let s = remainSeconds % 60;
+        
+        const timerEl = document.getElementById('quizTimer');
+        if (timerEl) {
+          timerEl.innerText = `${m < 10 ? '0':''}${Math.max(0, m)}:${s < 10 ? '0':''}${Math.max(0, s)}`;
+        }
+        
+        saveActiveSession();
+
+        if (remainSeconds <= 0) {
+          clearInterval(timerInterval);
+          submitQuiz();
+        }
+      }, 1000);
+    }
+
+    async function submitQuiz() {
+      clearInterval(timerInterval);
+      localStorage.removeItem("lockin_active_quiz");
+      
+      let benar = 0;
+      const subtesNama = document.getElementById('quizSubtes').innerText;
+
+      currentSoalList.forEach((q, idx) => {
+        const userAns = userAnswers[idx] || "-";
+        if (userAns === q.kunci) benar++;
+      });
+
+      const totalSoal = currentSoalList.length;
+      const score = Math.round((benar / totalSoal) * 100);
+      const activeUserId = currentUser ? currentUser.userId : "GUEST";
+
+      const newRecord = { 
+        userId: activeUserId,
+        subtes: subtesNama, 
+        skor: score, 
+        benar: benar, 
+        total: totalSoal, 
+        waktu: new Date().toLocaleDateString('id-ID'), 
+        savedSoal: currentSoalList, 
+        savedAnswers: userAnswers 
+      };
+      
+      const existingIdx = historyResults.findIndex(r => r.subtes === subtesNama && r.userId === activeUserId);
+      if (existingIdx !== -1) {
+        historyResults[existingIdx] = newRecord;
+      } else {
+        historyResults.unshift(newRecord);
+      }
+
+      localStorage.setItem("lockin_history", JSON.stringify(historyResults));
+      renderHistory();
+
+      showReviewMode(subtesNama, currentSoalList, userAnswers, score, benar, totalSoal);
+
+      try {
+        fetch(GAS_API_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'submitTest',
+            userId: activeUserId,
+            kategori: 'Latihan',
+            subtes: subtesNama,
+            skor: score,
+            jumlahBenar: benar,
+            totalSoal: totalSoal
+          })
+        });
+      } catch (err) {
+        console.log("Simpan ke Sheets gagal:", err);
+      }
+    }
+
+    function reviewPastAnswers(subtes) {
+      closePreQuizModal();
+      const activeUserId = currentUser ? currentUser.userId : "";
+      const pastRecord = historyResults.find(r => r.subtes === subtes && r.userId === activeUserId);
+      
+      if (pastRecord && pastRecord.savedSoal) {
+        showReviewMode(subtes, pastRecord.savedSoal, pastRecord.savedAnswers || {}, pastRecord.skor, pastRecord.benar, pastRecord.total);
+      } else {
+        alert("Riwayat soal tidak ditemukan.");
+      }
+    }
+
+    function showReviewMode(subtesNama, soalList, answers, skor, benar, total) {
+      reviewSubtesNama = subtesNama;
+      reviewSoalList = soalList;
+      reviewAnswersList = answers;
+      reviewIndex = 0;
+
+      document.getElementById('dashboardSection').classList.add('hidden');
+      document.getElementById('quizSection').classList.add('hidden');
+      document.getElementById('resultSection').classList.remove('hidden');
+
+      document.getElementById('reviewSubtesNama').innerText = subtesNama;
+      document.getElementById('resultScore').innerText = `${skor} / 100`;
+      document.getElementById('resultCorrect').innerText = benar;
+      document.getElementById('resultTotal').innerText = total;
+
+      document.getElementById('reviewTotalNo').innerText = reviewSoalList.length;
+
+      renderReviewQuestion();
+      renderReviewNumberGrid();
+    }
+
+    function renderReviewQuestion() {
+      const q = reviewSoalList[reviewIndex];
+      const userAns = reviewAnswersList[reviewIndex] || "-";
+      const isCorrect = userAns === q.kunci;
+
+      document.getElementById('reviewCurrentNo').innerText = reviewIndex + 1;
+      document.getElementById('reviewQuestionText').innerText = q.pertanyaan;
+      document.getElementById('reviewExplanationText').innerText = q.pembahasan;
+
+      const badgeBox = document.getElementById('reviewStatusBadge');
+      if (isCorrect) {
+        badgeBox.innerHTML = `<span class="bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1.5 rounded-xl text-xs"><i class="fa-solid fa-circle-check"></i> Jawaban Benar</span>`;
+      } else {
+        badgeBox.innerHTML = `<span class="bg-red-100 text-red-800 font-extrabold px-3 py-1.5 rounded-xl text-xs"><i class="fa-solid fa-circle-xmark"></i> Jawaban Salah / Kosong</span>`;
+      }
+
+      const optsBox = document.getElementById('reviewOptionsBox');
+      optsBox.innerHTML = "";
+
+      ['A', 'B', 'C', 'D', 'E'].forEach(optKey => {
+        if (q.options && q.options[optKey]) {
+          const isUserChoice = userAns === optKey;
+          const isKeyChoice = q.kunci === optKey;
+
+          let optionStyle = "bg-creamWhite border-slateSubtle text-navyDark";
+          let badgeText = "";
+
+          if (isKeyChoice) {
+            optionStyle = "bg-emerald-50 border-emerald-500 text-emerald-950 font-bold";
+            badgeText = `<span class="ml-auto text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-md">Kunci Jawaban</span>`;
+          } else if (isUserChoice && !isCorrect) {
+            optionStyle = "bg-red-50 border-red-400 text-red-950 font-bold";
+            badgeText = `<span class="ml-auto text-xs font-bold text-red-700 bg-red-100 px-2.5 py-0.5 rounded-md">Jawaban Kamu</span>`;
+          }
+
+          const div = document.createElement('div');
+          div.className = `w-full text-left p-4 rounded-2xl border text-sm font-semibold flex items-center gap-3.5 ${optionStyle}`;
+          div.innerHTML = `
+            <span class="w-8 h-8 rounded-xl ${isKeyChoice ? 'bg-emerald-600 text-white' : (isUserChoice ? 'bg-red-600 text-white' : 'bg-slateLight text-navyDark')} flex items-center justify-center font-bold text-xs">${optKey}</span> 
+            <span>${q.options[optKey]}</span>
+            ${badgeText}
+          `;
+          optsBox.appendChild(div);
+        }
+      });
+
+      document.getElementById('btnReviewPrev').style.visibility = reviewIndex === 0 ? 'hidden' : 'visible';
+      document.getElementById('btnReviewNext').style.visibility = reviewIndex === reviewSoalList.length - 1 ? 'hidden' : 'visible';
+
+      renderReviewNumberGrid();
+    }
+
+    function renderReviewNumberGrid() {
+      const gridBox = document.getElementById('reviewNumberGrid');
+      if (!gridBox) return;
+      gridBox.innerHTML = "";
+
+      reviewSoalList.forEach((q, idx) => {
+        const userAns = reviewAnswersList[idx] || "-";
+        const isCorrect = userAns === q.kunci;
+        const isCurrent = idx === reviewIndex;
+
+        let btnClass = isCorrect ? "bg-emerald-500 text-white font-bold border-emerald-500" : "bg-red-500 text-white font-bold border-red-500";
+        if (isCurrent) btnClass += " ring-4 ring-navyDark border-navyDark";
+
+        const btn = document.createElement('button');
+        btn.className = `h-9 w-full rounded-xl text-xs font-bold border flex items-center justify-center transition ${btnClass}`;
+        btn.innerText = idx + 1;
+        btn.onclick = () => {
+          reviewIndex = idx;
+          renderReviewQuestion();
+        };
+        gridBox.appendChild(btn);
+      });
+    }
+
+    function nextReviewQuestion() {
+      if (reviewIndex < reviewSoalList.length - 1) {
+        reviewIndex++;
+        renderReviewQuestion();
+      }
+    }
+
+    function prevReviewQuestion() {
+      if (reviewIndex > 0) {
+        reviewIndex--;
+        renderReviewQuestion();
+      }
+    }
+
+    function finishAndReturn() {
+      localStorage.removeItem("lockin_active_quiz");
+      location.reload();
+    }
+
+    function renderHistory() {
+      const container = document.getElementById('historiList');
+      if (!container) return;
+
+      const activeUserId = currentUser ? currentUser.userId : "";
+      const myHistory = historyResults.filter(r => r.userId === activeUserId);
+
+      if (myHistory.length === 0) {
+        container.innerHTML = `<p class="text-slateText italic">Belum ada tes yang diselesaikan.</p>`;
+        return;
+      }
+
+      container.innerHTML = "";
+      myHistory.forEach(res => {
+        const item = document.createElement('div');
+        item.className = "p-4 bg-creamWhite rounded-2xl flex justify-between items-center border border-slateSubtle";
+        item.innerHTML = `
+          <div>
+            <p class="font-extrabold text-tealElectric text-sm">${res.subtes}</p>
+            <p class="text-[11px] text-slateText mt-0.5">${res.benar} Benar dari ${res.total} Soal • ${res.waktu}</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="bg-navyDark text-cyanFresh border border-tealElectric/30 px-3 py-1.5 rounded-xl font-bold text-xs">Skor: ${res.skor}</span>
+            <button onclick="reviewPastAnswers('${res.subtes}')" class="bg-tealElectric hover:bg-tealElectric/90 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs transition">Pembahasan</button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function switchMenu(menu) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.menu-btn').forEach(el => {
+        el.className = "menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-slateLight hover:text-navyDark transition";
+      });
+
+      document.getElementById(`tab-${menu}`).classList.remove('hidden');
+      document.getElementById(`btn-${menu}`).className = "menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 bg-tealElectric text-white shadow-soft-glow transition";
+    }
+
+    function logout() {
+      localStorage.removeItem("lockin_active_quiz");
+      localStorage.removeItem("lockin_user");
+      currentUser = null;
+      location.reload();
+    }
+  </script>
+</body>
+</html>
