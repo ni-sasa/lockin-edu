@@ -129,7 +129,7 @@
       </form>
     </div>
 
-    <!-- 2. FORM PENDAFTARAN PROFIL SISWA (HANYA MUNCUL SAAT DAFTAR) -->
+    <!-- 2. FORM PENDAFTARAN PROFIL SISWA -->
     <div id="profileSection" class="max-w-xl mx-auto my-10 bg-white p-8 rounded-3xl border border-slateSubtle shadow-card hidden">
       <div class="mb-6">
         <h2 class="text-2xl font-black text-navyDark font-poppins">Lengkapi Profil Target Kampus</h2>
@@ -506,11 +506,9 @@
       </div>
     </div>
 
-    <!-- 6. QUIZ RUNNER INTERFACE (NAVIGASI SOAL DI ATAS, KONTEN DI TENGAH) -->
+    <!-- 6. QUIZ RUNNER INTERFACE -->
     <div id="quizSection" class="hidden max-w-3xl mx-auto space-y-6 my-4">
       <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slateSubtle shadow-card space-y-6">
-        
-        <!-- HEADER KUIS -->
         <div class="flex justify-between items-center border-b border-slateSubtle pb-4">
           <div>
             <span id="quizSubtes" class="text-xs font-bold bg-navyDark text-cyanFresh px-3 py-1 rounded-lg uppercase tracking-wider">Subtes</span>
@@ -522,7 +520,6 @@
           </div>
         </div>
 
-        <!-- NAVIGASI NOMOR SOAL DI ATAS -->
         <div class="bg-creamWhite p-4 rounded-2xl border border-slateSubtle space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-slateText">
             <span>Navigasi Nomor Soal</span>
@@ -531,15 +528,12 @@
           <div id="numberGrid" class="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-36 overflow-y-auto pr-1 custom-scrollbar"></div>
         </div>
 
-        <!-- PERTANYAAN -->
         <div id="quizQuestion" class="text-base text-navyDark leading-relaxed font-semibold bg-creamWhite p-6 rounded-2xl border border-slateSubtle whitespace-pre-line min-h-[140px]">
           Sedang memuat soal...
         </div>
 
-        <!-- OPSI JAWABAN -->
         <div id="quizOptions" class="space-y-3"></div>
 
-        <!-- TOMBOL NAVIGASI -->
         <div class="flex justify-between items-center pt-6 border-t border-slateSubtle">
           <button id="btnPrev" onclick="prevQuestion()" class="px-5 py-3 rounded-xl text-xs font-bold bg-slateLight hover:bg-slateSubtle text-navyDark transition flex items-center gap-2">
             <i class="fa-solid fa-arrow-left"></i> <span>Sebelumnya</span>
@@ -553,14 +547,11 @@
             <i class="fa-solid fa-check-circle"></i> <span>Selesai & Simpan Skor</span>
           </button>
         </div>
-
       </div>
     </div>
 
-    <!-- 7. HASIL & PEMBAHASAN (NAVIGASI DI ATAS, KONTEN DI TENGAH) -->
+    <!-- 7. HASIL & PEMBAHASAN -->
     <div id="resultSection" class="hidden max-w-3xl mx-auto space-y-6 my-4">
-      
-      <!-- KOTAK SKOR UTAMA -->
       <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card text-center flex flex-col sm:flex-row justify-between items-center gap-4">
         <div class="flex items-center gap-4 text-left">
           <div class="w-14 h-14 rounded-2xl bg-tealElectric/10 text-tealElectric flex items-center justify-center text-2xl shadow-xs">
@@ -579,9 +570,7 @@
         </div>
       </div>
 
-      <!-- KONTEN PEMBAHASAN -->
       <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slateSubtle shadow-card space-y-6">
-        
         <div class="flex justify-between items-center border-b border-slateSubtle pb-4">
           <div>
             <span class="text-xs font-bold bg-slateLight text-navyDark px-3 py-1 rounded-lg uppercase tracking-wider">Mode Pembahasan</span>
@@ -590,7 +579,6 @@
           <div id="reviewStatusBadge"></div>
         </div>
 
-        <!-- NAVIGASI NOMOR PEMBAHASAN DI ATAS -->
         <div class="bg-creamWhite p-4 rounded-2xl border border-slateSubtle space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-slateText">
             <span>Pilih Nomor Pembahasan</span>
@@ -621,11 +609,10 @@
             <span>Berikutnya</span> <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
-
       </div>
     </div>
 
-    <!-- 8. MODAL VIEWER PPT (WITH SPINNER LOADER) -->
+    <!-- 8. MODAL VIEWER PPT -->
     <div id="pptModal" class="hidden fixed inset-0 bg-navyDark/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div class="bg-white max-w-4xl w-full p-5 sm:p-6 rounded-3xl border border-slateSubtle shadow-2xl space-y-4 max-h-[92vh] flex flex-col">
         <div class="flex justify-between items-center border-b border-slateSubtle pb-3">
@@ -667,69 +654,34 @@
     let selectedDurasi = 0;
 
     const subtesMasterData = [
-      {
-        id: "PU",
-        nama: "Penalaran Umum (PU)",
-        tipe: "TPS",
-        drillPacks: [
-          { packId: "PU-DP1", judul: "Lockin Drill-Pack 1 (Penalaran Umum)", soalCount: 30, durasi: 30 },
-          { packId: "PU-DP2", judul: "Lockin Drill-Pack 2 (Penalaran Umum)", soalCount: 30, durasi: 30 }
-        ]
-      },
-      {
-        id: "PPU",
-        nama: "Pengetahuan & Pemahaman Umum (PPU)",
-        tipe: "TPS",
-        drillPacks: [
-          { packId: "PPU-DP1", judul: "Lockin Drill-Pack 1 (PPU)", soalCount: 20, durasi: 15 },
-          { packId: "PPU-DP2", judul: "Lockin Drill-Pack 2 (PPU)", soalCount: 20, durasi: 15 }
-        ]
-      },
-      {
-        id: "PBM",
-        nama: "Pemahaman Bacaan & Menulis (PBM)",
-        tipe: "TPS",
-        drillPacks: [
-          { packId: "PBM-DP1", judul: "Lockin Drill-Pack 1 (PBM)", soalCount: 20, durasi: 25 },
-          { packId: "PBM-DP2", judul: "Lockin Drill-Pack 2 (PBM)", soalCount: 20, durasi: 25 }
-        ]
-      },
-      {
-        id: "PK",
-        nama: "Pengetahuan Kuantitatif (PK)",
-        tipe: "TPS",
-        drillPacks: [
-          { packId: "PK-DP1", judul: "Lockin Drill-Pack 1 (Pengetahuan Kuantitatif)", soalCount: 20, durasi: 20 },
-          { packId: "PK-DP2", judul: "Lockin Drill-Pack 2 (Pengetahuan Kuantitatif)", soalCount: 20, durasi: 20 }
-        ]
-      },
-      {
-        id: "LBI",
-        nama: "Literasi dalam Bahasa Indonesia",
-        tipe: "Tes Literasi",
-        drillPacks: [
-          { packId: "LBI-DP1", judul: "Lockin Drill-Pack 1 (Literasi B. Indo)", soalCount: 30, durasi: 42.5 },
-          { packId: "LBI-DP2", judul: "Lockin Drill-Pack 2 (Literasi B. Indo)", soalCount: 30, durasi: 42.5 }
-        ]
-      },
-      {
-        id: "BIG",
-        nama: "Literasi dalam Bahasa Inggris",
-        tipe: "Tes Literasi",
-        drillPacks: [
-          { packId: "BIG-DP1", judul: "Lockin Drill-Pack 1 (Literasi B. Inggris)", soalCount: 20, durasi: 20 },
-          { packId: "BIG-DP2", judul: "Lockin Drill-Pack 2 (Literasi B. Inggris)", soalCount: 20, durasi: 20 }
-        ]
-      },
-      {
-        id: "PM",
-        nama: "Penalaran Matematika (PM)",
-        tipe: "Tes Literasi",
-        drillPacks: [
-          { packId: "PM-DP1", judul: "Lockin Drill-Pack 1 (Penalaran Matematika)", soalCount: 20, durasi: 42.5 },
-          { packId: "PM-DP2", judul: "Lockin Drill-Pack 2 (Penalaran Matematika)", soalCount: 20, durasi: 42.5 }
-        ]
-      }
+      { id: "PU", nama: "Penalaran Umum (PU)", tipe: "TPS", drillPacks: [
+        { packId: "PU-DP1", judul: "Lockin Drill-Pack 1 (Penalaran Umum)", soalCount: 30, durasi: 30 },
+        { packId: "PU-DP2", judul: "Lockin Drill-Pack 2 (Penalaran Umum)", soalCount: 30, durasi: 30 }
+      ]},
+      { id: "PPU", nama: "Pengetahuan & Pemahaman Umum (PPU)", tipe: "TPS", drillPacks: [
+        { packId: "PPU-DP1", judul: "Lockin Drill-Pack 1 (PPU)", soalCount: 20, durasi: 15 },
+        { packId: "PPU-DP2", judul: "Lockin Drill-Pack 2 (PPU)", soalCount: 20, durasi: 15 }
+      ]},
+      { id: "PBM", nama: "Pemahaman Bacaan & Menulis (PBM)", tipe: "TPS", drillPacks: [
+        { packId: "PBM-DP1", judul: "Lockin Drill-Pack 1 (PBM)", soalCount: 20, durasi: 25 },
+        { packId: "PBM-DP2", judul: "Lockin Drill-Pack 2 (PBM)", soalCount: 20, durasi: 25 }
+      ]},
+      { id: "PK", nama: "Pengetahuan Kuantitatif (PK)", tipe: "TPS", drillPacks: [
+        { packId: "PK-DP1", judul: "Lockin Drill-Pack 1 (Pengetahuan Kuantitatif)", soalCount: 20, durasi: 20 },
+        { packId: "PK-DP2", judul: "Lockin Drill-Pack 2 (Pengetahuan Kuantitatif)", soalCount: 20, durasi: 20 }
+      ]},
+      { id: "LBI", nama: "Literasi dalam Bahasa Indonesia", tipe: "Tes Literasi", drillPacks: [
+        { packId: "LBI-DP1", judul: "Lockin Drill-Pack 1 (Literasi B. Indo)", soalCount: 30, durasi: 42.5 },
+        { packId: "LBI-DP2", judul: "Lockin Drill-Pack 2 (Literasi B. Indo)", soalCount: 30, durasi: 42.5 }
+      ]},
+      { id: "BIG", nama: "Literasi dalam Bahasa Inggris", tipe: "Tes Literasi", drillPacks: [
+        { packId: "BIG-DP1", judul: "Lockin Drill-Pack 1 (Literasi B. Inggris)", soalCount: 20, durasi: 20 },
+        { packId: "BIG-DP2", judul: "Lockin Drill-Pack 2 (Literasi B. Inggris)", soalCount: 20, durasi: 20 }
+      ]},
+      { id: "PM", nama: "Penalaran Matematika (PM)", tipe: "Tes Literasi", drillPacks: [
+        { packId: "PM-DP1", judul: "Lockin Drill-Pack 1 (Penalaran Matematika)", soalCount: 20, durasi: 42.5 },
+        { packId: "PM-DP2", judul: "Lockin Drill-Pack 2 (Penalaran Matematika)", soalCount: 20, durasi: 42.5 }
+      ]}
     ];
 
     const liveSessionsData = [
@@ -878,7 +830,6 @@
       e.preventDefault();
       const inputEmail = document.getElementById('loginEmail').value;
       
-      // Cek apakah akun sudah pernah terdaftar di localStorage
       let existingUsers = JSON.parse(localStorage.getItem("lockin_all_users")) || [];
       let found = existingUsers.find(u => u.email === inputEmail);
 
@@ -891,8 +842,8 @@
           nama: inputEmail.split('@')[0], 
           kelas: "12 SMA",
           asalSekolah: "SMA Negeri 1",
-          univ1: "UNS - Informatika", 
-          univ2: "UNS - Matematika"
+          univ1: "UNS", jurusan1: "Informatika",
+          univ2: "UNS", jurusan2: "Matematika"
         };
         existingUsers.push(currentUser);
         localStorage.setItem("lockin_all_users", JSON.stringify(existingUsers));
@@ -901,6 +852,8 @@
       localStorage.setItem("lockin_user", JSON.stringify(currentUser));
       syncUserToGoogleSheets(currentUser);
       showDashboard();
+      renderLatsoSubtesList();
+      renderPPTSubtesList();
     }
 
     function handleRegister(e) {
@@ -971,10 +924,14 @@
       
       document.getElementById('dashPilihan1').innerText = p1;
       document.getElementById('dashPilihan2').innerText = p2;
+
+      renderLatsoSubtesList();
+      renderPPTSubtesList();
     }
 
     function renderLatsoSubtesList() {
       const box = document.getElementById('latsoSubtesListContainer');
+      if (!box) return;
       box.innerHTML = "";
 
       subtesMasterData.forEach((st, idx) => {
@@ -1030,6 +987,7 @@
 
     function renderPPTSubtesList() {
       const box = document.getElementById('pptSubtesListContainer');
+      if (!box) return;
       box.innerHTML = "";
 
       subtesMasterData.forEach((st, idx) => {
@@ -1129,12 +1087,13 @@
 
     function closePPTModal() {
       document.getElementById('pptIframe').src = "";
-      document.getElementById('pptLoader').classList.remove('hidden');
+      document.getElementById('pptLoader').classList.add('hidden');
       document.getElementById('pptModal').classList.add('hidden');
     }
 
     function renderLiveSessions() {
       const box = document.getElementById('liveSessionList');
+      if (!box) return;
       box.innerHTML = "";
 
       liveSessionsData.forEach(s => {
@@ -1339,6 +1298,7 @@
 
     function renderNumberGrid() {
       const gridBox = document.getElementById('numberGrid');
+      if (!gridBox) return;
       gridBox.innerHTML = "";
 
       currentSoalList.forEach((_, idx) => {
@@ -1386,7 +1346,10 @@
       timerInterval = setInterval(() => {
         let m = Math.floor(remainSeconds / 60);
         let s = remainSeconds % 60;
-        document.getElementById('quizTimer').innerText = `${m < 10 ? '0':''}${m}:${s < 10 ? '0':''}${s}`;
+        const timerEl = document.getElementById('quizTimer');
+        if (timerEl) {
+          timerEl.innerText = `${m < 10 ? '0':''}${m}:${s < 10 ? '0':''}${s}`;
+        }
         
         saveActiveSession();
 
@@ -1510,126 +1473,4 @@
       optsBox.innerHTML = "";
 
       ['A', 'B', 'C', 'D', 'E'].forEach(optKey => {
-        if (q.options && q.options[optKey]) {
-          const isUserChoice = userAns === optKey;
-          const isKeyChoice = q.kunci === optKey;
-
-          let optionStyle = "bg-creamWhite border-slateSubtle text-navyDark";
-          let badgeText = "";
-
-          if (isKeyChoice) {
-            optionStyle = "bg-emerald-50 border-emerald-500 text-emerald-950 font-bold";
-            badgeText = `<span class="ml-auto text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-md">Kunci Jawaban</span>`;
-          } else if (isUserChoice && !isCorrect) {
-            optionStyle = "bg-red-50 border-red-400 text-red-950 font-bold";
-            badgeText = `<span class="ml-auto text-xs font-bold text-red-700 bg-red-100 px-2.5 py-0.5 rounded-md">Jawaban Kamu</span>`;
-          }
-
-          const div = document.createElement('div');
-          div.className = `w-full text-left p-4 rounded-2xl border text-sm font-semibold flex items-center gap-3.5 ${optionStyle}`;
-          div.innerHTML = `
-            <span class="w-8 h-8 rounded-xl ${isKeyChoice ? 'bg-emerald-600 text-white' : (isUserChoice ? 'bg-red-600 text-white' : 'bg-slateLight text-navyDark')} flex items-center justify-center font-bold text-xs">${optKey}</span> 
-            <span>${q.options[optKey]}</span>
-            ${badgeText}
-          `;
-          optsBox.appendChild(div);
-        }
-      });
-
-      document.getElementById('btnReviewPrev').style.visibility = reviewIndex === 0 ? 'hidden' : 'visible';
-      document.getElementById('btnReviewNext').style.visibility = reviewIndex === reviewSoalList.length - 1 ? 'hidden' : 'visible';
-
-      renderReviewNumberGrid();
-    }
-
-    function renderReviewNumberGrid() {
-      const gridBox = document.getElementById('reviewNumberGrid');
-      gridBox.innerHTML = "";
-
-      reviewSoalList.forEach((q, idx) => {
-        const userAns = reviewAnswersList[idx] || "-";
-        const isCorrect = userAns === q.kunci;
-        const isCurrent = idx === reviewIndex;
-
-        let btnClass = isCorrect ? "bg-emerald-500 text-white font-bold border-emerald-500" : "bg-red-500 text-white font-bold border-red-500";
-        if (isCurrent) btnClass += " ring-4 ring-navyDark border-navyDark";
-
-        const btn = document.createElement('button');
-        btn.className = `h-9 w-full rounded-xl text-xs font-bold border flex items-center justify-center transition ${btnClass}`;
-        btn.innerText = idx + 1;
-        btn.onclick = () => {
-          reviewIndex = idx;
-          renderReviewQuestion();
-        };
-        gridBox.appendChild(btn);
-      });
-    }
-
-    function nextReviewQuestion() {
-      if (reviewIndex < reviewSoalList.length - 1) {
-        reviewIndex++;
-        renderReviewQuestion();
-      }
-    }
-
-    function prevReviewQuestion() {
-      if (reviewIndex > 0) {
-        reviewIndex--;
-        renderReviewQuestion();
-      }
-    }
-
-    function finishAndReturn() {
-      localStorage.removeItem("lockin_active_quiz");
-      location.reload();
-    }
-
-    function renderHistory() {
-      const container = document.getElementById('historiList');
-      if (!container) return;
-
-      const activeUserId = currentUser ? currentUser.userId : "";
-      const myHistory = historyResults.filter(r => r.userId === activeUserId);
-
-      if (myHistory.length === 0) {
-        container.innerHTML = `<p class="text-slateText italic">Belum ada tes yang diselesaikan.</p>`;
-        return;
-      }
-
-      container.innerHTML = "";
-      myHistory.forEach(res => {
-        const item = document.createElement('div');
-        item.className = "p-4 bg-creamWhite rounded-2xl flex justify-between items-center border border-slateSubtle";
-        item.innerHTML = `
-          <div>
-            <p class="font-extrabold text-tealElectric text-sm">${res.subtes}</p>
-            <p class="text-[11px] text-slateText mt-0.5">${res.benar} Benar dari ${res.total} Soal • ${res.waktu}</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="bg-navyDark text-cyanFresh border border-tealElectric/30 px-3 py-1.5 rounded-xl font-bold text-xs">Skor: ${res.skor}</span>
-            <button onclick="reviewPastAnswers('${res.subtes}')" class="bg-tealElectric hover:bg-tealElectric/90 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs transition">Pembahasan</button>
-          </div>
-        `;
-        container.appendChild(item);
-      });
-    }
-
-    function switchMenu(menu) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.menu-btn').forEach(el => {
-        el.className = "menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-slateLight hover:text-navyDark transition";
-      });
-
-      document.getElementById(`tab-${menu}`).classList.remove('hidden');
-      document.getElementById(`btn-${menu}`).className = "menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 bg-tealElectric text-white shadow-soft-glow transition";
-    }
-
-    function logout() {
-      localStorage.removeItem("lockin_active_quiz");
-      localStorage.removeItem("lockin_user");
-      currentUser = null;
-      location.reload();
-    }
-  </script>
-</body>
-</html>
+        if
