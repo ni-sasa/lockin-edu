@@ -670,7 +670,6 @@
       currentUser = JSON.parse(localStorage.getItem("lockin_user")) || null;
       historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
     } catch (e) {
-      console.error("Storage read error:", e);
       currentUser = null;
       historyResults = [];
     }
@@ -768,9 +767,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-      } catch (err) {
-        console.log("Sync error:", err);
-      }
+      } catch (err) {}
     }
 
     function showAuthForm() {
@@ -887,7 +884,7 @@
         currentUser = found;
       } else {
         currentUser = { 
-          userId: "USER-" + new Date().getTime(), 
+          userId: inputEmail.toLowerCase(), 
           email: inputEmail, 
           password: inputPassword,
           nama: inputEmail.split('@')[0], 
@@ -900,7 +897,10 @@
         localStorage.setItem("lockin_all_users", JSON.stringify(existingUsers));
       }
       
+      // Standardize userId to email for reliable history matching
+      currentUser.userId = currentUser.email.toLowerCase();
       localStorage.setItem("lockin_user", JSON.stringify(currentUser));
+      
       try {
         historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
       } catch (err) {
@@ -913,10 +913,11 @@
 
     function handleRegister(e) {
       e.preventDefault();
+      const regEmail = document.getElementById('regEmail').value.trim();
       currentUser = { 
-        userId: "USER-" + new Date().getTime(), 
+        userId: regEmail.toLowerCase(), 
         nama: document.getElementById('regNama').value, 
-        email: document.getElementById('regEmail').value,
+        email: regEmail,
         password: document.getElementById('regPassword').value,
         kelas: "12 SMA", asalSekolah: "",
         univ1: "", jurusan1: "", univ2: "", jurusan2: ""
@@ -970,10 +971,6 @@
 
       syncUserToGoogleSheets(currentUser);
       showDashboard();
-      renderHistory();
-      renderLatsoSubtesList();
-      renderPPTSubtesList();
-      renderLiveSessions();
     }
 
     function showProfileForm() {
@@ -999,6 +996,7 @@
 
       renderLatsoSubtesList();
       renderPPTSubtesList();
+      renderLiveSessions();
       renderHistory();
       checkActiveSessionOnLoad();
     }
@@ -1209,7 +1207,7 @@
       const actionBox = document.getElementById('modalActionButtons');
 
       const currentUserId = currentUser ? currentUser.userId : "";
-      const lastAttempt = historyResults.find(r => r.subtes === subtesJudul && r.userId === currentUserId);
+      const lastAttempt = historyResults.find(r => r.subtes === subtesJudul && (r.userId === currentUserId || r.userId === currentUser.email));
 
       if (lastAttempt) {
         modalBox.innerHTML = `
@@ -1510,7 +1508,7 @@
         savedAnswers: userAnswers 
       };
       
-      const existingIdx = historyResults.findIndex(r => r.subtes === subtesNama && r.userId === activeUserId);
+      const existingIdx = historyResults.findIndex(r => r.subtes === subtesNama && (r.userId === activeUserId || r.userId === currentUser.email));
       if (existingIdx !== -1) {
         historyResults[existingIdx] = newRecord;
       } else {
@@ -1537,15 +1535,13 @@
             totalSoal: totalSoal
           })
         });
-      } catch (err) {
-        console.log("Simpan ke Sheets gagal:", err);
-      }
+      } catch (err) {}
     }
 
     function reviewPastAnswers(subtes) {
       closePreQuizModal();
       const activeUserId = currentUser ? currentUser.userId : "";
-      const pastRecord = historyResults.find(r => r.subtes === subtes && r.userId === activeUserId);
+      const pastRecord = historyResults.find(r => r.subtes === subtes && (r.userId === activeUserId || r.userId === currentUser.email));
       
       if (pastRecord && pastRecord.savedSoal) {
         showReviewMode(subtes, pastRecord.savedSoal, pastRecord.savedAnswers || {}, pastRecord.skor, pastRecord.benar, pastRecord.total);
@@ -1675,7 +1671,7 @@
       if (!container) return;
 
       const activeUserId = currentUser ? currentUser.userId : "";
-      const myHistory = historyResults.filter(r => r.userId === activeUserId);
+      const myHistory = historyResults.filter(r => r.userId === activeUserId || r.userId === currentUser.email);
 
       if (myHistory.length === 0) {
         container.innerHTML = `<p class="text-slateText italic">Belum ada tes yang diselesaikan.</p>`;
