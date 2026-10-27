@@ -684,34 +684,34 @@
     let selectedSubtes = "";
     let selectedDurasi = 0;
 
-    const subtesMasterData = [
+const subtesMasterData = [
       { id: "PU", nama: "Penalaran Umum (PU)", tipe: "TPS", drillPacks: [
-        { packId: "PU-DP1", judul: "Lockin Drill-Pack 1 (Penalaran Umum)", soalCount: 30, durasi: 30 },
-        { packId: "PU-DP2", judul: "Lockin Drill-Pack 2 (Penalaran Umum)", soalCount: 30, durasi: 30 }
+        { packId: "PU-001", judul: "Lockin Drill-Pack 1 (Penalaran Umum)", soalCount: 15, durasi: 30 },
+        { packId: "PU-002", judul: "Lockin Drill-Pack 2 (Penalaran Umum)", soalCount: 15, durasi: 30 }
       ]},
       { id: "PPU", nama: "Pengetahuan & Pemahaman Umum (PPU)", tipe: "TPS", drillPacks: [
-        { packId: "PPU-DP1", judul: "Lockin Drill-Pack 1 (PPU)", soalCount: 20, durasi: 15 },
-        { packId: "PPU-DP2", judul: "Lockin Drill-Pack 2 (PPU)", soalCount: 20, durasi: 15 }
+        { packId: "PPU-001", judul: "Lockin Drill-Pack 1 (PPU)", soalCount: 20, durasi: 15 },
+        { packId: "PPU-002", judul: "Lockin Drill-Pack 2 (PPU)", soalCount: 20, durasi: 15 }
       ]},
       { id: "PBM", nama: "Pemahaman Bacaan & Menulis (PBM)", tipe: "TPS", drillPacks: [
-        { packId: "PBM-DP1", judul: "Lockin Drill-Pack 1 (PBM)", soalCount: 20, durasi: 25 },
-        { packId: "PBM-DP2", judul: "Lockin Drill-Pack 2 (PBM)", soalCount: 20, durasi: 25 }
+        { packId: "PBM-001", judul: "Lockin Drill-Pack 1 (PBM)", soalCount: 20, durasi: 25 },
+        { packId: "PBM-002", judul: "Lockin Drill-Pack 2 (PBM)", soalCount: 20, durasi: 25 }
       ]},
       { id: "PK", nama: "Pengetahuan Kuantitatif (PK)", tipe: "TPS", drillPacks: [
-        { packId: "PK-DP1", judul: "Lockin Drill-Pack 1 (Pengetahuan Kuantitatif)", soalCount: 20, durasi: 20 },
-        { packId: "PK-DP2", judul: "Lockin Drill-Pack 2 (Pengetahuan Kuantitatif)", soalCount: 20, durasi: 20 }
+        { packId: "PK-001", judul: "Lockin Drill-Pack 1 (Pengetahuan Kuantitatif)", soalCount: 20, durasi: 20 },
+        { packId: "PK-002", judul: "Lockin Drill-Pack 2 (Pengetahuan Kuantitatif)", soalCount: 20, durasi: 20 }
       ]},
       { id: "LBI", nama: "Literasi dalam Bahasa Indonesia", tipe: "Tes Literasi", drillPacks: [
-        { packId: "LBI-DP1", judul: "Lockin Drill-Pack 1 (Literasi B. Indo)", soalCount: 30, durasi: 42.5 },
-        { packId: "LBI-DP2", judul: "Lockin Drill-Pack 2 (Literasi B. Indo)", soalCount: 30, durasi: 42.5 }
+        { packId: "LBI-001", judul: "Lockin Drill-Pack 1 (Literasi B. Indo)", soalCount: 30, durasi: 42.5 },
+        { packId: "LBI-002", judul: "Lockin Drill-Pack 2 (Literasi B. Indo)", soalCount: 30, durasi: 42.5 }
       ]},
       { id: "BIG", nama: "Literasi dalam Bahasa Inggris", tipe: "Tes Literasi", drillPacks: [
-        { packId: "BIG-DP1", judul: "Lockin Drill-Pack 1 (Literasi B. Inggris)", soalCount: 20, durasi: 20 },
-        { packId: "BIG-DP2", judul: "Lockin Drill-Pack 2 (Literasi B. Inggris)", soalCount: 20, durasi: 20 }
+        { packId: "BIG-001", judul: "Lockin Drill-Pack 1 (Literasi B. Inggris)", soalCount: 20, durasi: 20 },
+        { packId: "BIG-002", judul: "Lockin Drill-Pack 2 (Literasi B. Inggris)", soalCount: 20, durasi: 20 }
       ]},
       { id: "PM", nama: "Penalaran Matematika (PM)", tipe: "Tes Literasi", drillPacks: [
-        { packId: "PM-DP1", judul: "Lockin Drill-Pack 1 (Penalaran Matematika)", soalCount: 20, durasi: 42.5 },
-        { packId: "PM-DP2", judul: "Lockin Drill-Pack 2 (Penalaran Matematika)", soalCount: 20, durasi: 42.5 }
+        { packId: "PM-001", judul: "Lockin Drill-Pack 1 (Penalaran Matematika)", soalCount: 20, durasi: 42.5 },
+        { packId: "PM-002", judul: "Lockin Drill-Pack 2 (Penalaran Matematika)", soalCount: 20, durasi: 42.5 }
       ]}
     ];
 
@@ -1262,7 +1262,7 @@
       startQuiz(selectedSubtes, selectedDurasi);
     }
 
-    async function startQuiz(subtes, durasiMenit, isResuming = false) {
+async function startQuiz(subtes, durasiMenit, isResuming = false) {
       document.getElementById('dashboardSection').classList.add('hidden');
       document.getElementById('quizSection').classList.remove('hidden');
       document.getElementById('resultSection').classList.add('hidden');
@@ -1275,34 +1275,23 @@
 
         try {
           let queryParam = subtes;
+          // Mapping judul drill-pack ke PackID yang ada di Google Sheets (Kolom D)
           if (subtes.includes("Drill-Pack 1")) {
-            if (subtes.includes("Penalaran Umum")) queryParam = "PU-DP1";
-            else if (subtes.includes("PPU")) queryParam = "PPU-DP1";
-            else if (subtes.includes("PBM")) queryParam = "PBM-DP1";
-            else if (subtes.includes("Kuantitatif")) queryParam = "PK-DP1";
-            else if (subtes.includes("Literasi B. Indo")) queryParam = "LBI-DP1";
-            else if (subtes.includes("Literasi B. Inggris")) queryParam = "BIG-DP1";
-            else if (subtes.includes("Penalaran Matematika")) queryParam = "PM-DP1";
+            if (subtes.includes("Penalaran Umum")) queryParam = "PU-001";
+            else if (subtes.includes("PPU")) queryParam = "PPU-001";
+            else if (subtes.includes("PBM")) queryParam = "PBM-001";
+            else if (subtes.includes("Kuantitatif")) queryParam = "PK-001";
+            else if (subtes.includes("Literasi B. Indo")) queryParam = "LBI-001";
+            else if (subtes.includes("Literasi B. Inggris")) queryParam = "BIG-001";
+            else if (subtes.includes("Penalaran Matematika")) queryParam = "PM-001";
           } else if (subtes.includes("Drill-Pack 2")) {
-            if (subtes.includes("Penalaran Umum")) queryParam = "PU-DP2";
-            else if (subtes.includes("PPU")) queryParam = "PPU-DP2";
-            else if (subtes.includes("PBM")) queryParam = "PBM-DP2";
-            else if (subtes.includes("Kuantitatif")) queryParam = "PK-DP2";
-            else if (subtes.includes("Literasi B. Indo")) queryParam = "LBI-DP2";
-            else if (subtes.includes("Literasi B. Inggris")) queryParam = "BIG-DP2";
-            else if (subtes.includes("Penalaran Matematika")) queryParam = "PM-DP2";
-          } else if (subtes.includes("Asesmen Awal")) {
-            queryParam = "Asesmen";
-          } else if (subtes.includes("Tryout Penuh")) {
-            queryParam = "Tryout";
-          } else {
-            if (subtes.includes("Penalaran Umum")) queryParam = "PU";
-            else if (subtes.includes("PPU")) queryParam = "PPU";
-            else if (subtes.includes("PBM")) queryParam = "PBM";
-            else if (subtes.includes("Kuantitatif")) queryParam = "PK";
-            else if (subtes.includes("Literasi B. Indo")) queryParam = "LBI";
-            else if (subtes.includes("Literasi B. Inggris")) queryParam = "BIG";
-            else if (subtes.includes("Penalaran Matematika")) queryParam = "PM";
+            if (subtes.includes("Penalaran Umum")) queryParam = "PU-002";
+            else if (subtes.includes("PPU")) queryParam = "PPU-002";
+            else if (subtes.includes("PBM")) queryParam = "PBM-002";
+            else if (subtes.includes("Kuantitatif")) queryParam = "PK-002";
+            else if (subtes.includes("Literasi B. Indo")) queryParam = "LBI-002";
+            else if (subtes.includes("Literasi B. Inggris")) queryParam = "BIG-002";
+            else if (subtes.includes("Penalaran Matematika")) queryParam = "PM-002";
           }
 
           const response = await fetch(`${GAS_API_URL}?action=getSoal&subtes=${encodeURIComponent(queryParam)}`);
