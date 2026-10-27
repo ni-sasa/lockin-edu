@@ -1079,9 +1079,9 @@
     }
 
     function hidePPTLoader() {
-      const iframeSrc = document.getElementById('pptIframe').src;
-      if (iframeSrc && iframeSrc !== "about:blank" && iframeSrc !== window.location.href) {
-        document.getElementById('pptLoader').classList.add('hidden');
+      const loader = document.getElementById('pptLoader');
+      if (loader) {
+        loader.classList.add('hidden');
       }
     }
 
@@ -1473,4 +1473,127 @@
       optsBox.innerHTML = "";
 
       ['A', 'B', 'C', 'D', 'E'].forEach(optKey => {
-        if
+        if (q.options && q.options[optKey]) {
+          const isUserChoice = userAns === optKey;
+          const isKeyChoice = q.kunci === optKey;
+
+          let optionStyle = "bg-creamWhite border-slateSubtle text-navyDark";
+          let badgeText = "";
+
+          if (isKeyChoice) {
+            optionStyle = "bg-emerald-50 border-emerald-500 text-emerald-950 font-bold";
+            badgeText = `<span class="ml-auto text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-md">Kunci Jawaban</span>`;
+          } else if (isUserChoice && !isCorrect) {
+            optionStyle = "bg-red-50 border-red-400 text-red-950 font-bold";
+            badgeText = `<span class="ml-auto text-xs font-bold text-red-700 bg-red-100 px-2.5 py-0.5 rounded-md">Jawaban Kamu</span>`;
+          }
+
+          const div = document.createElement('div');
+          div.className = `w-full text-left p-4 rounded-2xl border text-sm font-semibold flex items-center gap-3.5 ${optionStyle}`;
+          div.innerHTML = `
+            <span class="w-8 h-8 rounded-xl ${isKeyChoice ? 'bg-emerald-600 text-white' : (isUserChoice ? 'bg-red-600 text-white' : 'bg-slateLight text-navyDark')} flex items-center justify-center font-bold text-xs">${optKey}</span> 
+            <span>${q.options[optKey]}</span>
+            ${badgeText}
+          `;
+          optsBox.appendChild(div);
+        }
+      });
+
+      document.getElementById('btnReviewPrev').style.visibility = reviewIndex === 0 ? 'hidden' : 'visible';
+      document.getElementById('btnReviewNext').style.visibility = reviewIndex === reviewSoalList.length - 1 ? 'hidden' : 'visible';
+
+      renderReviewNumberGrid();
+    }
+
+    function renderReviewNumberGrid() {
+      const gridBox = document.getElementById('reviewNumberGrid');
+      if (!gridBox) return;
+      gridBox.innerHTML = "";
+
+      reviewSoalList.forEach((q, idx) => {
+        const userAns = reviewAnswersList[idx] || "-";
+        const isCorrect = userAns === q.kunci;
+        const isCurrent = idx === reviewIndex;
+
+        let btnClass = isCorrect ? "bg-emerald-500 text-white font-bold border-emerald-500" : "bg-red-500 text-white font-bold border-red-500";
+        if (isCurrent) btnClass += " ring-4 ring-navyDark border-navyDark";
+
+        const btn = document.createElement('button');
+        btn.className = `h-9 w-full rounded-xl text-xs font-bold border flex items-center justify-center transition ${btnClass}`;
+        btn.innerText = idx + 1;
+        btn.onclick = () => {
+          reviewIndex = idx;
+          renderReviewQuestion();
+        };
+        gridBox.appendChild(btn);
+      });
+    }
+
+    function nextReviewQuestion() {
+      if (reviewIndex < reviewSoalList.length - 1) {
+        reviewIndex++;
+        renderReviewQuestion();
+      }
+    }
+
+    function prevReviewQuestion() {
+      if (reviewIndex > 0) {
+        reviewIndex--;
+        renderReviewQuestion();
+      }
+    }
+
+    function finishAndReturn() {
+      localStorage.removeItem("lockin_active_quiz");
+      location.reload();
+    }
+
+    function renderHistory() {
+      const container = document.getElementById('historiList');
+      if (!container) return;
+
+      const activeUserId = currentUser ? currentUser.userId : "";
+      const myHistory = historyResults.filter(r => r.userId === activeUserId);
+
+      if (myHistory.length === 0) {
+        container.innerHTML = `<p class="text-slateText italic">Belum ada tes yang diselesaikan.</p>`;
+        return;
+      }
+
+      container.innerHTML = "";
+      myHistory.forEach(res => {
+        const item = document.createElement('div');
+        item.className = "p-4 bg-creamWhite rounded-2xl flex justify-between items-center border border-slateSubtle";
+        item.innerHTML = `
+          <div>
+            <p class="font-extrabold text-tealElectric text-sm">${res.subtes}</p>
+            <p class="text-[11px] text-slateText mt-0.5">${res.benar} Benar dari ${res.total} Soal • ${res.waktu}</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="bg-navyDark text-cyanFresh border border-tealElectric/30 px-3 py-1.5 rounded-xl font-bold text-xs">Skor: ${res.skor}</span>
+            <button onclick="reviewPastAnswers('${res.subtes}')" class="bg-tealElectric hover:bg-tealElectric/90 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs transition">Pembahasan</button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function switchMenu(menu) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.menu-btn').forEach(el => {
+        el.className = "menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-slateLight hover:text-navyDark transition";
+      });
+
+      document.getElementById(`tab-${menu}`).classList.remove('hidden');
+      document.getElementById(`btn-${menu}`).className = "menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 bg-tealElectric text-white shadow-soft-glow transition";
+    }
+
+    function logout() {
+      localStorage.removeItem("lockin_active_quiz");
+      localStorage.removeItem("lockin_user");
+      currentUser = null;
+      location.reload();
+    }
+  </script>
+</body>
+</html>
