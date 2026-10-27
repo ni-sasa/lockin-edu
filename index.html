@@ -216,6 +216,22 @@
       <!-- MAIN CONTENT VIEW -->
       <div class="md:col-span-3 space-y-6">
 
+        <!-- BANNER LANJUTKAN UJIAN (JIKA ADA SESI AKTIF) -->
+        <div id="activeSessionBanner" class="hidden bg-gradient-to-r from-amber-500 to-amber-600 p-5 rounded-3xl text-white shadow-card flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white text-lg">
+              <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-sm">Ujian Sedang Berlangsung!</h4>
+              <p class="text-xs text-amber-100">Kamu memiliki sesi latihan yang belum selesai.</p>
+            </div>
+          </div>
+          <button onclick="resumeActiveQuiz()" class="bg-white text-amber-800 hover:bg-amber-50 px-5 py-2.5 rounded-xl font-bold text-xs shadow-md transition">
+            Lanjutkan Ujian
+          </button>
+        </div>
+
         <!-- TAB BERANDA -->
         <div id="tab-beranda" class="tab-content space-y-5">
           <div class="bg-gradient-to-r from-navyDark via-slateBlue to-tealElectric p-8 rounded-3xl text-white shadow-card relative overflow-hidden">
@@ -514,9 +530,14 @@
             <span id="quizSubtes" class="text-xs font-bold bg-navyDark text-cyanFresh px-3 py-1 rounded-lg uppercase tracking-wider">Subtes</span>
             <h3 class="text-base font-extrabold text-navyDark mt-2">Soal No. <span id="quizCurrentNo" class="text-tealElectric">1</span> dari <span id="quizTotalNo">30</span></h3>
           </div>
-          <div class="text-right bg-amberLight px-4 py-2 rounded-2xl border border-amberWarm/40">
-            <p class="text-[10px] text-amber-900 font-extrabold uppercase tracking-wider">Sisa Waktu</p>
-            <p id="quizTimer" class="font-mono text-2xl font-black text-amber-600">30:00</p>
+          <div class="flex items-center gap-3">
+            <button onclick="backToDashboardDuringQuiz()" class="text-xs bg-slateLight hover:bg-slateSubtle text-navyDark font-bold px-3.5 py-2 rounded-xl transition">
+              <i class="fa-solid fa-house mr-1"></i> Dashboard
+            </button>
+            <div class="text-right bg-amberLight px-4 py-2 rounded-2xl border border-amberWarm/40">
+              <p class="text-[10px] text-amber-900 font-extrabold uppercase tracking-wider">Sisa Waktu</p>
+              <p id="quizTimer" class="font-mono text-2xl font-black text-amber-600">30:00</p>
+            </div>
           </div>
         </div>
 
@@ -649,9 +670,9 @@
     let userAnswers = {};
     let currentIndex = 0;
     let timerInterval = null;
-    let remainSeconds = 0;
-    let selectedSubtes = "";
-    let selectedDurasi = 0;
+    let targetEndTime = 0;
+    let activeQuizSubtes = "";
+    let activeQuizDurasi = 0;
 
     const subtesMasterData = [
       { id: "PU", nama: "Penalaran Umum (PU)", tipe: "TPS", drillPacks: [
@@ -700,13 +721,14 @@
     let reviewAnswersList = {};
 
     window.onload = function() {
+      historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
       if (currentUser && currentUser.nama) {
         showDashboard();
         renderHistory();
         renderLatsoSubtesList();
         renderPPTSubtesList();
         renderLiveSessions();
-        checkActiveSession();
+        checkActiveSessionOnLoad();
       } else {
         showAuthForm();
       }
@@ -744,8 +766,8 @@
 
     function handleLogoClick() {
       if (!document.getElementById('quizSection').classList.contains('hidden')) {
-        if (confirm("Kuis sedang berjalan. Yakin ingin keluar dari kuis? Progress akan disimpan sementara.")) {
-          location.reload();
+        if (confirm("Kuis sedang berjalan. Yakin ingin keluar? Progress dan waktu akan tetap tersimpan.")) {
+          backToDashboardDuringQuiz();
         }
       } else if (currentUser && currentUser.nama) {
         showDashboard();
@@ -850,10 +872,9 @@
       }
       
       localStorage.setItem("lockin_user", JSON.stringify(currentUser));
+      historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
       syncUserToGoogleSheets(currentUser);
       showDashboard();
-      renderLatsoSubtesList();
-      renderPPTSubtesList();
     }
 
     function handleRegister(e) {
@@ -872,6 +893,7 @@
       existingUsers.push(currentUser);
       localStorage.setItem("lockin_all_users", JSON.stringify(existingUsers));
 
+      historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
       syncUserToGoogleSheets(currentUser);
       showProfileForm();
     }
@@ -927,6 +949,8 @@
 
       renderLatsoSubtesList();
       renderPPTSubtesList();
+      renderHistory();
+      checkActiveSessionOnLoad();
     }
 
     function renderLatsoSubtesList() {
@@ -1126,16 +1150,16 @@
       });
     }
 
-    function openPreQuizModal(subtes, jumlahSoal, durasiMenit) {
-      selectedSubtes = subtes;
+    function openPreQuizModal(subtesJudul, jumlahSoal, durasiMenit) {
+      selectedSubtes = subtesJudul;
       selectedDurasi = durasiMenit;
       
-      document.getElementById('modalSubtes').innerText = subtes;
+      document.getElementById('modalSubtes').innerText = subtesJudul;
       const modalBox = document.getElementById('modalStatusBox');
       const actionBox = document.getElementById('modalActionButtons');
 
       const currentUserId = currentUser ? currentUser.userId : "";
-      const lastAttempt = historyResults.find(r => r.subtes === subtes && r.userId === currentUserId);
+      const lastAttempt = historyResults.find(r => r.subtes === subtesJudul && r.userId === currentUserId);
 
       if (lastAttempt) {
         modalBox.innerHTML = `
@@ -1154,7 +1178,7 @@
         `;
 
         actionBox.innerHTML = `
-          <button onclick="reviewPastAnswers('${subtes}')" class="flex-1 bg-slateLight hover:bg-slateSubtle text-navyDark font-bold py-3 rounded-xl text-xs transition">Lihat Pembahasan</button>
+          <button onclick="reviewPastAnswers('${subtesJudul}')" class="flex-1 bg-slateLight hover:bg-slateSubtle text-navyDark font-bold py-3 rounded-xl text-xs transition">Lihat Pembahasan</button>
           <button onclick="confirmStartQuiz()" class="flex-1 bg-tealElectric hover:bg-tealElectric/90 text-white font-bold py-3 rounded-xl text-xs shadow-soft-glow transition">Kerjakan Ulang</button>
         `;
       } else {
@@ -1183,7 +1207,7 @@
     }
 
     function closePreQuizModal() {
-      document.getElementById('preQuizModal').classList.add('hidden');
+      document.getElementById('preQuizModal'].classList.add('hidden');
     }
 
     function confirmStartQuiz() {
@@ -1191,68 +1215,112 @@
       startQuiz(selectedSubtes, selectedDurasi);
     }
 
-    async function startQuiz(subtes, durasiMenit) {
+    async function startQuiz(subtes, durasiMenit, isResuming = false) {
       document.getElementById('dashboardSection').classList.add('hidden');
       document.getElementById('quizSection').classList.remove('hidden');
       document.getElementById('resultSection').classList.add('hidden');
       
       document.getElementById('quizSubtes').innerText = subtes;
-      document.getElementById('quizQuestion').innerText = "Sedang mengambil data soal dari Google Sheets...";
-      document.getElementById('quizOptions').innerHTML = "";
 
-      try {
-        const response = await fetch(`${GAS_API_URL}?action=getSoal&subtes=${encodeURIComponent(subtes)}`);
-        const result = await response.json();
+      if (!isResuming) {
+        document.getElementById('quizQuestion').innerText = "Sedang mengambil data soal dari Google Sheets...";
+        document.getElementById('quizOptions').innerHTML = "";
 
-        if (result.status === 'success' && result.soal.length > 0) {
-          currentSoalList = result.soal;
-          currentIndex = 0;
-          userAnswers = {};
-          remainSeconds = Math.floor(durasiMenit * 60);
+        try {
+          let queryParam = subtes;
+          if (subtes.includes("Penalaran Umum")) queryParam = "PU";
+          else if (subtes.includes("PPU")) queryParam = "PPU";
+          else if (subtes.includes("PBM")) queryParam = "PBM";
+          else if (subtes.includes("Kuantitatif")) queryParam = "PK";
+          else if (subtes.includes("Literasi B. Indo")) queryParam = "LBI";
+          else if (subtes.includes("Literasi B. Inggris")) queryParam = "BIG";
+          else if (subtes.includes("Penalaran Matematika")) queryParam = "PM";
 
-          saveActiveSession(subtes);
-          document.getElementById('quizTotalNo').innerText = currentSoalList.length;
-          renderQuestion();
-          renderNumberGrid();
-          startTimer();
-        } else {
-          alert(`Belum ada soal untuk "${subtes}" di Google Sheets.`);
+          const response = await fetch(`${GAS_API_URL}?action=getSoal&subtes=${encodeURIComponent(queryParam)}`);
+          const result = await response.json();
+
+          if (result.status === 'success' && result.soal.length > 0) {
+            currentSoalList = result.soal;
+            currentIndex = 0;
+            userAnswers = {};
+            targetEndTime = new Date().getTime() + (durasiMenit * 60 * 1000);
+            activeQuizSubtes = subtes;
+            activeQuizDurasi = durasiMenit;
+
+            saveActiveSession();
+            document.getElementById('quizTotalNo').innerText = currentSoalList.length;
+            renderQuestion();
+            renderNumberGrid();
+            startTimer();
+          } else {
+            alert(`Belum ada soal untuk "${subtes}" di Google Sheets.`);
+            location.reload();
+          }
+        } catch (err) {
+          alert("Gagal terhubung ke Google Apps Script.");
           location.reload();
         }
-      } catch (err) {
-        alert("Gagal terhubung ke Google Apps Script.");
-        location.reload();
-      }
-    }
-
-    function saveActiveSession(subtesNama) {
-      const sessionData = {
-        subtes: subtesNama || document.getElementById('quizSubtes').innerText,
-        soalList: currentSoalList,
-        answers: userAnswers,
-        currentIndex: currentIndex,
-        remainSeconds: remainSeconds
-      };
-      localStorage.setItem("lockin_active_quiz", JSON.stringify(sessionData));
-    }
-
-    function checkActiveSession() {
-      const savedQuiz = JSON.parse(localStorage.getItem("lockin_active_quiz"));
-      if (savedQuiz && savedQuiz.soalList && savedQuiz.soalList.length > 0 && savedQuiz.remainSeconds > 0) {
-        currentSoalList = savedQuiz.soalList;
-        userAnswers = savedQuiz.answers || {};
-        currentIndex = savedQuiz.currentIndex || 0;
-        remainSeconds = savedQuiz.remainSeconds;
-
-        document.getElementById('dashboardSection').classList.add('hidden');
-        document.getElementById('quizSection').classList.remove('hidden');
-        document.getElementById('quizSubtes').innerText = savedQuiz.subtes;
+      } else {
         document.getElementById('quizTotalNo').innerText = currentSoalList.length;
-
         renderQuestion();
         renderNumberGrid();
         startTimer();
       }
+    }
+
+    function saveActiveSession() {
+      const sessionData = {
+        userId: currentUser ? currentUser.userId : "",
+        subtes: activeQuizSubtes,
+        soalList: currentSoalList,
+        answers: userAnswers,
+        currentIndex: currentIndex,
+        targetEndTime: targetEndTime,
+        durasi: activeQuizDurasi
+      };
+      localStorage.setItem("lockin_active_quiz", JSON.stringify(sessionData));
+    }
+
+    function checkActiveSessionOnLoad() {
+      const savedQuiz = JSON.parse(localStorage.getItem("lockin_active_quiz"));
+      if (savedQuiz && savedQuiz.userId === (currentUser ? currentUser.userId : "")) {
+        const now = new Date().getTime();
+        if (savedQuiz.targetEndTime && savedQuiz.targetEndTime > now && savedQuiz.soalList && savedQuiz.soalList.length > 0) {
+          activeQuizSubtes = savedQuiz.subtes;
+          currentSoalList = savedQuiz.soalList;
+          userAnswers = savedQuiz.answers || {};
+          currentIndex = savedQuiz.currentIndex || 0;
+          targetEndTime = savedQuiz.targetEndTime;
+          activeQuizDurasi = savedQuiz.durasi || 30;
+
+          const banner = document.getElementById('activeSessionBanner');
+          if (banner) banner.classList.remove('hidden');
+        } else {
+          localStorage.removeItem("lockin_active_quiz");
+        }
+      }
+    }
+
+    function resumeActiveQuiz() {
+      const savedQuiz = JSON.parse(localStorage.getItem("lockin_active_quiz"));
+      if (savedQuiz) {
+        activeQuizSubtes = savedQuiz.subtes;
+        currentSoalList = savedQuiz.soalList;
+        userAnswers = savedQuiz.answers || {};
+        currentIndex = savedQuiz.currentIndex || 0;
+        targetEndTime = savedQuiz.targetEndTime;
+        activeQuizDurasi = savedQuiz.durasi || 30;
+
+        document.getElementById('activeSessionBanner').classList.add('hidden');
+        startQuiz(activeQuizSubtes, activeQuizDurasi, true);
+      }
+    }
+
+    function backToDashboardDuringQuiz() {
+      clearInterval(timerInterval);
+      saveActiveSession();
+      showDashboard();
+      checkActiveSessionOnLoad();
     }
 
     function renderQuestion() {
@@ -1344,11 +1412,16 @@
     function startTimer() {
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const remainMs = targetEndTime - now;
+        const remainSeconds = Math.floor(remainMs / 1000);
+
         let m = Math.floor(remainSeconds / 60);
         let s = remainSeconds % 60;
+        
         const timerEl = document.getElementById('quizTimer');
         if (timerEl) {
-          timerEl.innerText = `${m < 10 ? '0':''}${m}:${s < 10 ? '0':''}${s}`;
+          timerEl.innerText = `${m < 10 ? '0':''}${Math.max(0, m)}:${s < 10 ? '0':''}${Math.max(0, s)}`;
         }
         
         saveActiveSession();
@@ -1357,7 +1430,6 @@
           clearInterval(timerInterval);
           submitQuiz();
         }
-        remainSeconds--;
       }, 1000);
     }
 
