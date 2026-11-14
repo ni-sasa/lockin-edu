@@ -4,13 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LockIn Edu - Focus. Master. Conquer.</title>
-  
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
   <script>
     tailwind.config = {
       theme: {
@@ -40,7 +38,6 @@
       }
     }
   </script>
-  
   <style>
     body { font-family: 'Nunito', sans-serif; background-color: #F8FAFC; color: #0F172A; }
     h1, h2, h3, h4, h5, h6, .font-poppins { font-family: 'Poppins', sans-serif; }
@@ -51,7 +48,6 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased selection:bg-tealElectric selection:text-white">
 
-  <!-- TOP NAVBAR -->
   <header class="bg-white/95 backdrop-blur-md border-b border-slateSubtle p-4 sticky top-0 z-40 shadow-xs">
     <div class="max-w-7xl mx-auto flex justify-between items-center px-2">
       <div onclick="handleLogoClick()" class="flex items-center gap-3 cursor-pointer group">
@@ -79,7 +75,6 @@
 
   <main class="max-w-7xl mx-auto w-full p-4 sm:p-6 flex-grow">
 
-    <!-- 1. AUTH CONTAINER -->
     <div id="authSection" class="max-w-md mx-auto my-12 bg-white p-8 rounded-3xl border border-slateSubtle shadow-card">
       <div class="text-center mb-6">
         <div class="w-16 h-16 rounded-2xl bg-navyDark flex items-center justify-center text-cyanFresh shadow-soft-glow mx-auto mb-3">
@@ -129,7 +124,6 @@
       </form>
     </div>
 
-    <!-- 2. FORM PENDAFTARAN PROFIL SISWA -->
     <div id="profileSection" class="max-w-xl mx-auto my-10 bg-white p-8 rounded-3xl border border-slateSubtle shadow-card hidden">
       <div class="mb-6">
         <h2 class="text-2xl font-black text-navyDark font-poppins">Lengkapi Profil Target Kampus</h2>
@@ -186,13 +180,9 @@
       </form>
     </div>
 
-    <!-- 3. MAIN DASHBOARD AREA -->
     <div id="dashboardSection" class="hidden grid grid-cols-1 md:grid-cols-4 gap-6 my-4">
-      
-      <!-- SIDEBAR MENU -->
       <div class="bg-white p-5 rounded-3xl border border-slateSubtle shadow-card h-fit space-y-2">
         <p class="text-[10px] font-extrabold text-slateText uppercase tracking-widest px-3 mb-1">Menu Utama</p>
-        
         <button type="button" onclick="switchMenu('beranda')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 bg-tealElectric text-white shadow-soft-glow transition cursor-pointer" id="btn-beranda">
           <i class="fa-solid fa-house w-5 text-center text-sm"></i> Beranda
         </button>
@@ -213,10 +203,7 @@
         </button>
       </div>
 
-      <!-- MAIN CONTENT VIEW -->
       <div class="md:col-span-3 space-y-6">
-
-        <!-- BANNER LANJUTKAN UJIAN -->
         <div id="activeSessionBanner" class="hidden bg-gradient-to-r from-amber-500 to-amber-600 p-5 rounded-3xl text-white shadow-card flex justify-between items-center">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white text-lg">
@@ -232,7 +219,6 @@
           </button>
         </div>
 
-        <!-- TAB BERANDA -->
         <div id="tab-beranda" class="tab-content space-y-5">
           <div class="bg-gradient-to-r from-navyDark via-slateBlue to-tealElectric p-8 rounded-3xl text-white shadow-card relative overflow-hidden">
             <div class="space-y-2 z-10 relative">
@@ -286,7 +272,6 @@
           </div>
         </div>
 
-        <!-- TAB LATIHAN -->
         <div id="tab-latihan" class="tab-content hidden space-y-4">
           <div id="latsoMainView" class="space-y-4">
             <div class="flex items-center justify-between mb-2">
@@ -296,7 +281,6 @@
               </div>
               <span class="px-3.5 py-1.5 rounded-full bg-tealElectric/10 text-tealElectric font-bold text-xs border border-tealElectric/20">7 Subtes Ready</span>
             </div>
-
             <div class="space-y-3" id="latsoSubtesListContainer"></div>
           </div>
 
@@ -312,15 +296,12 @@
                 </div>
               </div>
             </div>
-
             <div class="space-y-3" id="latsoSubBabListContainer"></div>
           </div>
         </div>
 
-        <!-- TAB ASESMEN -->
         <div id="tab-tes" class="tab-content hidden space-y-4">
           <h3 class="text-xl font-black font-poppins text-navyDark">Tes Pemetaan & Tryout Penuh</h3>
-          
           <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
@@ -350,7 +331,6 @@
           </div>
         </div>
 
-        <!-- TAB LIVE -->
         <div id="tab-live" class="tab-content hidden space-y-4">
           <div class="flex items-center justify-between">
             <div>
@@ -361,18 +341,15 @@
               <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span> Sesi Live
             </span>
           </div>
-
           <div class="space-y-3" id="liveSessionList"></div>
         </div>
 
-        <!-- TAB PPT MATERI -->
         <div id="tab-materi" class="tab-content hidden space-y-4">
           <div id="pptMainView" class="space-y-4">
             <div>
               <h3 class="text-xl font-black font-poppins text-navyDark">Modul PPT & Ringkasan Materi</h3>
               <p class="text-xs text-slateText mt-0.5">Pilih subtes untuk melihat daftar Bab & Slide Presentasi Ringkas.</p>
             </div>
-
             <div class="space-y-3" id="pptSubtesListContainer"></div>
           </div>
 
@@ -388,12 +365,10 @@
                 </div>
               </div>
             </div>
-
             <div class="space-y-3" id="pptSubBabListContainer"></div>
           </div>
         </div>
 
-        <!-- TAB PROGRES -->
         <div id="tab-progres" class="tab-content hidden space-y-5">
           <h3 class="text-xl font-black font-poppins text-navyDark">Perkembangan Hasil Belajar</h3>
           <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card space-y-4">
@@ -403,14 +378,11 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
-    <!-- 4. MODAL EDIT & VIEW PROFIL -->
     <div id="profileModal" class="hidden fixed inset-0 bg-navyDark/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div class="bg-white max-w-lg w-full p-6 sm:p-8 rounded-3xl border border-slateSubtle shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto custom-scrollbar">
-        
         <div class="flex justify-between items-start border-b border-slateSubtle pb-4">
           <div class="flex items-center gap-3">
             <div class="w-12 h-12 rounded-2xl bg-tealElectric/10 text-tealElectric flex items-center justify-center text-xl font-bold">
@@ -466,7 +438,6 @@
             <label class="block text-xs font-bold text-navyDark mb-1 uppercase tracking-wider">Nama Lengkap</label>
             <input type="text" id="editNama" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-2.5 text-xs font-semibold text-navyDark">
           </div>
-          
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-bold text-navyDark mb-1 uppercase tracking-wider">Kelas</label>
@@ -480,7 +451,6 @@
               <input type="text" id="editSekolah" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-2.5 text-xs font-semibold text-navyDark">
             </div>
           </div>
-
           <div class="p-3 bg-creamWhite rounded-xl border border-slateSubtle space-y-2">
             <p class="text-[11px] font-extrabold text-tealElectric uppercase">Pilihan 1</p>
             <div class="grid grid-cols-2 gap-2">
@@ -488,7 +458,6 @@
               <input type="text" id="editJurusan1" placeholder="Jurusan 1" required class="bg-white border border-slateSubtle rounded-lg px-3 py-2 text-xs font-semibold">
             </div>
           </div>
-
           <div class="p-3 bg-creamWhite rounded-xl border border-slateSubtle space-y-2">
             <p class="text-[11px] font-extrabold text-amber-600 uppercase">Pilihan 2</p>
             <div class="grid grid-cols-2 gap-2">
@@ -496,17 +465,14 @@
               <input type="text" id="editJurusan2" placeholder="Jurusan 2" required class="bg-white border border-slateSubtle rounded-lg px-3 py-2 text-xs font-semibold">
             </div>
           </div>
-
           <div class="flex gap-2 pt-2">
             <button type="button" onclick="cancelProfileEdit()" class="w-1/3 bg-slateLight text-navyDark font-bold py-2.5 rounded-xl text-xs cursor-pointer">Batal</button>
             <button type="submit" class="w-2/3 bg-tealElectric hover:bg-tealElectric/90 text-white font-bold py-2.5 rounded-xl text-xs shadow-soft-glow cursor-pointer">Simpan Perubahan</button>
           </div>
         </form>
-
       </div>
     </div>
 
-    <!-- 5. PRE-QUIZ MODAL -->
     <div id="preQuizModal" class="hidden fixed inset-0 bg-navyDark/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div class="bg-white max-w-md w-full p-6 sm:p-8 rounded-3xl border border-slateSubtle shadow-2xl space-y-6">
         <div class="flex justify-between items-start border-b border-slateSubtle pb-4">
@@ -516,13 +482,11 @@
           </div>
           <button type="button" onclick="closePreQuizModal()" class="w-8 h-8 rounded-full bg-slateLight text-slateText hover:text-navyDark font-bold flex items-center justify-center transition cursor-pointer">✕</button>
         </div>
-
         <div id="modalStatusBox" class="bg-creamWhite p-4 rounded-2xl border border-slateSubtle space-y-2.5 text-xs"></div>
         <div id="modalActionButtons" class="flex gap-3 pt-2"></div>
       </div>
     </div>
 
-    <!-- 6. QUIZ RUNNER INTERFACE -->
     <div id="quizSection" class="hidden max-w-3xl mx-auto space-y-6 my-4">
       <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slateSubtle shadow-card space-y-6">
         <div class="flex justify-between items-center border-b border-slateSubtle pb-4">
@@ -559,11 +523,9 @@
           <button type="button" id="btnPrev" onclick="prevQuestion()" class="px-5 py-3 rounded-xl text-xs font-bold bg-slateLight hover:bg-slateSubtle text-navyDark transition flex items-center gap-2 cursor-pointer">
             <i class="fa-solid fa-arrow-left"></i> <span>Sebelumnya</span>
           </button>
-          
           <button type="button" id="btnNext" onclick="nextQuestion()" class="px-6 py-3 rounded-xl text-xs font-bold bg-tealElectric hover:bg-tealElectric/90 text-white shadow-soft-glow transition active:scale-95 flex items-center gap-2 cursor-pointer">
             <span>Berikutnya</span> <i class="fa-solid fa-arrow-right"></i>
           </button>
-          
           <button type="button" id="btnFinish" onclick="submitQuiz()" class="hidden px-6 py-3 rounded-xl text-xs font-extrabold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition active:scale-95 flex items-center gap-2 cursor-pointer">
             <i class="fa-solid fa-check-circle"></i> <span>Selesai & Simpan Skor</span>
           </button>
@@ -571,7 +533,6 @@
       </div>
     </div>
 
-    <!-- 7. HASIL & PEMBAHASAN -->
     <div id="resultSection" class="hidden max-w-3xl mx-auto space-y-6 my-4">
       <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card text-center flex flex-col sm:flex-row justify-between items-center gap-4">
         <div class="flex items-center gap-4 text-left">
@@ -612,7 +573,6 @@
         </div>
 
         <div id="reviewQuestionText" class="text-base text-navyDark leading-relaxed font-semibold bg-creamWhite p-6 rounded-2xl border border-slateSubtle whitespace-pre-line">-</div>
-
         <div id="reviewOptionsBox" class="space-y-3"></div>
 
         <div class="bg-cyanLight/40 p-6 rounded-2xl border border-tealElectric/30 text-navyDark leading-relaxed space-y-2">
@@ -633,7 +593,6 @@
       </div>
     </div>
 
-    <!-- 8. MODAL VIEWER PPT -->
     <div id="pptModal" class="hidden fixed inset-0 bg-navyDark/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div class="bg-white max-w-4xl w-full p-5 sm:p-6 rounded-3xl border border-slateSubtle shadow-2xl space-y-4 max-h-[92vh] flex flex-col">
         <div class="flex justify-between items-center border-b border-slateSubtle pb-3">
@@ -643,7 +602,6 @@
           </div>
           <button type="button" onclick="closePPTModal()" class="w-8 h-8 rounded-full bg-slateLight text-slateText hover:text-navyDark font-bold flex items-center justify-center transition cursor-pointer">✕</button>
         </div>
-        
         <div class="flex-grow w-full bg-slate-900 rounded-2xl overflow-hidden min-h-[450px] relative flex items-center justify-center">
           <div id="pptLoader" class="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center gap-3 z-10">
             <div class="w-10 h-10 border-4 border-tealElectric border-t-transparent rounded-full animate-spin"></div>
