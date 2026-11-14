@@ -68,9 +68,9 @@
         <div class="leading-tight border-l border-slateSubtle pl-3.5">
           <div class="flex items-center gap-2 flex-wrap">
             <span class="font-poppins font-extrabold text-base sm:text-lg text-navyDark tracking-tight">LockIn <span class="text-bbtBlue">Edu</span></span>
-            <span class="font-poppins font-bold text-xs sm:text-sm text-bbtBlue">× Forum Beasiswa Bantu Teman</span>
+            <span class="font-poppins font-extrabold text-xs sm:text-sm text-bbtBlue tracking-tight">× Forum Beasiswa Bantu Teman</span>
           </div>
-          <p class="text-[10px] text-slateText font-poppins font-bold tracking-[0.16em] uppercase mt-1">Focus. Master. Conquer.</p>
+          <p class="text-[9px] text-slateText font-poppins font-bold tracking-[0.2em] uppercase mt-1">Focus. Master. Conquer.</p>
         </div>
       </div>
       
@@ -724,6 +724,7 @@
     let activeQuizSubtes = "";
     let activeQuizDurasi = 0;
     let selectedSubtes = "";
+    let selectedSubtesId = "";
     let selectedDurasi = 0;
     let cachedMateriSubtes = [];
 
@@ -809,6 +810,27 @@
       return subtes;
     }
 
+    function findUserAttempt(subtesJudul) {
+      if (!currentUser) return null;
+      const uId = String(currentUser.userId || "").trim().toLowerCase();
+      const uEmail = String(currentUser.email || "").trim().toLowerCase();
+      const target = String(subtesJudul || "").trim().toLowerCase();
+      const packCode = resolvePackQuery(subtesJudul).toLowerCase();
+
+      return historyResults.find(r => {
+        const rUser = String(r.userId || "").trim().toLowerCase();
+        const rSubtes = String(r.subtes || "").trim().toLowerCase();
+        const isUserMatch = (rUser === uId || rUser === uEmail);
+        const isSubtesMatch = (
+          rSubtes === target ||
+          rSubtes === packCode ||
+          rSubtes.includes(target) ||
+          target.includes(rSubtes)
+        );
+        return isUserMatch && isSubtesMatch;
+      }) || null;
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
       try {
         historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
@@ -828,14 +850,19 @@
     async function syncHistoryFromSheets() {
       if (!currentUser || !currentUser.email) return;
       try {
-        const res = await fetch(`${GAS_API_URL}?action=getHistory&userId=${encodeURIComponent(currentUser.email)}`);
+        const queryUser = encodeURIComponent(currentUser.email || currentUser.userId);
+        const res = await fetch(`${GAS_API_URL}?action=getHistory&userId=${queryUser}`);
         const data = await res.json();
         if (data.status === 'success' && Array.isArray(data.history)) {
           data.history.forEach(remoteItem => {
-            const idx = historyResults.findIndex(localItem =>
-              localItem.subtes === remoteItem.subtes &&
-              (localItem.userId === currentUser.email || localItem.userId === currentUser.userId)
-            );
+            const remoteSubtesNorm = String(remoteItem.subtes || "").trim().toLowerCase();
+            const idx = historyResults.findIndex(localItem => {
+              const localUser = String(localItem.userId || "").trim().toLowerCase();
+              const localSubtes = String(localItem.subtes || "").trim().toLowerCase();
+              return (localUser === currentUser.email.toLowerCase() || localUser === currentUser.userId.toLowerCase()) &&
+                     localSubtes === remoteSubtesNorm;
+            });
+
             if (idx !== -1) {
               historyResults[idx].skor = remoteItem.skor;
               historyResults[idx].benar = remoteItem.benar;
@@ -862,7 +889,7 @@
           });
           localStorage.setItem("lockin_history", JSON.stringify(historyResults));
           renderHistory();
-          if (selectedSubtes) openLatsoSubBabById(selectedSubtes);
+          if (selectedSubtesId) openLatsoSubBabById(selectedSubtesId);
         }
       } catch (e) {}
     }
@@ -1178,8 +1205,10 @@
       });
     }
 
-    function openLatsoSubBab(subtesId) {
-      selectedSubtes = subtesId;
+    async function openLatsoSubBab(subtesId) {
+      selectedSubtesId = subtesId;
+      openLatsoSubBabById(subtesId);
+      await syncHistoryFromSheets();
       openLatsoSubBabById(subtesId);
     }
 
@@ -1191,11 +1220,8 @@
       const box = document.getElementById('latsoSubBabListContainer');
       box.innerHTML = "";
 
-      const currentUserId = currentUser ? currentUser.userId : "";
-      const currentUserEmail = currentUser ? currentUser.email : "";
-
       subtes.drillPacks.forEach(dp => {
-        const done = historyResults.find(r => r.subtes === dp.judul && (r.userId === currentUserId || r.userId === currentUserEmail));
+        const done = findUserAttempt(dp.judul);
         const badgeHTML = done
           ? `<span class="text-[10px] font-extrabold text-teal-800 uppercase bg-bbtTealLight px-2.5 py-0.5 rounded-md mb-1 inline-block">Selesai • Skor ${done.skor} (${done.waktuPengerjaan || '-'})</span>`
           : `<span class="text-[10px] font-bold text-teal-800 uppercase bg-bbtTealLight px-2 py-0.5 rounded-md mb-1 inline-block">Mandiri 24/7</span>`;
@@ -1220,6 +1246,7 @@
     }
 
     function backToLatsoMain() {
+      selectedSubtesId = "";
       document.getElementById('latsoMainView').classList.remove('hidden');
       document.getElementById('latsoSubBabView').classList.add('hidden');
     }
@@ -1406,19 +1433,11 @@
     }
 
     // ==================== PRE-QUIZ & QUIZ RUNNER ====================
-    function openPreQuizModal(subtesJudul, jumlahSoal, durasiMenit) {
-      selectedSubtes = subtesJudul;
-      selectedDurasi = durasiMenit;
-      
-      document.getElementById('modalSubtes').innerText = subtesJudul;
+    function renderPreQuizModalContent(subtesJudul, jumlahSoal, durasiMenit, attemptData) {
       const modalBox = document.getElementById('modalStatusBox');
       const actionBox = document.getElementById('modalActionButtons');
 
-      const currentUserId = currentUser ? currentUser.userId : "";
-      const currentUserEmail = currentUser ? currentUser.email : "";
-      const lastAttempt = historyResults.find(r => r.subtes === subtesJudul && (r.userId === currentUserId || r.userId === currentUserEmail));
-
-      if (lastAttempt) {
+      if (attemptData) {
         modalBox.innerHTML = `
           <div class="flex justify-between items-center text-navyDark">
             <span class="font-semibold">Status Pengerjaan:</span>
@@ -1426,15 +1445,15 @@
           </div>
           <div class="flex justify-between items-center text-navyDark">
             <span class="font-semibold">Skor Terakhir:</span>
-            <span class="font-black text-bbtBlue text-base font-poppins">${lastAttempt.skor} / 100</span>
+            <span class="font-black text-bbtBlue text-base font-poppins">${attemptData.skor} / 100</span>
           </div>
           <div class="flex justify-between items-center text-slateText text-[11px]">
             <span>Mulai / Selesai:</span>
-            <span class="font-semibold">${lastAttempt.waktuMulai || '-'} s.d. ${lastAttempt.waktuSelesai || '-'}</span>
+            <span class="font-semibold">${attemptData.waktuMulai || '-'} s.d. ${attemptData.waktuSelesai || '-'}</span>
           </div>
           <div class="flex justify-between items-center text-slateText text-[11px]">
             <span>Durasi Pengerjaan:</span>
-            <span class="font-semibold text-bbtBlue">${lastAttempt.waktuPengerjaan || '-'}</span>
+            <span class="font-semibold text-bbtBlue">${attemptData.waktuPengerjaan || '-'}</span>
           </div>
         `;
 
@@ -1463,8 +1482,35 @@
           <button type="button" onclick="confirmStartQuiz()" class="w-2/3 bg-bbtBlue hover:bg-bbtBlueDark text-white font-bold py-3 rounded-xl text-xs transition cursor-pointer">Mulai Latihan</button>
         `;
       }
+    }
 
-      document.getElementById('preQuizModal').classList.remove('hidden');
+    async function openPreQuizModal(subtesJudul, jumlahSoal, durasiMenit) {
+      selectedSubtes = subtesJudul;
+      selectedDurasi = durasiMenit;
+      
+      document.getElementById('modalSubtes').innerText = subtesJudul;
+      const modalBox = document.getElementById('modalStatusBox');
+      const actionBox = document.getElementById('modalActionButtons');
+
+      let lastAttempt = findUserAttempt(subtesJudul);
+
+      if (lastAttempt) {
+        renderPreQuizModalContent(subtesJudul, jumlahSoal, durasiMenit, lastAttempt);
+        document.getElementById('preQuizModal').classList.remove('hidden');
+      } else {
+        modalBox.innerHTML = `
+          <div class="py-4 flex items-center justify-center gap-2.5 text-bbtBlue font-bold">
+            <i class="fa-solid fa-spinner animate-spin"></i>
+            <span>Memeriksa riwayat pengerjaan di database...</span>
+          </div>
+        `;
+        actionBox.innerHTML = "";
+        document.getElementById('preQuizModal').classList.remove('hidden');
+
+        await syncHistoryFromSheets();
+        lastAttempt = findUserAttempt(subtesJudul);
+        renderPreQuizModalContent(subtesJudul, jumlahSoal, durasiMenit, lastAttempt);
+      }
     }
 
     function closePreQuizModal() {
@@ -1721,8 +1767,7 @@
 
       const totalSoal = currentSoalList.length;
       const score = Math.round((benar / totalSoal) * 100);
-      const activeUserId = currentUser ? currentUser.userId : "GUEST";
-      const activeUserEmail = currentUser ? currentUser.email : "GUEST";
+      const activeUserId = currentUser ? (currentUser.email || currentUser.userId) : "GUEST";
 
       const endTime = new Date();
       const startTime = quizStartTime || new Date(endTime.getTime() - (activeQuizDurasi * 60 * 1000));
@@ -1749,7 +1794,11 @@
         savedAnswers: userAnswers 
       };
       
-      const existingIdx = historyResults.findIndex(r => r.subtes === subtesNama && (r.userId === activeUserId || r.userId === activeUserEmail));
+      const existingIdx = historyResults.findIndex(r =>
+        String(r.subtes || "").trim().toLowerCase() === subtesNama.trim().toLowerCase() &&
+        (String(r.userId || "").trim().toLowerCase() === activeUserId.toLowerCase())
+      );
+
       if (existingIdx !== -1) {
         historyResults[existingIdx] = newRecord;
       } else {
@@ -1786,9 +1835,7 @@
 
     async function reviewPastAnswers(subtes) {
       closePreQuizModal();
-      const activeUserId = currentUser ? currentUser.userId : "";
-      const activeUserEmail = currentUser ? currentUser.email : "";
-      const pastRecord = historyResults.find(r => r.subtes === subtes && (r.userId === activeUserId || r.userId === activeUserEmail));
+      const pastRecord = findUserAttempt(subtes);
       
       if (pastRecord && pastRecord.savedSoal && pastRecord.savedSoal.length > 0) {
         showReviewMode(subtes, pastRecord.savedSoal, pastRecord.savedAnswers || {}, pastRecord.skor, pastRecord.benar, pastRecord.total);
@@ -1948,9 +1995,12 @@
       const container = document.getElementById('historiList');
       if (!container) return;
 
-      const activeUserId = currentUser ? currentUser.userId : "";
-      const activeUserEmail = currentUser ? currentUser.email : "";
-      const myHistory = historyResults.filter(r => r.userId === activeUserId || r.userId === activeUserEmail);
+      const activeUserId = currentUser ? String(currentUser.userId || "").toLowerCase() : "";
+      const activeUserEmail = currentUser ? String(currentUser.email || "").toLowerCase() : "";
+      const myHistory = historyResults.filter(r => {
+        const rUser = String(r.userId || "").toLowerCase();
+        return rUser === activeUserId || rUser === activeUserEmail;
+      });
 
       if (myHistory.length === 0) {
         container.innerHTML = `<p class="text-slateText italic">Belum ada tes yang diselesaikan.</p>`;
