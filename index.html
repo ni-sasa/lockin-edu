@@ -16,12 +16,14 @@
           colors: {
             navyDark: '#0F172A',
             slateBlue: '#1E293B',
-            bbtBlue: '#026FC0',
-            bbtBlueDark: '#015696',
+            bbtBlue: '#026FC0',      /* rgb(2, 111, 192) */
+            bbtBlueDark: '#01589B',
             bbtBlueLight: '#E6F2FB',
-            bbtTeal: '#39C59E',
+            bbtTeal: '#39C59E',      /* rgb(57, 197, 158) */
+            bbtTealDark: '#2BA382',
             bbtTealLight: '#E8F9F4',
-            bbtGold: '#F9B926',
+            bbtGold: '#F9B926',      /* rgb(249, 185, 38) */
+            bbtGoldDark: '#D99B10',
             bbtGoldLight: '#FEF6E2',
             slateLight: '#F1F5F9',
             slateSubtle: '#E2E8F0',
@@ -49,36 +51,39 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased selection:bg-bbtBlue selection:text-white">
 
-  <header class="bg-white border-b border-slateSubtle py-3.5 px-4 sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 px-2">
+  <!-- HEADER RAPI & SEJAJAR -->
+  <header class="bg-white border-b border-slateSubtle py-3 px-4 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 px-1">
       <div onclick="handleLogoClick()" class="flex items-center gap-3 cursor-pointer group">
-        <!-- Kotak Biru Solid untuk Logo Putih LockIn Edu -->
-        <div class="w-11 h-11 rounded-2xl bg-bbtBlue flex items-center justify-center p-2 shadow-xs group-hover:bg-bbtBlueDark transition">
-          <img src="logo-lockin.png" alt="LockIn Edu" class="w-full h-full object-contain">
-        </div>
-        
-        <div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <span class="font-poppins font-extrabold text-xl sm:text-2xl text-navyDark tracking-tight">LockIn <span class="text-bbtBlue">Edu</span></span>
-            <span class="text-slate-300 font-bold text-base">×</span>
-            <!-- Kotak Putih Bersih untuk Logo Biru Beasiswa Bantu Teman -->
-            <div class="inline-flex items-center gap-2 bg-white border border-bbtBlue/25 px-2.5 py-1 rounded-xl shadow-2xs">
-              <img src="logo-bbt.png" alt="Beasiswa Bantu Teman" class="h-6 w-auto object-contain">
-              <span class="font-poppins font-bold text-xs text-bbtBlue hidden sm:inline">Forum Beasiswa Bantu Teman</span>
-            </div>
+        <!-- Pasangan Ikon Simetris (Biru Solid + Putih Bersih) -->
+        <div class="flex items-center gap-1.5 shrink-0">
+          <div class="w-10 h-10 rounded-xl bg-bbtBlue flex items-center justify-center p-2 shadow-2xs group-hover:bg-bbtBlueDark transition">
+            <img src="logo-lockin.png" alt="LockIn Edu" class="w-full h-full object-contain">
           </div>
-          <p class="text-[11px] text-slateText font-poppins font-bold tracking-wider uppercase mt-0.5">Focus. Master. Conquer.</p>
+          <div class="w-10 h-10 rounded-xl bg-white border border-slateSubtle flex items-center justify-center p-1.5 shadow-2xs group-hover:border-bbtBlue/40 transition">
+            <img src="logo-bbt.png" alt="Forum Beasiswa Bantu Teman" class="w-full h-full object-contain">
+          </div>
+        </div>
+
+        <!-- Teks Brand & Tagline Sejajar -->
+        <div class="leading-tight">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="font-poppins font-extrabold text-base sm:text-lg text-navyDark tracking-tight">LockIn <span class="text-bbtBlue">Edu</span></span>
+            <span class="text-slate-300 font-bold text-sm">×</span>
+            <span class="font-poppins font-bold text-xs sm:text-sm text-bbtBlue">Forum Beasiswa Bantu Teman</span>
+          </div>
+          <p class="text-[10px] text-slateText font-poppins font-bold tracking-[0.14em] uppercase mt-0.5">Focus. Master. Conquer.</p>
         </div>
       </div>
       
-      <div id="userBadge" class="hidden flex items-center gap-3">
-        <button type="button" onclick="openProfileModal()" class="flex items-center gap-2.5 bg-slateLight hover:bg-slateSubtle px-4 py-2 rounded-full border border-slateSubtle transition cursor-pointer">
-          <i class="fa-solid fa-circle-user text-bbtBlue text-lg"></i>
-          <span id="navUserName" class="text-sm font-extrabold text-navyDark">Siswa</span>
-          <i class="fa-solid fa-pen-to-square text-xs text-slateText ml-1"></i>
+      <div id="userBadge" class="hidden flex items-center gap-2.5">
+        <button type="button" onclick="openProfileModal()" class="flex items-center gap-2 bg-slateLight hover:bg-bbtBlueLight px-3.5 py-2 rounded-xl border border-slateSubtle transition cursor-pointer">
+          <i class="fa-solid fa-circle-user text-bbtBlue text-base"></i>
+          <span id="navUserName" class="text-xs sm:text-sm font-extrabold text-navyDark">Siswa</span>
+          <i class="fa-solid fa-pen-to-square text-[11px] text-slateText"></i>
         </button>
-        <button type="button" onclick="logout()" class="text-xs bg-red-50 text-red-600 px-4 py-2 rounded-xl border border-red-200 hover:bg-red-100 font-bold transition flex items-center gap-1.5 cursor-pointer">
-          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        <button type="button" onclick="logout()" class="text-xs bg-red-50 text-red-600 px-3.5 py-2 rounded-xl border border-red-200 hover:bg-red-100 font-bold transition flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
         </button>
       </div>
     </div>
@@ -86,39 +91,47 @@
 
   <main class="max-w-7xl mx-auto w-full p-4 sm:p-6 flex-grow">
 
-    <!-- 1. AUTH CONTAINER -->
-    <div id="authSection" class="max-w-md mx-auto my-10 bg-white p-8 rounded-3xl border border-slateSubtle shadow-card relative overflow-hidden">
-      <div class="h-1.5 bg-bbtBlue absolute top-0 inset-x-0"></div>
+    <!-- 1. AUTH CONTAINER (LOGIN & DAFTAR) -->
+    <div id="authSection" class="max-w-md mx-auto my-8 bg-white p-7 sm:p-8 rounded-3xl border border-slateSubtle shadow-card relative overflow-hidden">
+      <!-- Strip 3 Warna Platform -->
+      <div class="grid grid-cols-3 h-1.5 absolute top-0 inset-x-0">
+        <div class="bg-bbtBlue"></div>
+        <div class="bg-bbtTeal"></div>
+        <div class="bg-bbtGold"></div>
+      </div>
       
       <div class="text-center mb-6 pt-2">
-        <!-- Kotak Logo Kebalikan: LockIn Biru Solid, BBT Putih Bersih -->
-        <div class="inline-flex items-center justify-center gap-3.5 mb-4">
-          <div class="w-16 h-16 rounded-2xl bg-bbtBlue flex items-center justify-center p-2.5 shadow-xs">
+        <div class="inline-flex items-center justify-center gap-3 mb-4">
+          <div class="w-14 h-14 rounded-2xl bg-bbtBlue flex items-center justify-center p-2.5 shadow-xs">
             <img src="logo-lockin.png" alt="LockIn Edu" class="w-full h-full object-contain">
           </div>
-          <span class="text-slate-300 font-black text-xl">×</span>
-          <div class="w-16 h-16 rounded-2xl bg-white border-2 border-bbtBlue/25 flex items-center justify-center p-2.5 shadow-xs">
+          <span class="text-slate-300 font-black text-lg">×</span>
+          <div class="w-14 h-14 rounded-2xl bg-white border border-slateSubtle flex items-center justify-center p-2 shadow-xs">
             <img src="logo-bbt.png" alt="Forum Beasiswa Bantu Teman" class="w-full h-full object-contain">
           </div>
         </div>
 
         <div>
-          <span class="inline-block px-3 py-1 rounded-full bg-bbtBlueLight text-bbtBlue font-extrabold text-[10px] uppercase tracking-wider mb-1.5">
+          <span class="inline-block px-3 py-1 rounded-full bg-bbtTealLight text-teal-800 font-extrabold text-[10px] uppercase tracking-wider mb-1.5">
             Focus. Master. Conquer.
           </span>
         </div>
-        <h2 class="text-2xl font-black text-navyDark">Selamat Datang!</h2>
-        <p class="text-xs text-slateText font-medium mt-1">LockIn Edu × Forum Beasiswa Bantu Teman: Amanin Kursi PTN 2027.</p>
+        <h2 class="text-2xl font-black text-navyDark">Portal Belajar UTBK</h2>
+        <p class="text-xs text-slateText font-medium mt-1">LockIn Edu × Forum Beasiswa Bantu Teman</p>
       </div>
+
+      <!-- Alert Pesan Validasi Login/Daftar -->
+      <div id="authAlertBox" class="hidden mb-4 p-3.5 rounded-xl text-xs font-bold flex items-start gap-2.5"></div>
 
       <div class="flex gap-2 mb-6 bg-slateLight p-1.5 rounded-2xl border border-slateSubtle">
         <button type="button" id="btnTabLogin" onclick="switchAuthTab('login')" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-bbtBlue text-white transition cursor-pointer">Login</button>
-        <button type="button" id="btnTabRegister" onclick="switchAuthTab('register')" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-slateText hover:text-navyDark transition cursor-pointer">Daftar</button>
+        <button type="button" id="btnTabRegister" onclick="switchAuthTab('register')" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-slateText hover:text-navyDark transition cursor-pointer">Daftar Akun</button>
       </div>
 
+      <!-- FORM LOGIN -->
       <form id="formLogin" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Email Siswa</label>
+          <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Email Terdaftar</label>
           <input type="email" id="loginEmail" placeholder="email@gmail.com" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
         </div>
         <div>
@@ -129,34 +142,44 @@
           <span>Masuk ke Portal Belajar</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
+        <p class="text-center text-[11px] text-slateText pt-1">
+          Belum punya akun? <button type="button" onclick="switchAuthTab('register')" class="text-bbtBlue font-extrabold hover:underline cursor-pointer">Daftar di sini dulu</button>
+        </p>
       </form>
 
+      <!-- FORM DAFTAR -->
       <form id="formRegister" onsubmit="handleRegister(event)" class="space-y-4 hidden">
         <div>
           <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Nama Lengkap</label>
           <input type="text" id="regNama" placeholder="Nama Calon Mahasiswa" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
         </div>
         <div>
-          <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Email</label>
+          <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Email Aktif</label>
           <input type="email" id="regEmail" placeholder="email@gmail.com" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
         </div>
         <div>
-          <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Password</label>
-          <input type="password" id="regPassword" placeholder="••••••••" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
+          <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Buat Password</label>
+          <input type="password" id="regPassword" placeholder="Minimal 6 karakter" minlength="4" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
         </div>
-        <button type="submit" class="w-full bg-bbtBlue hover:bg-bbtBlueDark py-3.5 rounded-xl font-bold text-sm text-white transition active:scale-95 flex items-center justify-center gap-2 mt-2 cursor-pointer">
-          <span>Buat Akun Peserta</span>
-          <i class="fa-solid fa-user-plus"></i>
+        <button type="submit" class="w-full bg-bbtTeal hover:bg-bbtTealDark py-3.5 rounded-xl font-extrabold text-sm text-white transition active:scale-95 flex items-center justify-center gap-2 mt-2 cursor-pointer">
+          <span>Lanjut Isi Target Kampus</span>
+          <i class="fa-solid fa-arrow-right"></i>
         </button>
       </form>
     </div>
 
-    <!-- 2. FORM PENDAFTARAN PROFIL SISWA -->
-    <div id="profileSection" class="max-w-xl mx-auto my-10 bg-white p-8 rounded-3xl border border-slateSubtle shadow-card hidden">
-      <div class="mb-6">
-        <span class="px-3 py-1 rounded-full bg-bbtBlueLight text-bbtBlue font-bold text-[10px] uppercase tracking-wider">LockIn Edu × Beasiswa Bantu Teman</span>
+    <!-- 2. FORM PENDAFTARAN PROFIL SISWA (WAJIB SAAT DAFTAR) -->
+    <div id="profileSection" class="max-w-xl mx-auto my-8 bg-white p-7 sm:p-8 rounded-3xl border border-slateSubtle shadow-card hidden relative overflow-hidden">
+      <div class="grid grid-cols-3 h-1.5 absolute top-0 inset-x-0">
+        <div class="bg-bbtBlue"></div>
+        <div class="bg-bbtTeal"></div>
+        <div class="bg-bbtGold"></div>
+      </div>
+
+      <div class="mb-6 pt-1">
+        <span class="px-3 py-1 rounded-full bg-bbtTealLight text-teal-800 font-extrabold text-[10px] uppercase tracking-wider">Langkah 2 dari 2 • Pendaftaran</span>
         <h2 class="text-2xl font-black text-navyDark font-poppins mt-2">Lengkapi Profil Target Kampus</h2>
-        <p class="text-xs text-slateText mt-1">Isi target kamu secara terpisah untuk pemetaan nilai asesmen.</p>
+        <p class="text-xs text-slateText mt-1">Data ini digunakan untuk memetakan progres nilai UTBK kamu.</p>
       </div>
       
       <form onsubmit="handleSaveProfile(event)" class="space-y-4">
@@ -174,7 +197,7 @@
           </div>
         </div>
 
-        <div class="p-4 bg-creamWhite rounded-2xl border border-slateSubtle space-y-3">
+        <div class="p-4 bg-bbtBlueLight/40 rounded-2xl border border-bbtBlue/20 space-y-3">
           <p class="text-xs font-extrabold text-bbtBlue uppercase tracking-wider">Pilihan 1 (Utama)</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
@@ -188,8 +211,8 @@
           </div>
         </div>
 
-        <div class="p-4 bg-creamWhite rounded-2xl border border-slateSubtle space-y-3">
-          <p class="text-xs font-extrabold text-amber-600 uppercase tracking-wider">Pilihan 2 (Cadangan)</p>
+        <div class="p-4 bg-bbtGoldLight/50 rounded-2xl border border-bbtGold/30 space-y-3">
+          <p class="text-xs font-extrabold text-amber-700 uppercase tracking-wider">Pilihan 2 (Cadangan)</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-[11px] font-bold text-slateText mb-1">Universitas Pilihan 2</label>
@@ -203,8 +226,8 @@
         </div>
 
         <button type="submit" class="w-full bg-bbtBlue hover:bg-bbtBlueDark text-white font-extrabold py-3.5 rounded-xl text-sm transition active:scale-95 flex items-center justify-center gap-2 mt-2 cursor-pointer">
-          <span>Simpan & Masuk Dashboard</span>
-          <i class="fa-solid fa-arrow-right"></i>
+          <span>Selesaikan Pendaftaran & Masuk</span>
+          <i class="fa-solid fa-check"></i>
         </button>
       </form>
     </div>
@@ -213,7 +236,7 @@
     <div id="dashboardSection" class="hidden grid grid-cols-1 md:grid-cols-4 gap-6 my-4">
       <div class="bg-white p-5 rounded-3xl border border-slateSubtle shadow-card h-fit space-y-2">
         <div class="px-3 pb-2.5 mb-2 border-b border-slateSubtle">
-          <p class="text-[10px] font-extrabold text-bbtBlue uppercase tracking-widest">Menu Utama</p>
+          <p class="text-[10px] font-extrabold text-bbtBlue uppercase tracking-widest">Menu Belajar</p>
           <p class="text-[11px] font-semibold text-slateText mt-0.5">Focus. Master. Conquer.</p>
         </div>
         <button type="button" onclick="switchMenu('beranda')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 bg-bbtBlue text-white transition cursor-pointer" id="btn-beranda">
@@ -226,7 +249,7 @@
           <i class="fa-solid fa-stopwatch w-5 text-center text-sm"></i> Asesmen & Tryout
         </button>
         <button type="button" onclick="switchMenu('live')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-bbtBlueLight hover:text-bbtBlue transition cursor-pointer" id="btn-live">
-          <i class="fa-solid fa-video w-5 text-center text-sm text-red-500"></i> Live Sesi Tutor
+          <i class="fa-solid fa-video w-5 text-center text-sm text-bbtTeal"></i> Live Sesi Tutor
         </button>
         <button type="button" onclick="switchMenu('materi')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-bbtBlueLight hover:text-bbtBlue transition cursor-pointer" id="btn-materi">
           <i class="fa-solid fa-book-open w-5 text-center text-sm"></i> PPT Materi Subtes
@@ -239,7 +262,7 @@
       <div class="md:col-span-3 space-y-6">
         <div id="activeSessionBanner" class="hidden bg-bbtGold p-5 rounded-3xl text-navyDark shadow-card flex justify-between items-center">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-white/60 flex items-center justify-center text-navyDark text-lg">
+            <div class="w-10 h-10 rounded-xl bg-white/70 flex items-center justify-center text-navyDark text-lg">
               <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
             </div>
             <div>
@@ -253,37 +276,43 @@
         </div>
 
         <div id="tab-beranda" class="tab-content space-y-5">
-          <!-- Banner Solid Biru Utama tanpa Gradasi -->
-          <div class="bg-bbtBlue p-8 rounded-3xl text-white shadow-card border-b-4 border-bbtGold">
-            <div class="space-y-2">
+          <!-- Banner Utama Biru Solid + Aksen Toska & Emas -->
+          <div class="bg-bbtBlue p-7 sm:p-8 rounded-3xl text-white shadow-card relative overflow-hidden">
+            <div class="space-y-2.5 relative z-10">
               <div class="flex flex-wrap items-center gap-2">
                 <span class="px-3 py-1 rounded-full bg-white/15 text-white font-bold text-[10px] uppercase tracking-wider">LockIn Edu × Forum Beasiswa Bantu Teman</span>
-                <span class="px-2.5 py-1 rounded-full bg-bbtGold text-navyDark font-extrabold text-[10px] uppercase tracking-wider">Focus. Master. Conquer.</span>
+                <span class="px-2.5 py-1 rounded-full bg-bbtTeal text-navyDark font-extrabold text-[10px] uppercase tracking-wider">Focus. Master. Conquer.</span>
               </div>
-              <h2 class="text-3xl font-black font-poppins text-white mt-2">Halo, <span id="dashNama" class="text-bbtGold">Siswa</span>! 👋</h2>
-              <p class="text-xs text-white/95 font-semibold leading-relaxed">
-                Target 1: <span id="dashPilihan1" class="text-bbtGold font-extrabold">-</span> &nbsp;|&nbsp; Target 2: <span id="dashPilihan2" class="text-bbtGold font-extrabold">-</span>
-              </p>
+              <h2 class="text-2xl sm:text-3xl font-black font-poppins text-white pt-1">Halo, <span id="dashNama" class="text-bbtGold">Siswa</span>! 👋</h2>
+              <div class="flex flex-wrap gap-2 pt-1 text-xs font-bold">
+                <span class="bg-white/10 border border-white/20 px-3 py-1.5 rounded-xl">
+                  Target 1: <span id="dashPilihan1" class="text-bbtGold">-</span>
+                </span>
+                <span class="bg-white/10 border border-white/20 px-3 py-1.5 rounded-xl">
+                  Target 2: <span id="dashPilihan2" class="text-bbtTeal">-</span>
+                </span>
+              </div>
             </div>
           </div>
           
+          <!-- 3 Kartu Metrik dengan 3 Warna Platform -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="bg-white p-5 rounded-2xl border border-slateSubtle shadow-card text-center flex flex-col items-center justify-center">
-              <div class="w-10 h-10 rounded-xl bg-bbtBlueLight text-bbtBlue flex items-center justify-center text-xl mb-2">
-                <i class="fa-solid fa-fire text-bbtGold"></i>
+            <div class="bg-white p-5 rounded-2xl border border-slateSubtle shadow-card text-center flex flex-col items-center justify-center border-t-4 border-t-bbtBlue">
+              <div class="w-10 h-10 rounded-xl bg-bbtBlueLight text-bbtBlue flex items-center justify-center text-lg mb-2">
+                <i class="fa-solid fa-calendar-check"></i>
               </div>
               <p class="text-xs font-bold text-slateText">Status Program</p>
               <p class="font-extrabold text-navyDark text-base font-poppins mt-0.5">8 Minggu Intensive</p>
             </div>
-            <div class="bg-white p-5 rounded-2xl border border-slateSubtle shadow-card text-center flex flex-col items-center justify-center">
-              <div class="w-10 h-10 rounded-xl bg-bbtTealLight text-teal-700 flex items-center justify-center text-xl mb-2">
+            <div class="bg-white p-5 rounded-2xl border border-slateSubtle shadow-card text-center flex flex-col items-center justify-center border-t-4 border-t-bbtTeal">
+              <div class="w-10 h-10 rounded-xl bg-bbtTealLight text-teal-700 flex items-center justify-center text-lg mb-2">
                 <i class="fa-solid fa-bullseye"></i>
               </div>
               <p class="text-xs font-bold text-slateText">Cakupan Subtes</p>
-              <p class="font-extrabold text-bbtBlue text-base font-poppins mt-0.5">7 Subtes (160 Soal)</p>
+              <p class="font-extrabold text-teal-700 text-base font-poppins mt-0.5">7 Subtes (160 Soal)</p>
             </div>
-            <div class="bg-white p-5 rounded-2xl border border-slateSubtle shadow-card text-center flex flex-col items-center justify-center">
-              <div class="w-10 h-10 rounded-xl bg-bbtGoldLight text-amber-700 flex items-center justify-center text-xl mb-2">
+            <div class="bg-white p-5 rounded-2xl border border-slateSubtle shadow-card text-center flex flex-col items-center justify-center border-t-4 border-t-bbtGold">
+              <div class="w-10 h-10 rounded-xl bg-bbtGoldLight text-amber-700 flex items-center justify-center text-lg mb-2">
                 <i class="fa-solid fa-clock"></i>
               </div>
               <p class="text-xs font-bold text-slateText">Durasi Tryout Resmi</p>
@@ -302,8 +331,8 @@
               <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 4:</b> Literasi Bahasa Indonesia</div>
               <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 5:</b> Literasi Bahasa Inggris</div>
               <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 6:</b> Pengetahuan & Pemahaman Umum</div>
-              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 7:</b> Pemahaman Bacaan & Menulis + Tryout Penuh</div>
-              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 8:</b> Pemantapan Akhir & Pembahasan</div>
+              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtTealDark">Minggu 7:</b> Pemahaman Bacaan & Menulis + Tryout Penuh</div>
+              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-amber-600">Minggu 8:</b> Pemantapan Akhir & Pembahasan</div>
             </div>
           </div>
         </div>
@@ -315,7 +344,7 @@
                 <h3 class="text-xl font-black font-poppins text-navyDark">Latihan Soal Bertimer</h3>
                 <p class="text-xs text-slateText mt-0.5">Pilih subtes di bawah untuk mengakses Lockin Drill-Pack.</p>
               </div>
-              <span class="px-3.5 py-1.5 rounded-full bg-bbtBlueLight text-bbtBlue font-bold text-xs">7 Subtes Ready</span>
+              <span class="px-3.5 py-1.5 rounded-full bg-bbtTealLight text-teal-800 font-bold text-xs">7 Subtes Ready</span>
             </div>
             <div class="space-y-3" id="latsoSubtesListContainer"></div>
           </div>
@@ -338,28 +367,28 @@
 
         <div id="tab-tes" class="tab-content hidden space-y-4">
           <h3 class="text-xl font-black font-poppins text-navyDark">Tes Pemetaan & Tryout Penuh</h3>
-          <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card space-y-4">
+          <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card space-y-4 border-l-4 border-l-bbtTeal">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <span class="px-3 py-1 rounded-full bg-bbtBlueLight text-bbtBlue font-bold text-[10px] uppercase tracking-wider mb-1 inline-block">Diagnostic Test</span>
+                <span class="px-3 py-1 rounded-full bg-bbtTealLight text-teal-800 font-bold text-[10px] uppercase tracking-wider mb-1 inline-block">Diagnostic Test</span>
                 <h4 class="font-extrabold text-navyDark text-lg">Asesmen Awal (70 Soal)</h4>
                 <p class="text-xs text-slateText font-medium">10 soal per subtes untuk memetakan kemampuan awal (Minggu 1).</p>
               </div>
-              <button type="button" onclick="openPreQuizModal('Asesmen Awal', 70, 90)" class="w-full sm:w-auto bg-bbtBlue hover:bg-bbtBlueDark px-6 py-3 rounded-xl text-xs font-bold text-white transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+              <button type="button" onclick="openPreQuizModal('Asesmen Awal', 70, 90)" class="w-full sm:w-auto bg-bbtTeal hover:bg-bbtTealDark px-6 py-3 rounded-xl text-xs font-extrabold text-white transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
                 <span>Pilih Asesmen</span>
                 <i class="fa-solid fa-play text-[10px]"></i>
               </button>
             </div>
           </div>
 
-          <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card space-y-4">
+          <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card space-y-4 border-l-4 border-l-bbtGold">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
                 <span class="px-3 py-1 rounded-full bg-bbtGoldLight text-amber-800 font-bold text-[10px] uppercase tracking-wider mb-1 inline-block">Full Simulation</span>
                 <h4 class="font-extrabold text-navyDark text-lg">Tryout Penuh UTBK 2027 (160 Soal)</h4>
                 <p class="text-xs text-slateText font-medium">Simulasi 7 Subtes dengan durasi resmi 195 Menit (Minggu 7).</p>
               </div>
-              <button type="button" onclick="openPreQuizModal('Tryout Penuh', 160, 195)" class="w-full sm:w-auto bg-bbtGold hover:bg-amber-500 px-6 py-3 rounded-xl text-xs font-extrabold text-navyDark transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+              <button type="button" onclick="openPreQuizModal('Tryout Penuh', 160, 195)" class="w-full sm:w-auto bg-bbtGold hover:bg-bbtGoldDark px-6 py-3 rounded-xl text-xs font-extrabold text-navyDark transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
                 <span>Pilih Tryout</span>
                 <i class="fa-solid fa-bolt text-[10px]"></i>
               </button>
@@ -373,8 +402,8 @@
               <h3 class="text-xl font-black font-poppins text-navyDark">Live Belajar Bersama Tutor</h3>
               <p class="text-xs text-slateText mt-0.5">Sesi Tatap Muka: Kupas Tuntas Soal Susah, Trik Cepat & Review PPT.</p>
             </div>
-            <span class="px-3 py-1 rounded-full bg-red-100 text-red-700 font-bold text-xs flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span> Sesi Live
+            <span class="px-3 py-1 rounded-full bg-bbtTealLight text-teal-800 font-bold text-xs flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-bbtTeal animate-pulse"></span> Sesi Live
             </span>
           </div>
           <div class="space-y-3" id="liveSessionList"></div>
@@ -565,7 +594,7 @@
           <button type="button" id="btnNext" onclick="nextQuestion()" class="px-6 py-3 rounded-xl text-xs font-bold bg-bbtBlue hover:bg-bbtBlueDark text-white transition active:scale-95 flex items-center gap-2 cursor-pointer">
             <span>Berikutnya</span> <i class="fa-solid fa-arrow-right"></i>
           </button>
-          <button type="button" id="btnFinish" onclick="submitQuiz()" class="hidden px-6 py-3 rounded-xl text-xs font-extrabold bg-bbtTeal hover:bg-teal-600 text-white transition active:scale-95 flex items-center gap-2 cursor-pointer">
+          <button type="button" id="btnFinish" onclick="submitQuiz()" class="hidden px-6 py-3 rounded-xl text-xs font-extrabold bg-bbtTeal hover:bg-bbtTealDark text-white transition active:scale-95 flex items-center gap-2 cursor-pointer">
             <i class="fa-solid fa-check-circle"></i> <span>Selesai & Simpan Skor</span>
           </button>
         </div>
@@ -576,8 +605,8 @@
     <div id="resultSection" class="hidden max-w-3xl mx-auto space-y-6 my-4">
       <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card text-center flex flex-col sm:flex-row justify-between items-center gap-4">
         <div class="flex items-center gap-4 text-left">
-          <div class="w-14 h-14 rounded-2xl bg-bbtBlueLight text-bbtBlue flex items-center justify-center text-2xl">
-            <i class="fa-solid fa-trophy text-bbtGold"></i>
+          <div class="w-14 h-14 rounded-2xl bg-bbtGoldLight text-amber-600 flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-trophy"></i>
           </div>
           <div>
             <h2 class="text-xl font-black text-navyDark font-poppins">Hasil: <span id="reviewSubtesNama">Subtes</span></h2>
@@ -663,6 +692,7 @@
     const GAS_API_URL = "https://script.google.com/macros/s/AKfycbyBYAOsE2m84xbumOra0A_vcqSHNUpD__Z_Ks_yp6uIDx7eJTudrKyBSQB4MwsyDLUdEg/exec";
 
     let currentUser = null;
+    let pendingRegisterUser = null;
     let historyResults = [];
 
     try {
@@ -737,19 +767,40 @@
         historyResults = [];
       }
 
-      if (currentUser && currentUser.nama) {
+      // Cek apakah ada user yang sedang login (belum logout)
+      if (currentUser && currentUser.email && currentUser.isLoggedIn === true) {
         showDashboard();
       } else {
+        currentUser = null;
+        localStorage.removeItem("lockin_user");
         showAuthForm();
       }
     });
+
+    function showAuthAlert(message, type = 'error') {
+      const box = document.getElementById('authAlertBox');
+      if (!box) return;
+      box.classList.remove('hidden');
+      if (type === 'error') {
+        box.className = "mb-4 p-3.5 rounded-xl text-xs font-bold flex items-start gap-2.5 bg-red-50 text-red-700 border border-red-200";
+        box.innerHTML = `<i class="fa-solid fa-circle-exclamation mt-0.5 text-red-600"></i><span>${message}</span>`;
+      } else {
+        box.className = "mb-4 p-3.5 rounded-xl text-xs font-bold flex items-start gap-2.5 bg-bbtTealLight text-teal-900 border border-bbtTeal/40";
+        box.innerHTML = `<i class="fa-solid fa-circle-check mt-0.5 text-teal-600"></i><span>${message}</span>`;
+      }
+    }
+
+    function hideAuthAlert() {
+      const box = document.getElementById('authAlertBox');
+      if (box) box.classList.add('hidden');
+    }
 
     function syncUserToGoogleSheets(userData) {
       const payload = {
         action: 'registerUser',
         userId: userData.userId,
         email: userData.email || '',
-        password: userData.password || '123456',
+        password: userData.password || '',
         nama: userData.nama || '',
         kelas: userData.kelas || '',
         asalSekolah: userData.asalSekolah || '',
@@ -786,7 +837,7 @@
         if (confirm("Kuis sedang berjalan. Yakin ingin keluar? Progress dan waktu akan tetap tersimpan.")) {
           backToDashboardDuringQuiz();
         }
-      } else if (currentUser && currentUser.nama) {
+      } else if (currentUser && currentUser.isLoggedIn) {
         showDashboard();
         switchMenu('beranda');
       } else {
@@ -845,6 +896,19 @@
       currentUser.jurusan2 = document.getElementById('editJurusan2').value;
 
       localStorage.setItem("lockin_user", JSON.stringify(currentUser));
+
+      let existingUsers = [];
+      try {
+        existingUsers = JSON.parse(localStorage.getItem("lockin_all_users")) || [];
+      } catch (err) {
+        existingUsers = [];
+      }
+      const idx = existingUsers.findIndex(u => u.userId === currentUser.userId);
+      if (idx !== -1) {
+        existingUsers[idx] = currentUser;
+        localStorage.setItem("lockin_all_users", JSON.stringify(existingUsers));
+      }
+
       syncUserToGoogleSheets(currentUser);
       showDashboard();
       openProfileModal();
@@ -852,6 +916,7 @@
     }
 
     function switchAuthTab(tab) {
+      hideAuthAlert();
       if (tab === 'login') {
         document.getElementById('formLogin').classList.remove('hidden');
         document.getElementById('formRegister').classList.add('hidden');
@@ -860,16 +925,19 @@
       } else {
         document.getElementById('formLogin').classList.add('hidden');
         document.getElementById('formRegister').classList.remove('hidden');
-        document.getElementById('btnTabRegister').className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-bbtBlue text-white transition cursor-pointer";
+        document.getElementById('btnTabRegister').className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-bbtTeal text-white transition cursor-pointer";
         document.getElementById('btnTabLogin').className = "flex-1 py-2.5 text-xs font-bold rounded-xl text-slateText hover:text-navyDark transition cursor-pointer";
       }
     }
 
+    // LOGIN KETAT: HANYA BISA MASUK JIKA EMAIL SUDAH TERDAFTAR & PASSWORD COCOK
     function handleLogin(e) {
       e.preventDefault();
-      const inputEmail = document.getElementById('loginEmail').value.trim();
+      hideAuthAlert();
+
+      const inputEmail = document.getElementById('loginEmail').value.trim().toLowerCase();
       const inputPassword = document.getElementById('loginPassword').value;
-      if (!inputEmail) return;
+      if (!inputEmail || !inputPassword) return;
       
       let existingUsers = [];
       try {
@@ -878,26 +946,30 @@
         existingUsers = [];
       }
 
-      let found = existingUsers.find(u => u.email && u.email.toLowerCase() === inputEmail.toLowerCase());
+      const foundUser = existingUsers.find(u => u.email && u.email.toLowerCase() === inputEmail);
 
-      if (found) {
-        currentUser = found;
-      } else {
-        currentUser = { 
-          userId: inputEmail.toLowerCase(), 
-          email: inputEmail, 
-          password: inputPassword,
-          nama: inputEmail.split('@')[0], 
-          kelas: "12 SMA",
-          asalSekolah: "SMA Negeri 1",
-          univ1: "UNS", jurusan1: "Informatika",
-          univ2: "UNS", jurusan2: "Matematika"
-        };
-        existingUsers.push(currentUser);
-        localStorage.setItem("lockin_all_users", JSON.stringify(existingUsers));
+      // 1. Jika email belum pernah didaftarkan -> TOLAK
+      if (!foundUser) {
+        showAuthAlert("Email ini belum terdaftar! Silakan klik tab 'Daftar Akun' terlebih dahulu untuk membuat akun.", "error");
+        return;
       }
-      
-      currentUser.userId = currentUser.email.toLowerCase();
+
+      // 2. Jika password tidak sesuai -> TOLAK
+      if (foundUser.password !== inputPassword) {
+        showAuthAlert("Password salah! Pastikan password yang kamu masukkan sesuai saat mendaftar.", "error");
+        return;
+      }
+
+      // 3. Jika belum melengkapi profil kampus -> Arahkan ke Form Profil
+      if (!foundUser.asalSekolah || !foundUser.univ1) {
+        pendingRegisterUser = foundUser;
+        showProfileForm();
+        return;
+      }
+
+      // 4. Berhasil Login
+      foundUser.isLoggedIn = true;
+      currentUser = foundUser;
       localStorage.setItem("lockin_user", JSON.stringify(currentUser));
       
       try {
@@ -906,53 +978,65 @@
         historyResults = [];
       }
 
-      syncUserToGoogleSheets(currentUser);
+      document.getElementById('loginPassword').value = "";
       showDashboard();
     }
 
+    // DAFTAR AKUN BARU
     function handleRegister(e) {
       e.preventDefault();
-      const regEmail = document.getElementById('regEmail').value.trim();
-      currentUser = { 
-        userId: regEmail.toLowerCase(), 
-        nama: document.getElementById('regNama').value, 
-        email: regEmail,
-        password: document.getElementById('regPassword').value,
-        kelas: "12 SMA", asalSekolah: "",
-        univ1: "", jurusan1: "", univ2: "", jurusan2: ""
-      };
-      
-      localStorage.setItem("lockin_user", JSON.stringify(currentUser));
+      hideAuthAlert();
+
+      const regNama = document.getElementById('regNama').value.trim();
+      const regEmail = document.getElementById('regEmail').value.trim().toLowerCase();
+      const regPassword = document.getElementById('regPassword').value;
+
       let existingUsers = [];
       try {
         existingUsers = JSON.parse(localStorage.getItem("lockin_all_users")) || [];
       } catch (err) {
         existingUsers = [];
       }
-      existingUsers.push(currentUser);
-      localStorage.setItem("lockin_all_users", JSON.stringify(existingUsers));
 
-      try {
-        historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
-      } catch (err) {
-        historyResults = [];
+      const alreadyExists = existingUsers.find(u => u.email && u.email.toLowerCase() === regEmail);
+      if (alreadyExists) {
+        showAuthAlert("Email ini sudah terdaftar! Silakan pindah ke tab 'Login' dan masukkan password kamu.", "error");
+        return;
       }
 
-      syncUserToGoogleSheets(currentUser);
+      pendingRegisterUser = { 
+        userId: regEmail, 
+        nama: regNama, 
+        email: regEmail,
+        password: regPassword,
+        kelas: "12 SMA",
+        asalSekolah: "",
+        univ1: "",
+        jurusan1: "",
+        univ2: "",
+        jurusan2: "",
+        isLoggedIn: false
+      };
+
       showProfileForm();
     }
 
+    // SIMPAN PROFIL TARGET KAMPUS SETELAH DAFTAR
     function handleSaveProfile(e) {
       e.preventDefault();
-      currentUser.kelas = document.getElementById('profKelas').value;
-      currentUser.asalSekolah = document.getElementById('profSekolah').value;
-      currentUser.univ1 = document.getElementById('profUniv1').value;
-      currentUser.jurusan1 = document.getElementById('profJurusan1').value;
-      currentUser.univ2 = document.getElementById('profUniv2').value;
-      currentUser.jurusan2 = document.getElementById('profJurusan2').value;
+      if (!pendingRegisterUser) {
+        showAuthForm();
+        return;
+      }
 
-      localStorage.setItem("lockin_user", JSON.stringify(currentUser));
-      
+      pendingRegisterUser.kelas = document.getElementById('profKelas').value;
+      pendingRegisterUser.asalSekolah = document.getElementById('profSekolah').value.trim();
+      pendingRegisterUser.univ1 = document.getElementById('profUniv1').value.trim();
+      pendingRegisterUser.jurusan1 = document.getElementById('profJurusan1').value.trim();
+      pendingRegisterUser.univ2 = document.getElementById('profUniv2').value.trim();
+      pendingRegisterUser.jurusan2 = document.getElementById('profJurusan2').value.trim();
+      pendingRegisterUser.isLoggedIn = true;
+
       let existingUsers = [];
       try {
         existingUsers = JSON.parse(localStorage.getItem("lockin_all_users")) || [];
@@ -960,13 +1044,17 @@
         existingUsers = [];
       }
 
-      let idx = existingUsers.findIndex(u => u.userId === currentUser.userId);
+      const idx = existingUsers.findIndex(u => u.userId === pendingRegisterUser.userId);
       if (idx !== -1) {
-        existingUsers[idx] = currentUser;
+        existingUsers[idx] = pendingRegisterUser;
       } else {
-        existingUsers.push(currentUser);
+        existingUsers.push(pendingRegisterUser);
       }
       localStorage.setItem("lockin_all_users", JSON.stringify(existingUsers));
+
+      currentUser = pendingRegisterUser;
+      pendingRegisterUser = null;
+      localStorage.setItem("lockin_user", JSON.stringify(currentUser));
 
       syncUserToGoogleSheets(currentUser);
       showDashboard();
@@ -976,6 +1064,7 @@
       document.getElementById('authSection').classList.add('hidden');
       document.getElementById('profileSection').classList.remove('hidden');
       document.getElementById('dashboardSection').classList.add('hidden');
+      document.getElementById('userBadge').classList.add('hidden');
     }
 
     function showDashboard() {
@@ -1183,7 +1272,7 @@
           </div>
           <div>
             ${hasRec ? `
-              <a href="${s.recording}" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 px-5 py-2.5 rounded-xl text-xs font-bold text-white transition">
+              <a href="${s.recording}" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-bbtTeal hover:bg-bbtTealDark px-5 py-2.5 rounded-xl text-xs font-extrabold text-white transition">
                 <i class="fa-solid fa-circle-play"></i> Tonton Rekaman
               </a>
             ` : `
@@ -1708,7 +1797,7 @@
             <p class="text-[11px] text-slateText mt-0.5">${res.benar} Benar dari ${res.total} Soal • ${res.waktu}</p>
           </div>
           <div class="flex items-center gap-3">
-            <span class="bg-navyDark text-bbtGold px-3 py-1.5 rounded-xl font-bold text-xs">Skor: ${res.skor}</span>
+            <span class="bg-bbtGoldLight text-amber-900 border border-bbtGold/40 px-3 py-1.5 rounded-xl font-extrabold text-xs">Skor: ${res.skor}</span>
             <button type="button" onclick="reviewPastAnswers('${res.subtes}')" class="bg-bbtBlue hover:bg-bbtBlueDark text-white font-bold px-3.5 py-1.5 rounded-xl text-xs transition cursor-pointer">Pembahasan</button>
           </div>
         `;
@@ -1726,11 +1815,17 @@
       document.getElementById(`btn-${menu}`).className = "menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 bg-bbtBlue text-white transition cursor-pointer";
     }
 
+    // LOGOUT BERSIH: HAPUS SESI AKTIF & KEMBALI KE HALAMAN LOGIN
     function logout() {
+      clearInterval(timerInterval);
       localStorage.removeItem("lockin_active_quiz");
       localStorage.removeItem("lockin_user");
       currentUser = null;
-      location.reload();
+      pendingRegisterUser = null;
+      document.getElementById('loginEmail').value = "";
+      document.getElementById('loginPassword').value = "";
+      switchAuthTab('login');
+      showAuthForm();
     }
   </script>
 </body>
