@@ -47,6 +47,7 @@
     .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 10px; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #026FC0; border-radius: 10px; }
+    .justify-text { text-align: justify; text-justify: inter-word; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased selection:bg-bbtBlue selection:text-white">
@@ -67,7 +68,7 @@
         <div class="leading-tight border-l border-slateSubtle pl-3.5">
           <div class="flex items-center gap-2 flex-wrap">
             <span class="font-poppins font-extrabold text-base sm:text-lg text-navyDark tracking-tight">LockIn <span class="text-bbtBlue">Edu</span></span>
-            <span class="px-2 py-0.5 rounded-md bg-bbtBlueLight text-bbtBlue font-poppins font-bold text-[11px]">× Forum Beasiswa Bantu Teman</span>
+            <span class="font-poppins font-bold text-xs sm:text-sm text-bbtBlue">× Forum Beasiswa Bantu Teman</span>
           </div>
           <p class="text-[10px] text-slateText font-poppins font-bold tracking-[0.16em] uppercase mt-1">Focus. Master. Conquer.</p>
         </div>
@@ -404,7 +405,7 @@
           <div class="space-y-3" id="liveSessionList"></div>
         </div>
 
-        <!-- TAB PPT MATERI SUBTES (DIGULIR KE BAWAH + BUKA DI TAB BARU) -->
+        <!-- TAB PPT MATERI SUBTES -->
         <div id="tab-materi" class="tab-content hidden space-y-4">
           <div id="pptMainView" class="space-y-4">
             <div>
@@ -459,7 +460,7 @@
         <div id="tab-progres" class="tab-content hidden space-y-5">
           <h3 class="text-xl font-black font-poppins text-navyDark">Perkembangan Hasil Belajar</h3>
           <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card space-y-4">
-            <p class="text-xs font-bold text-slateText uppercase tracking-wider">Riwayat Pengerjaan & Laporan Nilai:</p>
+            <p class="text-xs font-bold text-slateText uppercase tracking-wider">Riwayat Pengerjaan & Detail Waktu:</p>
             <div id="historiList" class="text-xs text-navyDark space-y-3">
               <p class="text-slateText italic">Belum ada tes yang diselesaikan.</p>
             </div>
@@ -595,7 +596,7 @@
           </div>
         </div>
 
-        <div class="bg-creamWhite p-4 rounded-2xl border border-slateSubtle space-y-2">
+        <div class="bg-white p-4 rounded-2xl border border-slateSubtle shadow-card space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-slateText">
             <span>Navigasi Nomor Soal</span>
             <span class="text-[10px]">Klik nomor untuk lompat soal</span>
@@ -603,9 +604,9 @@
           <div id="numberGrid" class="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-40 overflow-y-auto p-1.5 custom-scrollbar"></div>
         </div>
 
-        <div class="bg-creamWhite p-6 rounded-2xl border border-slateSubtle space-y-4 min-h-[140px]">
+        <div class="bg-white p-6 rounded-2xl border border-slateSubtle shadow-card space-y-4 min-h-[140px]">
           <img id="quizQuestionImage" src="" alt="Gambar Soal" class="hidden max-h-72 mx-auto rounded-xl border border-slateSubtle object-contain">
-          <div id="quizQuestion" class="text-[15px] text-navyDark leading-7 font-semibold space-y-3">
+          <div id="quizQuestion" class="text-[15px] text-navyDark leading-7 font-semibold justify-text space-y-3">
             Sedang memuat soal...
           </div>
         </div>
@@ -655,7 +656,7 @@
           <div id="reviewStatusBadge"></div>
         </div>
 
-        <div class="bg-creamWhite p-4 rounded-2xl border border-slateSubtle space-y-2">
+        <div class="bg-white p-4 rounded-2xl border border-slateSubtle shadow-card space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-slateText">
             <span>Pilih Nomor Pembahasan</span>
             <div class="flex items-center gap-3 text-[10px]">
@@ -666,9 +667,9 @@
           <div id="reviewNumberGrid" class="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-40 overflow-y-auto p-1.5 custom-scrollbar"></div>
         </div>
 
-        <div class="bg-creamWhite p-6 rounded-2xl border border-slateSubtle space-y-4">
+        <div class="bg-white p-6 rounded-2xl border border-slateSubtle shadow-card space-y-4">
           <img id="reviewQuestionImage" src="" alt="Gambar Soal" class="hidden max-h-72 mx-auto rounded-xl border border-slateSubtle object-contain">
-          <div id="reviewQuestionText" class="text-[15px] text-navyDark leading-7 font-semibold space-y-3">-</div>
+          <div id="reviewQuestionText" class="text-[15px] text-navyDark leading-7 font-semibold justify-text space-y-3">-</div>
         </div>
 
         <div id="reviewOptionsBox" class="space-y-3"></div>
@@ -677,7 +678,7 @@
           <h4 class="font-extrabold text-sm text-bbtBlue flex items-center gap-2">
             <i class="fa-solid fa-lightbulb text-bbtGold"></i> Pembahasan Lengkap:
           </h4>
-          <div id="reviewExplanationText" class="text-sm font-medium leading-7 space-y-2 text-slateBlue">-</div>
+          <div id="reviewExplanationText" class="text-sm font-medium leading-7 justify-text space-y-2 text-slateBlue">-</div>
         </div>
 
         <div class="flex justify-between items-center pt-4 border-t border-slateSubtle">
@@ -719,6 +720,7 @@
     let currentIndex = 0;
     let timerInterval = null;
     let targetEndTime = 0;
+    let quizStartTime = null;
     let activeQuizSubtes = "";
     let activeQuizDurasi = 0;
     let selectedSubtes = "";
@@ -774,7 +776,7 @@
         .split(/\n+/)
         .map(p => p.trim())
         .filter(p => p.length > 0);
-      return paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+      return paragraphs.map(p => `<p class="justify-text">${escapeHtml(p)}</p>`).join('');
     }
 
     function escapeHtml(str) {
@@ -839,6 +841,9 @@
               historyResults[idx].benar = remoteItem.benar;
               historyResults[idx].total = remoteItem.total;
               historyResults[idx].waktu = remoteItem.waktu;
+              historyResults[idx].waktuMulai = remoteItem.waktuMulai;
+              historyResults[idx].waktuSelesai = remoteItem.waktuSelesai;
+              historyResults[idx].waktuPengerjaan = remoteItem.waktuPengerjaan;
             } else {
               historyResults.push({
                 userId: currentUser.email,
@@ -847,6 +852,9 @@
                 benar: remoteItem.benar,
                 total: remoteItem.total,
                 waktu: remoteItem.waktu,
+                waktuMulai: remoteItem.waktuMulai || '-',
+                waktuSelesai: remoteItem.waktuSelesai || '-',
+                waktuPengerjaan: remoteItem.waktuPengerjaan || '-',
                 savedSoal: null,
                 savedAnswers: {}
               });
@@ -854,6 +862,7 @@
           });
           localStorage.setItem("lockin_history", JSON.stringify(historyResults));
           renderHistory();
+          if (selectedSubtes) openLatsoSubBabById(selectedSubtes);
         }
       } catch (e) {}
     }
@@ -1170,6 +1179,11 @@
     }
 
     function openLatsoSubBab(subtesId) {
+      selectedSubtes = subtesId;
+      openLatsoSubBabById(subtesId);
+    }
+
+    function openLatsoSubBabById(subtesId) {
       const subtes = subtesMasterData.find(s => s.id === subtesId);
       if (!subtes) return;
 
@@ -1183,11 +1197,11 @@
       subtes.drillPacks.forEach(dp => {
         const done = historyResults.find(r => r.subtes === dp.judul && (r.userId === currentUserId || r.userId === currentUserEmail));
         const badgeHTML = done
-          ? `<span class="text-[10px] font-extrabold text-teal-800 uppercase bg-bbtTealLight px-2.5 py-0.5 rounded-md mb-1 inline-block">Selesai • Skor ${done.skor}</span>`
+          ? `<span class="text-[10px] font-extrabold text-teal-800 uppercase bg-bbtTealLight px-2.5 py-0.5 rounded-md mb-1 inline-block">Selesai • Skor ${done.skor} (${done.waktuPengerjaan || '-'})</span>`
           : `<span class="text-[10px] font-bold text-teal-800 uppercase bg-bbtTealLight px-2 py-0.5 rounded-md mb-1 inline-block">Mandiri 24/7</span>`;
 
         const div = document.createElement('div');
-        div.className = "bg-creamWhite p-5 rounded-2xl border border-slateSubtle flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+        div.className = "bg-white p-5 rounded-2xl border border-slateSubtle shadow-card flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
         div.innerHTML = `
           <div>
             ${badgeHTML}
@@ -1210,7 +1224,7 @@
       document.getElementById('latsoSubBabView').classList.add('hidden');
     }
 
-    // ==================== PPT MATERI SUBTES (INLINE SCROLL + TAB BARU) ====================
+    // ==================== PPT MATERI SUBTES ====================
     function renderPPTSubtesList() {
       const box = document.getElementById('pptSubtesListContainer');
       if (!box) return;
@@ -1415,8 +1429,12 @@
             <span class="font-black text-bbtBlue text-base font-poppins">${lastAttempt.skor} / 100</span>
           </div>
           <div class="flex justify-between items-center text-slateText text-[11px]">
-            <span>Tanggal Pengerjaan:</span>
-            <span class="font-semibold">${lastAttempt.waktu}</span>
+            <span>Mulai / Selesai:</span>
+            <span class="font-semibold">${lastAttempt.waktuMulai || '-'} s.d. ${lastAttempt.waktuSelesai || '-'}</span>
+          </div>
+          <div class="flex justify-between items-center text-slateText text-[11px]">
+            <span>Durasi Pengerjaan:</span>
+            <span class="font-semibold text-bbtBlue">${lastAttempt.waktuPengerjaan || '-'}</span>
           </div>
         `;
 
@@ -1462,10 +1480,12 @@
       document.getElementById('dashboardSection').classList.add('hidden');
       document.getElementById('quizSection').classList.remove('hidden');
       document.getElementById('resultSection').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       
       document.getElementById('quizSubtes').innerText = subtes;
 
       if (!isResuming) {
+        quizStartTime = new Date();
         document.getElementById('quizQuestion').innerHTML = "<p>Sedang mengambil data soal dari Google Sheets...</p>";
         document.getElementById('quizQuestionImage').classList.add('hidden');
         document.getElementById('quizOptions').innerHTML = "";
@@ -1512,6 +1532,7 @@
         answers: userAnswers,
         currentIndex: currentIndex,
         targetEndTime: targetEndTime,
+        quizStartTime: quizStartTime ? quizStartTime.getTime() : new Date().getTime(),
         durasi: activeQuizDurasi
       };
       localStorage.setItem("lockin_active_quiz", JSON.stringify(sessionData));
@@ -1532,6 +1553,7 @@
           userAnswers = savedQuiz.answers || {};
           currentIndex = savedQuiz.currentIndex || 0;
           targetEndTime = savedQuiz.targetEndTime;
+          quizStartTime = savedQuiz.quizStartTime ? new Date(savedQuiz.quizStartTime) : new Date();
           activeQuizDurasi = savedQuiz.durasi || 30;
 
           const banner = document.getElementById('activeSessionBanner');
@@ -1550,6 +1572,7 @@
         userAnswers = savedQuiz.answers || {};
         currentIndex = savedQuiz.currentIndex || 0;
         targetEndTime = savedQuiz.targetEndTime;
+        quizStartTime = savedQuiz.quizStartTime ? new Date(savedQuiz.quizStartTime) : new Date();
         activeQuizDurasi = savedQuiz.durasi || 30;
 
         document.getElementById('activeSessionBanner').classList.add('hidden');
@@ -1589,13 +1612,13 @@
           btn.className = `w-full text-left p-4 rounded-2xl border text-sm font-semibold flex items-center gap-3.5 transition cursor-pointer ${
             isSelected 
               ? 'bg-bbtBlueLight border-bbtBlue text-bbtBlue font-bold' 
-              : 'bg-creamWhite border-slateSubtle text-navyDark hover:border-bbtBlue/50'
+              : 'bg-white border-slateSubtle shadow-card text-navyDark hover:border-bbtBlue/50'
           }`;
           
           btn.onclick = () => selectOption(optKey);
           btn.innerHTML = `
             <span class="w-8 h-8 rounded-xl ${isSelected ? 'bg-bbtBlue text-white' : 'bg-slateLight text-navyDark'} flex items-center justify-center font-bold text-xs shrink-0">${optKey}</span> 
-            <span>${escapeHtml(q.options[optKey])}</span>
+            <span class="justify-text">${escapeHtml(q.options[optKey])}</span>
           `;
           optsBox.appendChild(btn);
         }
@@ -1701,13 +1724,27 @@
       const activeUserId = currentUser ? currentUser.userId : "GUEST";
       const activeUserEmail = currentUser ? currentUser.email : "GUEST";
 
+      const endTime = new Date();
+      const startTime = quizStartTime || new Date(endTime.getTime() - (activeQuizDurasi * 60 * 1000));
+      const diffSeconds = Math.floor((endTime - startTime) / 1000);
+      const durasiMenitStr = `${Math.floor(diffSeconds / 60)}m ${diffSeconds % 60}s`;
+
+      const timeFormatOpts = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      const startTimeStr = startTime.toLocaleTimeString('id-ID', timeFormatOpts);
+      const endTimeStr = endTime.toLocaleTimeString('id-ID', timeFormatOpts);
+      const dateStr = endTime.toLocaleDateString('id-ID');
+
       const newRecord = { 
         userId: activeUserId,
         subtes: subtesNama, 
         skor: score, 
         benar: benar, 
         total: totalSoal, 
-        waktu: new Date().toLocaleDateString('id-ID'), 
+        waktu: dateStr,
+        waktuMulai: startTimeStr,
+        waktuSelesai: endTimeStr,
+        waktuPengerjaan: durasiMenitStr,
+        durasiDetik: diffSeconds,
         savedSoal: currentSoalList, 
         savedAnswers: userAnswers 
       };
@@ -1723,6 +1760,7 @@
       renderHistory();
 
       showReviewMode(subtesNama, currentSoalList, userAnswers, score, benar, totalSoal);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
 
       try {
         fetch(GAS_API_URL, {
@@ -1737,7 +1775,10 @@
             skor: score,
             jumlahBenar: benar,
             totalSoal: totalSoal,
-            waktuPengerjaan: `${activeQuizDurasi} Menit`
+            waktuPengerjaan: durasiMenitStr,
+            waktuMulai: startTimeStr,
+            waktuSelesai: endTimeStr,
+            durasiDetik: diffSeconds
           })
         });
       } catch (err) {}
@@ -1751,10 +1792,10 @@
       
       if (pastRecord && pastRecord.savedSoal && pastRecord.savedSoal.length > 0) {
         showReviewMode(subtes, pastRecord.savedSoal, pastRecord.savedAnswers || {}, pastRecord.skor, pastRecord.benar, pastRecord.total);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
 
-      // Jika riwayat ditarik dari Google Sheets (device baru), ambil soal & kunci jawabannya langsung dari Sheets
       try {
         const queryParam = resolvePackQuery(subtes);
         const res = await fetch(`${GAS_API_URL}?action=getSoal&subtes=${encodeURIComponent(queryParam)}`);
@@ -1764,6 +1805,7 @@
           const benar = pastRecord ? pastRecord.benar : 0;
           const total = pastRecord ? pastRecord.total : data.soal.length;
           showReviewMode(subtes, data.soal, {}, skor, benar, total);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
           alert("Soal tidak ditemukan di Google Sheets.");
         }
@@ -1828,7 +1870,7 @@
           const isUserChoice = userAns === optKey;
           const isKeyChoice = q.kunci === optKey;
 
-          let optionStyle = "bg-creamWhite border-slateSubtle text-navyDark";
+          let optionStyle = "bg-white border-slateSubtle shadow-card text-navyDark";
           let badgeText = "";
 
           if (isKeyChoice) {
@@ -1843,7 +1885,7 @@
           div.className = `w-full text-left p-4 rounded-2xl border text-sm font-semibold flex items-center gap-3.5 ${optionStyle}`;
           div.innerHTML = `
             <span class="w-8 h-8 rounded-xl ${isKeyChoice ? 'bg-bbtTeal text-white' : (isUserChoice ? 'bg-red-600 text-white' : 'bg-slateLight text-navyDark')} flex items-center justify-center font-bold text-xs shrink-0">${optKey}</span> 
-            <span>${escapeHtml(q.options[optKey])}</span>
+            <span class="justify-text">${escapeHtml(q.options[optKey])}</span>
             ${badgeText}
           `;
           optsBox.appendChild(div);
@@ -1918,15 +1960,18 @@
       container.innerHTML = "";
       myHistory.forEach(res => {
         const item = document.createElement('div');
-        item.className = "p-4 bg-creamWhite rounded-2xl flex justify-between items-center border border-slateSubtle";
+        item.className = "p-4 bg-white rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center border border-slateSubtle shadow-card gap-3";
         item.innerHTML = `
           <div>
             <p class="font-extrabold text-bbtBlue text-sm">${res.subtes}</p>
-            <p class="text-[11px] text-slateText mt-0.5">${res.benar} Benar dari ${res.total} Soal • ${res.waktu}</p>
+            <p class="text-[11px] text-slateText mt-0.5">
+              <b>${res.benar} Benar</b> dari ${res.total} Soal • Tgl: ${res.waktu} <br>
+              Mulai: ${res.waktuMulai || '-'} | Selesai: ${res.waktuSelesai || '-'} | Durasi: <b class="text-bbtBlue">${res.waktuPengerjaan || '-'}</b>
+            </p>
           </div>
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
             <span class="bg-bbtGoldLight text-amber-900 border border-bbtGold/40 px-3 py-1.5 rounded-xl font-extrabold text-xs">Skor: ${res.skor}</span>
-            <button type="button" onclick="reviewPastAnswers('${res.subtes}')" class="bg-bbtBlue hover:bg-bbtBlueDark text-white font-bold px-3.5 py-1.5 rounded-xl text-xs transition cursor-pointer">Pembahasan</button>
+            <button type="button" onclick="reviewPastAnswers('${res.subtes}')" class="bg-bbtBlue hover:bg-bbtBlueDark text-white font-bold px-3.5 py-2 rounded-xl text-xs transition cursor-pointer">Pembahasan</button>
           </div>
         `;
         container.appendChild(item);
