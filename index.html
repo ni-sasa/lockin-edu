@@ -51,25 +51,25 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased selection:bg-bbtBlue selection:text-white">
 
-  <header class="bg-white border-b border-slateSubtle py-3 px-4 sticky top-0 z-40">
+  <header class="bg-white border-b border-slateSubtle py-3.5 px-4 sticky top-0 z-40">
     <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 px-1">
-      <div onclick="handleLogoClick()" class="flex items-center gap-3 cursor-pointer group">
-        <div class="flex items-center gap-1.5 shrink-0">
+      <div onclick="handleLogoClick()" class="flex items-center gap-3.5 cursor-pointer group">
+        <div class="flex items-center gap-2 shrink-0">
           <div class="w-10 h-10 rounded-xl bg-bbtBlue flex items-center justify-center p-2 shadow-2xs group-hover:bg-bbtBlueDark transition">
             <img src="logo-lockin.png" alt="LockIn Edu" class="w-full h-full object-contain">
           </div>
+          <span class="text-slate-400 font-extrabold text-xs select-none">×</span>
           <div class="w-10 h-10 rounded-xl bg-white border border-slateSubtle flex items-center justify-center p-1.5 shadow-2xs group-hover:border-bbtBlue/40 transition">
             <img src="logo-bbt.png" alt="Forum Beasiswa Bantu Teman" class="w-full h-full object-contain">
           </div>
         </div>
 
-        <div class="leading-tight">
-          <div class="flex items-center gap-1.5 flex-wrap">
+        <div class="leading-tight border-l border-slateSubtle pl-3.5">
+          <div class="flex items-center gap-2 flex-wrap">
             <span class="font-poppins font-extrabold text-base sm:text-lg text-navyDark tracking-tight">LockIn <span class="text-bbtBlue">Edu</span></span>
-            <span class="text-slate-300 font-bold text-sm">×</span>
-            <span class="font-poppins font-bold text-xs sm:text-sm text-bbtBlue">Forum Beasiswa Bantu Teman</span>
+            <span class="px-2 py-0.5 rounded-md bg-bbtBlueLight text-bbtBlue font-poppins font-bold text-[11px]">× Forum Beasiswa Bantu Teman</span>
           </div>
-          <p class="text-[10px] text-slateText font-poppins font-bold tracking-[0.14em] uppercase mt-0.5">Focus. Master. Conquer.</p>
+          <p class="text-[10px] text-slateText font-poppins font-bold tracking-[0.16em] uppercase mt-1">Focus. Master. Conquer.</p>
         </div>
       </div>
       
@@ -101,7 +101,7 @@
           <div class="w-14 h-14 rounded-2xl bg-bbtBlue flex items-center justify-center p-2.5 shadow-xs">
             <img src="logo-lockin.png" alt="LockIn Edu" class="w-full h-full object-contain">
           </div>
-          <span class="text-slate-300 font-black text-lg">×</span>
+          <span class="text-slate-400 font-black text-base">×</span>
           <div class="w-14 h-14 rounded-2xl bg-white border border-slateSubtle flex items-center justify-center p-2 shadow-xs">
             <img src="logo-bbt.png" alt="Forum Beasiswa Bantu Teman" class="w-full h-full object-contain">
           </div>
@@ -123,7 +123,6 @@
         <button type="button" id="btnTabRegister" onclick="switchAuthTab('register')" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-slateText hover:text-navyDark transition cursor-pointer">Daftar Akun</button>
       </div>
 
-      <!-- FORM LOGIN -->
       <form id="formLogin" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Email Terdaftar</label>
@@ -142,7 +141,6 @@
         </p>
       </form>
 
-      <!-- FORM DAFTAR -->
       <form id="formRegister" onsubmit="handleRegister(event)" class="space-y-4 hidden">
         <div>
           <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Nama Lengkap</label>
@@ -408,7 +406,6 @@
 
         <!-- TAB PPT MATERI SUBTES (DIGULIR KE BAWAH + BUKA DI TAB BARU) -->
         <div id="tab-materi" class="tab-content hidden space-y-4">
-          <!-- View 1: Daftar Subtes -->
           <div id="pptMainView" class="space-y-4">
             <div>
               <h3 class="text-xl font-black font-poppins text-navyDark">Modul PPT & Ringkasan Materi</h3>
@@ -417,7 +414,6 @@
             <div class="space-y-3" id="pptSubtesListContainer"></div>
           </div>
 
-          <!-- View 2: Daftar Bab dalam Subtes -->
           <div id="pptSubBabView" class="hidden space-y-4">
             <div class="flex items-center justify-between border-b border-slateSubtle pb-4">
               <div class="flex items-center gap-3">
@@ -433,7 +429,6 @@
             <div class="space-y-3" id="pptSubBabListContainer"></div>
           </div>
 
-          <!-- View 3: Reader PPT Inline (Scroll ke bawah + tombol Tab Baru) -->
           <div id="pptReaderView" class="hidden space-y-4">
             <div class="bg-white p-4 sm:p-5 rounded-3xl border border-slateSubtle shadow-card flex flex-wrap justify-between items-center gap-3">
               <div class="flex items-center gap-3">
@@ -455,7 +450,7 @@
                 <div class="w-10 h-10 border-4 border-bbtBlue border-t-transparent rounded-full animate-spin"></div>
                 <p class="text-xs font-bold text-bbtBlue font-poppins animate-pulse">Memuat Slide Presentasi...</p>
               </div>
-              <iframe id="pptInlineIframe" src="" onload="hidePPTInlineLoader()" class="w-full h-[78vh] min-h-[600px] rounded-2xl border border-slateSubtle" frameborder="0" allowfullscreen="true"></iframe>
+              <iframe id="pptInlineIframe" src="" onload="hidePPTInlineLoader()" class="w-full h-[80vh] min-h-[620px] rounded-2xl border border-slateSubtle" frameborder="0" allowfullscreen="true"></iframe>
             </div>
           </div>
         </div>
@@ -605,12 +600,12 @@
             <span>Navigasi Nomor Soal</span>
             <span class="text-[10px]">Klik nomor untuk lompat soal</span>
           </div>
-          <div id="numberGrid" class="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-36 overflow-y-auto pr-1 custom-scrollbar"></div>
+          <div id="numberGrid" class="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-40 overflow-y-auto p-1.5 custom-scrollbar"></div>
         </div>
 
         <div class="bg-creamWhite p-6 rounded-2xl border border-slateSubtle space-y-4 min-h-[140px]">
           <img id="quizQuestionImage" src="" alt="Gambar Soal" class="hidden max-h-72 mx-auto rounded-xl border border-slateSubtle object-contain">
-          <div id="quizQuestion" class="text-base text-navyDark leading-relaxed font-semibold whitespace-pre-line">
+          <div id="quizQuestion" class="text-[15px] text-navyDark leading-7 font-semibold space-y-3">
             Sedang memuat soal...
           </div>
         </div>
@@ -668,12 +663,12 @@
               <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Salah</span>
             </div>
           </div>
-          <div id="reviewNumberGrid" class="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-36 overflow-y-auto pr-1 custom-scrollbar"></div>
+          <div id="reviewNumberGrid" class="grid grid-cols-6 sm:grid-cols-10 gap-2 max-h-40 overflow-y-auto p-1.5 custom-scrollbar"></div>
         </div>
 
         <div class="bg-creamWhite p-6 rounded-2xl border border-slateSubtle space-y-4">
           <img id="reviewQuestionImage" src="" alt="Gambar Soal" class="hidden max-h-72 mx-auto rounded-xl border border-slateSubtle object-contain">
-          <div id="reviewQuestionText" class="text-base text-navyDark leading-relaxed font-semibold whitespace-pre-line">-</div>
+          <div id="reviewQuestionText" class="text-[15px] text-navyDark leading-7 font-semibold space-y-3">-</div>
         </div>
 
         <div id="reviewOptionsBox" class="space-y-3"></div>
@@ -682,7 +677,7 @@
           <h4 class="font-extrabold text-sm text-bbtBlue flex items-center gap-2">
             <i class="fa-solid fa-lightbulb text-bbtGold"></i> Pembahasan Lengkap:
           </h4>
-          <div id="reviewExplanationText" class="text-sm font-medium whitespace-pre-line text-slateBlue">-</div>
+          <div id="reviewExplanationText" class="text-sm font-medium leading-7 space-y-2 text-slateBlue">-</div>
         </div>
 
         <div class="flex justify-between items-center pt-4 border-t border-slateSubtle">
@@ -705,7 +700,6 @@
   <script>
     const GAS_API_URL = "https://script.google.com/macros/s/AKfycbyBYAOsE2m84xbumOra0A_vcqSHNUpD__Z_Ks_yp6uIDx7eJTudrKyBSQB4MwsyDLUdEg/exec";
 
-    // Hapus sisa cache akun lokal lama agar 100% mengikuti Google Sheets
     localStorage.removeItem("lockin_all_users");
 
     let currentUser = null;
@@ -773,6 +767,46 @@
     let reviewSoalList = [];
     let reviewAnswersList = {};
 
+    function formatFormattedText(rawText) {
+      if (!rawText) return "";
+      const paragraphs = String(rawText)
+        .replace(/\r\n/g, '\n')
+        .split(/\n+/)
+        .map(p => p.trim())
+        .filter(p => p.length > 0);
+      return paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function resolvePackQuery(subtes) {
+      if (subtes.includes("Drill-Pack 1")) {
+        if (subtes.includes("Penalaran Umum")) return "PU-001";
+        if (subtes.includes("PPU")) return "PPU-001";
+        if (subtes.includes("PBM")) return "PBM-001";
+        if (subtes.includes("Kuantitatif")) return "PK-001";
+        if (subtes.includes("Literasi B. Indo")) return "LBI-001";
+        if (subtes.includes("Literasi B. Inggris")) return "BIG-001";
+        if (subtes.includes("Penalaran Matematika")) return "PM-001";
+      } else if (subtes.includes("Drill-Pack 2")) {
+        if (subtes.includes("Penalaran Umum")) return "PU-002";
+        if (subtes.includes("PPU")) return "PPU-002";
+        if (subtes.includes("PBM")) return "PBM-002";
+        if (subtes.includes("Kuantitatif")) return "PK-002";
+        if (subtes.includes("Literasi B. Indo")) return "LBI-002";
+        if (subtes.includes("Literasi B. Inggris")) return "BIG-002";
+        if (subtes.includes("Penalaran Matematika")) return "PM-002";
+      }
+      return subtes;
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
       try {
         historyResults = JSON.parse(localStorage.getItem("lockin_history")) || [];
@@ -788,6 +822,41 @@
         showAuthForm();
       }
     });
+
+    async function syncHistoryFromSheets() {
+      if (!currentUser || !currentUser.email) return;
+      try {
+        const res = await fetch(`${GAS_API_URL}?action=getHistory&userId=${encodeURIComponent(currentUser.email)}`);
+        const data = await res.json();
+        if (data.status === 'success' && Array.isArray(data.history)) {
+          data.history.forEach(remoteItem => {
+            const idx = historyResults.findIndex(localItem =>
+              localItem.subtes === remoteItem.subtes &&
+              (localItem.userId === currentUser.email || localItem.userId === currentUser.userId)
+            );
+            if (idx !== -1) {
+              historyResults[idx].skor = remoteItem.skor;
+              historyResults[idx].benar = remoteItem.benar;
+              historyResults[idx].total = remoteItem.total;
+              historyResults[idx].waktu = remoteItem.waktu;
+            } else {
+              historyResults.push({
+                userId: currentUser.email,
+                subtes: remoteItem.subtes,
+                skor: remoteItem.skor,
+                benar: remoteItem.benar,
+                total: remoteItem.total,
+                waktu: remoteItem.waktu,
+                savedSoal: null,
+                savedAnswers: {}
+              });
+            }
+          });
+          localStorage.setItem("lockin_history", JSON.stringify(historyResults));
+          renderHistory();
+        }
+      } catch (e) {}
+    }
 
     function showAuthAlert(message, type = 'error') {
       const box = document.getElementById('authAlertBox');
@@ -1073,6 +1142,7 @@
       renderPPTSubtesList();
       renderLiveSessions();
       renderHistory();
+      syncHistoryFromSheets();
       checkActiveSessionOnLoad();
     }
 
@@ -1107,17 +1177,25 @@
       const box = document.getElementById('latsoSubBabListContainer');
       box.innerHTML = "";
 
+      const currentUserId = currentUser ? currentUser.userId : "";
+      const currentUserEmail = currentUser ? currentUser.email : "";
+
       subtes.drillPacks.forEach(dp => {
+        const done = historyResults.find(r => r.subtes === dp.judul && (r.userId === currentUserId || r.userId === currentUserEmail));
+        const badgeHTML = done
+          ? `<span class="text-[10px] font-extrabold text-teal-800 uppercase bg-bbtTealLight px-2.5 py-0.5 rounded-md mb-1 inline-block">Selesai • Skor ${done.skor}</span>`
+          : `<span class="text-[10px] font-bold text-teal-800 uppercase bg-bbtTealLight px-2 py-0.5 rounded-md mb-1 inline-block">Mandiri 24/7</span>`;
+
         const div = document.createElement('div');
         div.className = "bg-creamWhite p-5 rounded-2xl border border-slateSubtle flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
         div.innerHTML = `
           <div>
-            <span class="text-[10px] font-bold text-teal-800 uppercase bg-bbtTealLight px-2 py-0.5 rounded-md mb-1 inline-block">Mandiri 24/7</span>
+            ${badgeHTML}
             <h4 class="font-extrabold text-navyDark text-sm">${dp.judul}</h4>
             <p class="text-xs text-slateText font-medium mt-0.5">${dp.soalCount} Soal • Durasi: ${dp.durasi} Menit</p>
           </div>
-          <button type="button" onclick="openPreQuizModal('${dp.judul}', ${dp.soalCount}, ${dp.durasi})" class="w-full sm:w-auto bg-bbtBlue hover:bg-bbtBlueDark px-5 py-2.5 rounded-xl text-xs font-bold text-white transition active:scale-95 cursor-pointer">
-            Kerjakan Paket Ini
+          <button type="button" onclick="openPreQuizModal('${dp.judul}', ${dp.soalCount}, ${dp.durasi})" class="w-full sm:w-auto ${done ? 'bg-bbtTeal hover:bg-bbtTealDark' : 'bg-bbtBlue hover:bg-bbtBlueDark'} px-5 py-2.5 rounded-xl text-xs font-bold text-white transition active:scale-95 cursor-pointer">
+            ${done ? 'Pembahasan / Ulangi' : 'Kerjakan Paket Ini'}
           </button>
         `;
         box.appendChild(div);
@@ -1242,7 +1320,7 @@
       document.getElementById('pptMainView').classList.remove('hidden');
     }
 
-    // ==================== LIVE SESI TUTOR (DARI SHEET "LiveSesi") ====================
+    // ==================== LIVE SESI TUTOR ====================
     async function renderLiveSessions() {
       const box = document.getElementById('liveSessionList');
       if (!box) return;
@@ -1388,30 +1466,12 @@
       document.getElementById('quizSubtes').innerText = subtes;
 
       if (!isResuming) {
-        document.getElementById('quizQuestion').innerText = "Sedang mengambil data soal dari Google Sheets...";
+        document.getElementById('quizQuestion').innerHTML = "<p>Sedang mengambil data soal dari Google Sheets...</p>";
         document.getElementById('quizQuestionImage').classList.add('hidden');
         document.getElementById('quizOptions').innerHTML = "";
 
         try {
-          let queryParam = subtes;
-          if (subtes.includes("Drill-Pack 1")) {
-            if (subtes.includes("Penalaran Umum")) queryParam = "PU-001";
-            else if (subtes.includes("PPU")) queryParam = "PPU-001";
-            else if (subtes.includes("PBM")) queryParam = "PBM-001";
-            else if (subtes.includes("Kuantitatif")) queryParam = "PK-001";
-            else if (subtes.includes("Literasi B. Indo")) queryParam = "LBI-001";
-            else if (subtes.includes("Literasi B. Inggris")) queryParam = "BIG-001";
-            else if (subtes.includes("Penalaran Matematika")) queryParam = "PM-001";
-          } else if (subtes.includes("Drill-Pack 2")) {
-            if (subtes.includes("Penalaran Umum")) queryParam = "PU-002";
-            else if (subtes.includes("PPU")) queryParam = "PPU-002";
-            else if (subtes.includes("PBM")) queryParam = "PBM-002";
-            else if (subtes.includes("Kuantitatif")) queryParam = "PK-002";
-            else if (subtes.includes("Literasi B. Indo")) queryParam = "LBI-002";
-            else if (subtes.includes("Literasi B. Inggris")) queryParam = "BIG-002";
-            else if (subtes.includes("Penalaran Matematika")) queryParam = "PM-002";
-          }
-
+          const queryParam = resolvePackQuery(subtes);
           const response = await fetch(`${GAS_API_URL}?action=getSoal&subtes=${encodeURIComponent(queryParam)}`);
           const result = await response.json();
 
@@ -1507,7 +1567,7 @@
     function renderQuestion() {
       const q = currentSoalList[currentIndex];
       document.getElementById('quizCurrentNo').innerText = currentIndex + 1;
-      document.getElementById('quizQuestion').innerText = q.pertanyaan;
+      document.getElementById('quizQuestion').innerHTML = formatFormattedText(q.pertanyaan);
 
       const imgEl = document.getElementById('quizQuestionImage');
       if (q.gambarUrl && String(q.gambarUrl).trim() !== "") {
@@ -1535,7 +1595,7 @@
           btn.onclick = () => selectOption(optKey);
           btn.innerHTML = `
             <span class="w-8 h-8 rounded-xl ${isSelected ? 'bg-bbtBlue text-white' : 'bg-slateLight text-navyDark'} flex items-center justify-center font-bold text-xs shrink-0">${optKey}</span> 
-            <span>${q.options[optKey]}</span>
+            <span>${escapeHtml(q.options[optKey])}</span>
           `;
           optsBox.appendChild(btn);
         }
@@ -1683,23 +1743,39 @@
       } catch (err) {}
     }
 
-    function reviewPastAnswers(subtes) {
+    async function reviewPastAnswers(subtes) {
       closePreQuizModal();
       const activeUserId = currentUser ? currentUser.userId : "";
       const activeUserEmail = currentUser ? currentUser.email : "";
       const pastRecord = historyResults.find(r => r.subtes === subtes && (r.userId === activeUserId || r.userId === activeUserEmail));
       
-      if (pastRecord && pastRecord.savedSoal) {
+      if (pastRecord && pastRecord.savedSoal && pastRecord.savedSoal.length > 0) {
         showReviewMode(subtes, pastRecord.savedSoal, pastRecord.savedAnswers || {}, pastRecord.skor, pastRecord.benar, pastRecord.total);
-      } else {
-        alert("Riwayat soal tidak ditemukan. Silakan kerjakan ulang kuis.");
+        return;
+      }
+
+      // Jika riwayat ditarik dari Google Sheets (device baru), ambil soal & kunci jawabannya langsung dari Sheets
+      try {
+        const queryParam = resolvePackQuery(subtes);
+        const res = await fetch(`${GAS_API_URL}?action=getSoal&subtes=${encodeURIComponent(queryParam)}`);
+        const data = await res.json();
+        if (data.status === 'success' && data.soal && data.soal.length > 0) {
+          const skor = pastRecord ? pastRecord.skor : 0;
+          const benar = pastRecord ? pastRecord.benar : 0;
+          const total = pastRecord ? pastRecord.total : data.soal.length;
+          showReviewMode(subtes, data.soal, {}, skor, benar, total);
+        } else {
+          alert("Soal tidak ditemukan di Google Sheets.");
+        }
+      } catch (e) {
+        alert("Gagal memuat pembahasan dari server.");
       }
     }
 
     function showReviewMode(subtesNama, soalList, answers, skor, benar, total) {
       reviewSubtesNama = subtesNama;
       reviewSoalList = soalList;
-      reviewAnswersList = answers;
+      reviewAnswersList = answers || {};
       reviewIndex = 0;
 
       document.getElementById('dashboardSection').classList.add('hidden');
@@ -1723,8 +1799,8 @@
       const isCorrect = userAns === q.kunci;
 
       document.getElementById('reviewCurrentNo').innerText = reviewIndex + 1;
-      document.getElementById('reviewQuestionText').innerText = q.pertanyaan;
-      document.getElementById('reviewExplanationText').innerText = q.pembahasan;
+      document.getElementById('reviewQuestionText').innerHTML = formatFormattedText(q.pertanyaan);
+      document.getElementById('reviewExplanationText').innerHTML = formatFormattedText(q.pembahasan);
 
       const imgEl = document.getElementById('reviewQuestionImage');
       if (q.gambarUrl && String(q.gambarUrl).trim() !== "") {
@@ -1736,10 +1812,12 @@
       }
 
       const badgeBox = document.getElementById('reviewStatusBadge');
-      if (isCorrect) {
+      if (userAns === "-") {
+        badgeBox.innerHTML = `<span class="bg-slateLight text-slateText font-extrabold px-3 py-1.5 rounded-xl text-xs"><i class="fa-solid fa-key text-bbtBlue"></i> Kunci & Pembahasan</span>`;
+      } else if (isCorrect) {
         badgeBox.innerHTML = `<span class="bg-bbtTealLight text-teal-800 font-extrabold px-3 py-1.5 rounded-xl text-xs"><i class="fa-solid fa-circle-check"></i> Jawaban Benar</span>`;
       } else {
-        badgeBox.innerHTML = `<span class="bg-red-100 text-red-800 font-extrabold px-3 py-1.5 rounded-xl text-xs"><i class="fa-solid fa-circle-xmark"></i> Jawaban Salah / Kosong</span>`;
+        badgeBox.innerHTML = `<span class="bg-red-100 text-red-800 font-extrabold px-3 py-1.5 rounded-xl text-xs"><i class="fa-solid fa-circle-xmark"></i> Jawaban Salah</span>`;
       }
 
       const optsBox = document.getElementById('reviewOptionsBox');
@@ -1765,7 +1843,7 @@
           div.className = `w-full text-left p-4 rounded-2xl border text-sm font-semibold flex items-center gap-3.5 ${optionStyle}`;
           div.innerHTML = `
             <span class="w-8 h-8 rounded-xl ${isKeyChoice ? 'bg-bbtTeal text-white' : (isUserChoice ? 'bg-red-600 text-white' : 'bg-slateLight text-navyDark')} flex items-center justify-center font-bold text-xs shrink-0">${optKey}</span> 
-            <span>${q.options[optKey]}</span>
+            <span>${escapeHtml(q.options[optKey])}</span>
             ${badgeText}
           `;
           optsBox.appendChild(div);
@@ -1788,8 +1866,10 @@
         const isCorrect = userAns === q.kunci;
         const isCurrent = idx === reviewIndex;
 
-        let btnClass = isCorrect ? "bg-bbtTeal text-white font-bold border-bbtTeal" : "bg-red-500 text-white font-bold border-red-500";
-        if (isCurrent) btnClass += " ring-4 ring-navyDark border-navyDark";
+        let btnClass = userAns === "-"
+          ? "bg-bbtBlueLight text-bbtBlue font-bold border-bbtBlue/30"
+          : (isCorrect ? "bg-bbtTeal text-white font-bold border-bbtTeal" : "bg-red-500 text-white font-bold border-red-500");
+        if (isCurrent) btnClass += " ring-2 ring-navyDark border-navyDark";
 
         const btn = document.createElement('button');
         btn.type = "button";
