@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LockIn Edu - Focus. Master. Conquer.</title>
+  <title>LockIn Edu × Beasiswa Bantu Teman - Focus. Master. Conquer.</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,11 +16,13 @@
           colors: {
             navyDark: '#0F172A',
             slateBlue: '#1E293B',
-            tealElectric: '#0D9488',
-            cyanFresh: '#2DD4BF',
-            cyanLight: '#CCFBF1',
-            amberWarm: '#F59E0B',
-            amberLight: '#FEF3C7',
+            bbtBlue: '#026FC0',
+            bbtBlueDark: '#015696',
+            bbtBlueLight: '#E6F2FB',
+            bbtTeal: '#39C59E',
+            bbtTealLight: '#E8F9F4',
+            bbtGold: '#F9B926',
+            bbtGoldLight: '#FEF6E2',
             slateLight: '#F1F5F9',
             slateSubtle: '#E2E8F0',
             slateText: '#64748B',
@@ -31,7 +33,8 @@
             nunito: ['Nunito', 'sans-serif'],
           },
           boxShadow: {
-            'soft-glow': '0 10px 30px -5px rgba(13, 148, 136, 0.2)',
+            'soft-glow': '0 10px 28px -5px rgba(2, 111, 192, 0.25)',
+            'teal-glow': '0 10px 25px -5px rgba(57, 197, 158, 0.25)',
             'card': '0 4px 20px 0 rgba(15, 23, 42, 0.05)',
           }
         }
@@ -43,28 +46,35 @@
     h1, h2, h3, h4, h5, h6, .font-poppins { font-family: 'Poppins', sans-serif; }
     .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 10px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #0D9488; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #026FC0; border-radius: 10px; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-tealElectric selection:text-white">
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-bbtBlue selection:text-white">
 
   <header class="bg-white/95 backdrop-blur-md border-b border-slateSubtle p-4 sticky top-0 z-40 shadow-xs">
-    <div class="max-w-7xl mx-auto flex justify-between items-center px-2">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 px-2">
       <div onclick="handleLogoClick()" class="flex items-center gap-3 cursor-pointer group">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-navyDark via-tealElectric to-cyanFresh flex items-center justify-center text-white shadow-soft-glow group-hover:scale-105 transition">
-          <i class="fa-solid fa-lock text-xl text-cyanFresh"></i>
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-bbtBlue via-bbtBlue to-bbtTeal flex items-center justify-center text-white shadow-soft-glow group-hover:scale-105 transition">
+          <i class="fa-solid fa-lock text-xl text-white"></i>
         </div>
         <div>
-          <span class="font-poppins font-extrabold text-2xl text-navyDark tracking-tight">LockIn <span class="text-tealElectric">Edu</span></span>
-          <p class="text-xs text-slateText font-poppins font-bold tracking-wider uppercase -mt-0.5">Focus. Master. Conquer.</p>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-poppins font-extrabold text-xl sm:text-2xl text-navyDark tracking-tight">LockIn <span class="text-bbtBlue">Edu</span></span>
+            <span class="text-slateText font-bold text-sm">×</span>
+            <span class="inline-flex items-center gap-1.5 bg-bbtBlueLight border border-bbtBlue/20 text-bbtBlue px-2.5 py-1 rounded-xl font-poppins font-bold text-xs">
+              <i class="fa-solid fa-graduation-cap text-bbtGold"></i>
+              <span>Forum Beasiswa Bantu Teman</span>
+            </span>
+          </div>
+          <p class="text-[11px] text-slateText font-poppins font-bold tracking-wider uppercase mt-0.5">Focus. Master. Conquer. • Ekosistem Persiapan UTBK-SNBT 2027</p>
         </div>
       </div>
       
-      <div id="userBadge" class="hidden flex items-center gap-4">
-        <button type="button" onclick="openProfileModal()" class="flex items-center gap-2.5 bg-slateLight hover:bg-slateSubtle px-4 py-2 rounded-full border border-slateSubtle transition cursor-pointer">
-          <i class="fa-solid fa-circle-user text-tealElectric text-lg"></i>
+      <div id="userBadge" class="hidden flex items-center gap-3">
+        <button type="button" onclick="openProfileModal()" class="flex items-center gap-2.5 bg-bbtBlueLight/60 hover:bg-bbtBlueLight px-4 py-2 rounded-full border border-bbtBlue/20 transition cursor-pointer">
+          <i class="fa-solid fa-circle-user text-bbtBlue text-lg"></i>
           <span id="navUserName" class="text-sm font-extrabold text-navyDark">Siswa</span>
-          <i class="fa-solid fa-pen-to-square text-xs text-slateText ml-1"></i>
+          <i class="fa-solid fa-pen-to-square text-xs text-bbtBlue ml-1"></i>
         </button>
         <button type="button" onclick="logout()" class="text-xs bg-red-50 text-red-600 px-4 py-2 rounded-xl border border-red-200 hover:bg-red-100 font-bold transition flex items-center gap-1.5 cursor-pointer">
           <i class="fa-solid fa-right-from-bracket"></i> Logout
@@ -75,58 +85,72 @@
 
   <main class="max-w-7xl mx-auto w-full p-4 sm:p-6 flex-grow">
 
-    <div id="authSection" class="max-w-md mx-auto my-12 bg-white p-8 rounded-3xl border border-slateSubtle shadow-card">
-      <div class="text-center mb-6">
-        <div class="w-16 h-16 rounded-2xl bg-navyDark flex items-center justify-center text-cyanFresh shadow-soft-glow mx-auto mb-3">
-          <i class="fa-solid fa-lock text-2xl"></i>
+    <!-- 1. AUTH CONTAINER -->
+    <div id="authSection" class="max-w-md mx-auto my-10 bg-white p-8 rounded-3xl border border-slateSubtle shadow-card relative overflow-hidden">
+      <div class="h-2 bg-gradient-to-r from-bbtBlue via-bbtTeal to-bbtGold absolute top-0 inset-x-0"></div>
+      
+      <div class="text-center mb-6 pt-2">
+        <div class="inline-flex items-center justify-center gap-3 mb-4">
+          <div class="w-14 h-14 rounded-2xl bg-bbtBlue flex items-center justify-center text-white shadow-soft-glow">
+            <i class="fa-solid fa-lock text-2xl"></i>
+          </div>
+          <span class="text-slateText font-black text-lg">×</span>
+          <div class="w-14 h-14 rounded-2xl bg-bbtBlueLight border-2 border-bbtBlue/30 flex items-center justify-center text-bbtBlue shadow-xs">
+            <i class="fa-solid fa-graduation-cap text-2xl text-bbtBlue"></i>
+          </div>
         </div>
+        <span class="inline-block px-3 py-1 rounded-full bg-bbtTealLight text-teal-800 border border-bbtTeal/30 font-extrabold text-[10px] uppercase tracking-wider mb-2">
+          Program Kolaborasi Pendidikan
+        </span>
         <h2 class="text-2xl font-black text-navyDark">Selamat Datang!</h2>
-        <p class="text-xs text-slateText font-medium mt-1">Masuk untuk memulai Mode LockIn ON: Amanin Kursi PTN 2027.</p>
+        <p class="text-xs text-slateText font-medium mt-1">LockIn Edu × Forum Beasiswa Bantu Teman: Amanin Kursi PTN 2027.</p>
       </div>
 
       <div class="flex gap-2 mb-6 bg-slateLight p-1.5 rounded-2xl border border-slateSubtle">
-        <button type="button" id="btnTabLogin" onclick="switchAuthTab('login')" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-tealElectric text-white shadow-soft-glow transition cursor-pointer">Login</button>
+        <button type="button" id="btnTabLogin" onclick="switchAuthTab('login')" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-bbtBlue text-white shadow-soft-glow transition cursor-pointer">Login</button>
         <button type="button" id="btnTabRegister" onclick="switchAuthTab('register')" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-slateText hover:text-navyDark transition cursor-pointer">Daftar</button>
       </div>
 
       <form id="formLogin" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Email Siswa</label>
-          <input type="email" id="loginEmail" placeholder="email@gmail.com" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-tealElectric transition">
+          <input type="email" id="loginEmail" placeholder="email@gmail.com" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
         </div>
         <div>
           <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Password</label>
-          <input type="password" id="loginPassword" placeholder="••••••••" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-tealElectric transition">
+          <input type="password" id="loginPassword" placeholder="••••••••" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
         </div>
-        <button type="submit" id="btnLoginSubmit" class="w-full bg-tealElectric hover:bg-tealElectric/90 py-3.5 rounded-xl font-bold text-sm text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 mt-2 cursor-pointer">
-          <span>Masuk ke LockIn Edu</span>
-          <i class="fa-solid fa-bolt text-amberWarm"></i>
+        <button type="submit" id="btnLoginSubmit" class="w-full bg-bbtBlue hover:bg-bbtBlueDark py-3.5 rounded-xl font-bold text-sm text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 mt-2 cursor-pointer">
+          <span>Masuk ke Portal Belajar</span>
+          <i class="fa-solid fa-bolt text-bbtGold"></i>
         </button>
       </form>
 
       <form id="formRegister" onsubmit="handleRegister(event)" class="space-y-4 hidden">
         <div>
           <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Nama Lengkap</label>
-          <input type="text" id="regNama" placeholder="Nama Calon Mahasiswa" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-tealElectric transition">
+          <input type="text" id="regNama" placeholder="Nama Calon Mahasiswa" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
         </div>
         <div>
           <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Email</label>
-          <input type="email" id="regEmail" placeholder="email@gmail.com" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-tealElectric transition">
+          <input type="email" id="regEmail" placeholder="email@gmail.com" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
         </div>
         <div>
           <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Password</label>
-          <input type="password" id="regPassword" placeholder="••••••••" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-tealElectric transition">
+          <input type="password" id="regPassword" placeholder="••••••••" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
         </div>
-        <button type="submit" class="w-full bg-tealElectric hover:bg-tealElectric/90 py-3.5 rounded-xl font-bold text-sm text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 mt-2 cursor-pointer">
-          <span>Buat Akun Siswa</span>
-          <i class="fa-solid fa-user-plus"></i>
+        <button type="submit" class="w-full bg-bbtBlue hover:bg-bbtBlueDark py-3.5 rounded-xl font-bold text-sm text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 mt-2 cursor-pointer">
+          <span>Buat Akun Peserta</span>
+          <i class="fa-solid fa-user-plus text-bbtGold"></i>
         </button>
       </form>
     </div>
 
+    <!-- 2. FORM PENDAFTARAN PROFIL SISWA -->
     <div id="profileSection" class="max-w-xl mx-auto my-10 bg-white p-8 rounded-3xl border border-slateSubtle shadow-card hidden">
       <div class="mb-6">
-        <h2 class="text-2xl font-black text-navyDark font-poppins">Lengkapi Profil Target Kampus</h2>
+        <span class="px-3 py-1 rounded-full bg-bbtBlueLight text-bbtBlue font-bold text-[10px] uppercase tracking-wider">LockIn Edu × Beasiswa Bantu Teman</span>
+        <h2 class="text-2xl font-black text-navyDark font-poppins mt-2">Lengkapi Profil Target Kampus</h2>
         <p class="text-xs text-slateText mt-1">Isi target kamu secara terpisah untuk pemetaan nilai asesmen.</p>
       </div>
       
@@ -134,19 +158,19 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Kelas</label>
-            <select id="profKelas" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-tealElectric transition">
+            <select id="profKelas" required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
               <option value="12 SMA">12 SMA</option>
               <option value="Gap Year">Gap Year</option>
             </select>
           </div>
           <div>
             <label class="block text-xs font-bold text-navyDark mb-1.5 uppercase tracking-wider">Asal Sekolah</label>
-            <input type="text" id="profSekolah" placeholder="Misal: SMA Negeri 1 ..." required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-tealElectric transition">
+            <input type="text" id="profSekolah" placeholder="Misal: SMA Negeri 1 ..." required class="w-full bg-creamWhite border border-slateSubtle rounded-xl px-4 py-3 text-sm text-navyDark font-semibold focus:outline-none focus:ring-2 focus:ring-bbtBlue transition">
           </div>
         </div>
 
         <div class="p-4 bg-creamWhite rounded-2xl border border-slateSubtle space-y-3">
-          <p class="text-xs font-extrabold text-tealElectric uppercase tracking-wider">Pilihan 1 (Utama)</p>
+          <p class="text-xs font-extrabold text-bbtBlue uppercase tracking-wider">Pilihan 1 (Utama)</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-[11px] font-bold text-slateText mb-1">Universitas Pilihan 1</label>
@@ -173,81 +197,88 @@
           </div>
         </div>
 
-        <button type="submit" class="w-full bg-tealElectric hover:bg-tealElectric/90 text-white font-extrabold py-3.5 rounded-xl text-sm transition shadow-soft-glow active:scale-95 flex items-center justify-center gap-2 mt-2 cursor-pointer">
+        <button type="submit" class="w-full bg-bbtBlue hover:bg-bbtBlueDark text-white font-extrabold py-3.5 rounded-xl text-sm transition shadow-soft-glow active:scale-95 flex items-center justify-center gap-2 mt-2 cursor-pointer">
           <span>Simpan & Masuk Dashboard</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </form>
     </div>
 
+    <!-- 3. MAIN DASHBOARD AREA -->
     <div id="dashboardSection" class="hidden grid grid-cols-1 md:grid-cols-4 gap-6 my-4">
       <div class="bg-white p-5 rounded-3xl border border-slateSubtle shadow-card h-fit space-y-2">
-        <p class="text-[10px] font-extrabold text-slateText uppercase tracking-widest px-3 mb-1">Menu Utama</p>
-        <button type="button" onclick="switchMenu('beranda')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 bg-tealElectric text-white shadow-soft-glow transition cursor-pointer" id="btn-beranda">
+        <div class="px-3 pb-2 mb-2 border-b border-slateSubtle">
+          <p class="text-[10px] font-extrabold text-bbtBlue uppercase tracking-widest">Ekosistem Belajar</p>
+          <p class="text-xs font-bold text-navyDark mt-0.5">LockIn × Bantu Teman</p>
+        </div>
+        <button type="button" onclick="switchMenu('beranda')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 bg-bbtBlue text-white shadow-soft-glow transition cursor-pointer" id="btn-beranda">
           <i class="fa-solid fa-house w-5 text-center text-sm"></i> Beranda
         </button>
-        <button type="button" onclick="switchMenu('latihan')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-slateLight hover:text-navyDark transition cursor-pointer" id="btn-latihan">
+        <button type="button" onclick="switchMenu('latihan')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-bbtBlueLight/60 hover:text-bbtBlue transition cursor-pointer" id="btn-latihan">
           <i class="fa-solid fa-pen-to-square w-5 text-center text-sm"></i> Latihan 7 Subtes
         </button>
-        <button type="button" onclick="switchMenu('tes')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-slateLight hover:text-navyDark transition cursor-pointer" id="btn-tes">
+        <button type="button" onclick="switchMenu('tes')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-bbtBlueLight/60 hover:text-bbtBlue transition cursor-pointer" id="btn-tes">
           <i class="fa-solid fa-stopwatch w-5 text-center text-sm"></i> Asesmen & Tryout
         </button>
-        <button type="button" onclick="switchMenu('live')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-slateLight hover:text-navyDark transition cursor-pointer" id="btn-live">
+        <button type="button" onclick="switchMenu('live')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-bbtBlueLight/60 hover:text-bbtBlue transition cursor-pointer" id="btn-live">
           <i class="fa-solid fa-video w-5 text-center text-sm text-red-500"></i> Live Sesi Tutor
         </button>
-        <button type="button" onclick="switchMenu('materi')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-slateLight hover:text-navyDark transition cursor-pointer" id="btn-materi">
+        <button type="button" onclick="switchMenu('materi')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-bbtBlueLight/60 hover:text-bbtBlue transition cursor-pointer" id="btn-materi">
           <i class="fa-solid fa-book-open w-5 text-center text-sm"></i> PPT Materi Subtes
         </button>
-        <button type="button" onclick="switchMenu('progres')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-slateLight hover:text-navyDark transition cursor-pointer" id="btn-progres">
+        <button type="button" onclick="switchMenu('progres')" class="menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-bbtBlueLight/60 hover:text-bbtBlue transition cursor-pointer" id="btn-progres">
           <i class="fa-solid fa-chart-line w-5 text-center text-sm"></i> Perkembangan Nilai
         </button>
       </div>
 
       <div class="md:col-span-3 space-y-6">
-        <div id="activeSessionBanner" class="hidden bg-gradient-to-r from-amber-500 to-amber-600 p-5 rounded-3xl text-white shadow-card flex justify-between items-center">
+        <div id="activeSessionBanner" class="hidden bg-gradient-to-r from-bbtGold to-amber-500 p-5 rounded-3xl text-navyDark shadow-card flex justify-between items-center">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white text-lg">
+            <div class="w-10 h-10 rounded-xl bg-white/40 flex items-center justify-center text-navyDark text-lg">
               <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm">Ujian Sedang Berlangsung!</h4>
-              <p class="text-xs text-amber-100">Kamu memiliki sesi latihan yang belum selesai.</p>
+              <h4 class="font-extrabold text-sm">Ujian Sedang Berlangsung!</h4>
+              <p class="text-xs font-semibold text-navyDark/80">Kamu memiliki sesi latihan yang belum selesai.</p>
             </div>
           </div>
-          <button type="button" onclick="resumeActiveQuiz()" class="bg-white text-amber-800 hover:bg-amber-50 px-5 py-2.5 rounded-xl font-bold text-xs shadow-md transition cursor-pointer">
+          <button type="button" onclick="resumeActiveQuiz()" class="bg-navyDark text-white hover:bg-slateBlue px-5 py-2.5 rounded-xl font-bold text-xs shadow-md transition cursor-pointer">
             Lanjutkan Ujian
           </button>
         </div>
 
         <div id="tab-beranda" class="tab-content space-y-5">
-          <div class="bg-gradient-to-r from-navyDark via-slateBlue to-tealElectric p-8 rounded-3xl text-white shadow-card relative overflow-hidden">
+          <div class="bg-gradient-to-r from-navyDark via-bbtBlue to-bbtTeal p-8 rounded-3xl text-white shadow-card relative overflow-hidden">
             <div class="space-y-2 z-10 relative">
-              <span class="px-3 py-1 rounded-full bg-tealElectric/20 text-cyanFresh border border-tealElectric/30 font-extrabold text-[10px] uppercase tracking-wider">LockIn Learning Ecosystem</span>
-              <h2 class="text-3xl font-black font-poppins text-white mt-1">Halo, <span id="dashNama" class="text-cyanFresh">Siswa</span>! 👋</h2>
-              <p class="text-xs text-slate-300 font-semibold leading-relaxed">
-                Target 1: <span id="dashPilihan1" class="text-amberWarm font-bold">-</span> &nbsp;|&nbsp; Target 2: <span id="dashPilihan2" class="text-amberWarm font-bold">-</span>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-3 py-1 rounded-full bg-white/15 text-white border border-white/25 font-extrabold text-[10px] uppercase tracking-wider">LockIn Edu × Forum Beasiswa Bantu Teman</span>
+                <span class="px-2.5 py-1 rounded-full bg-bbtGold text-navyDark font-extrabold text-[10px] uppercase tracking-wider">UTBK-SNBT 2027</span>
+              </div>
+              <h2 class="text-3xl font-black font-poppins text-white mt-2">Halo, <span id="dashNama" class="text-bbtGold">Siswa</span>! 👋</h2>
+              <p class="text-xs text-white/90 font-semibold leading-relaxed">
+                Target 1: <span id="dashPilihan1" class="text-bbtGold font-extrabold">-</span> &nbsp;|&nbsp; Target 2: <span id="dashPilihan2" class="text-bbtGold font-extrabold">-</span>
               </p>
             </div>
-            <div class="absolute -right-10 -bottom-10 w-56 h-56 bg-tealElectric/30 rounded-full blur-3xl"></div>
+            <div class="absolute -right-8 -bottom-8 w-56 h-56 bg-bbtGold/20 rounded-full blur-3xl"></div>
           </div>
           
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="bg-white p-5 rounded-2xl border border-slateSubtle shadow-xs text-center flex flex-col items-center justify-center">
-              <div class="w-10 h-10 rounded-xl bg-tealElectric/10 text-tealElectric flex items-center justify-center text-xl mb-2">
-                <i class="fa-solid fa-fire text-amberWarm"></i>
+              <div class="w-10 h-10 rounded-xl bg-bbtBlueLight text-bbtBlue flex items-center justify-center text-xl mb-2">
+                <i class="fa-solid fa-fire text-bbtGold"></i>
               </div>
               <p class="text-xs font-bold text-slateText">Status Program</p>
               <p class="font-extrabold text-navyDark text-base font-poppins mt-0.5">8 Minggu Intensive</p>
             </div>
             <div class="bg-white p-5 rounded-2xl border border-slateSubtle shadow-xs text-center flex flex-col items-center justify-center">
-              <div class="w-10 h-10 rounded-xl bg-amberLight text-amber-900 flex items-center justify-center text-xl mb-2">
+              <div class="w-10 h-10 rounded-xl bg-bbtTealLight text-teal-700 flex items-center justify-center text-xl mb-2">
                 <i class="fa-solid fa-bullseye"></i>
               </div>
               <p class="text-xs font-bold text-slateText">Cakupan Subtes</p>
-              <p class="font-extrabold text-tealElectric text-base font-poppins mt-0.5">7 Subtes (160 Soal)</p>
+              <p class="font-extrabold text-bbtBlue text-base font-poppins mt-0.5">7 Subtes (160 Soal)</p>
             </div>
             <div class="bg-white p-5 rounded-2xl border border-slateSubtle shadow-xs text-center flex flex-col items-center justify-center">
-              <div class="w-10 h-10 rounded-xl bg-cyanLight text-teal-900 flex items-center justify-center text-xl mb-2">
+              <div class="w-10 h-10 rounded-xl bg-bbtGoldLight text-amber-700 flex items-center justify-center text-xl mb-2">
                 <i class="fa-solid fa-clock"></i>
               </div>
               <p class="text-xs font-bold text-slateText">Durasi Tryout Resmi</p>
@@ -257,17 +288,17 @@
 
           <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card space-y-4">
             <h3 class="font-bold text-base text-navyDark font-poppins flex items-center gap-2">
-              <i class="fa-solid fa-route text-tealElectric"></i> Alur Pembelajaran 8 Minggu UTBK-SNBT 2027
+              <i class="fa-solid fa-route text-bbtBlue"></i> Alur Pembelajaran 8 Minggu UTBK-SNBT 2027
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slateBlue font-medium">
-              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b>Minggu 1:</b> Pengetahuan Kuantitatif + Asesmen Awal</div>
-              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b>Minggu 2:</b> Penalaran Matematika</div>
-              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b>Minggu 3:</b> Penalaran Umum</div>
-              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b>Minggu 4:</b> Literasi Bahasa Indonesia</div>
-              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b>Minggu 5:</b> Literasi Bahasa Inggris</div>
-              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b>Minggu 6:</b> Pengetahuan & Pemahaman Umum</div>
-              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b>Minggu 7:</b> Pemahaman Bacaan & Menulis + Tryout Penuh</div>
-              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b>Minggu 8:</b> Pemantapan Akhir & Pembahasan</div>
+              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 1:</b> Pengetahuan Kuantitatif + Asesmen Awal</div>
+              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 2:</b> Penalaran Matematika</div>
+              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 3:</b> Penalaran Umum</div>
+              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 4:</b> Literasi Bahasa Indonesia</div>
+              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 5:</b> Literasi Bahasa Inggris</div>
+              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 6:</b> Pengetahuan & Pemahaman Umum</div>
+              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 7:</b> Pemahaman Bacaan & Menulis + Tryout Penuh</div>
+              <div class="p-3.5 bg-creamWhite rounded-xl border border-slateSubtle"><b class="text-bbtBlue">Minggu 8:</b> Pemantapan Akhir & Pembahasan</div>
             </div>
           </div>
         </div>
@@ -279,7 +310,7 @@
                 <h3 class="text-xl font-black font-poppins text-navyDark">Latihan Soal Bertimer</h3>
                 <p class="text-xs text-slateText mt-0.5">Pilih subtes di bawah untuk mengakses Lockin Drill-Pack.</p>
               </div>
-              <span class="px-3.5 py-1.5 rounded-full bg-tealElectric/10 text-tealElectric font-bold text-xs border border-tealElectric/20">7 Subtes Ready</span>
+              <span class="px-3.5 py-1.5 rounded-full bg-bbtBlueLight text-bbtBlue font-bold text-xs border border-bbtBlue/20">7 Subtes Ready</span>
             </div>
             <div class="space-y-3" id="latsoSubtesListContainer"></div>
           </div>
@@ -305,11 +336,11 @@
           <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <span class="px-3 py-1 rounded-full bg-tealElectric/10 text-tealElectric font-bold text-[10px] uppercase tracking-wider mb-1 inline-block">Diagnostic Test</span>
+                <span class="px-3 py-1 rounded-full bg-bbtBlueLight text-bbtBlue font-bold text-[10px] uppercase tracking-wider mb-1 inline-block">Diagnostic Test</span>
                 <h4 class="font-extrabold text-navyDark text-lg">Asesmen Awal (70 Soal)</h4>
                 <p class="text-xs text-slateText font-medium">10 soal per subtes untuk memetakan kemampuan awal (Minggu 1).</p>
               </div>
-              <button type="button" onclick="openPreQuizModal('Asesmen Awal', 70, 90)" class="w-full sm:w-auto bg-tealElectric hover:bg-tealElectric/90 px-6 py-3 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+              <button type="button" onclick="openPreQuizModal('Asesmen Awal', 70, 90)" class="w-full sm:w-auto bg-bbtBlue hover:bg-bbtBlueDark px-6 py-3 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
                 <span>Pilih Asesmen</span>
                 <i class="fa-solid fa-play text-[10px]"></i>
               </button>
@@ -319,11 +350,11 @@
           <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <span class="px-3 py-1 rounded-full bg-amberLight text-amber-900 font-bold text-[10px] uppercase tracking-wider mb-1 inline-block">Full Simulation</span>
+                <span class="px-3 py-1 rounded-full bg-bbtGoldLight text-amber-800 font-bold text-[10px] uppercase tracking-wider mb-1 inline-block">Full Simulation</span>
                 <h4 class="font-extrabold text-navyDark text-lg">Tryout Penuh UTBK 2027 (160 Soal)</h4>
                 <p class="text-xs text-slateText font-medium">Simulasi 7 Subtes dengan durasi resmi 195 Menit (Minggu 7).</p>
               </div>
-              <button type="button" onclick="openPreQuizModal('Tryout Penuh', 160, 195)" class="w-full sm:w-auto bg-amberWarm hover:bg-amber-600 px-6 py-3 rounded-xl text-xs font-bold text-navyDark transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+              <button type="button" onclick="openPreQuizModal('Tryout Penuh', 160, 195)" class="w-full sm:w-auto bg-bbtGold hover:bg-amber-500 px-6 py-3 rounded-xl text-xs font-extrabold text-navyDark transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
                 <span>Pilih Tryout</span>
                 <i class="fa-solid fa-bolt text-[10px]"></i>
               </button>
@@ -381,16 +412,17 @@
       </div>
     </div>
 
+    <!-- 4. MODAL EDIT & VIEW PROFIL -->
     <div id="profileModal" class="hidden fixed inset-0 bg-navyDark/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div class="bg-white max-w-lg w-full p-6 sm:p-8 rounded-3xl border border-slateSubtle shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto custom-scrollbar">
         <div class="flex justify-between items-start border-b border-slateSubtle pb-4">
           <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-tealElectric/10 text-tealElectric flex items-center justify-center text-xl font-bold">
+            <div class="w-12 h-12 rounded-2xl bg-bbtBlueLight text-bbtBlue flex items-center justify-center text-xl font-bold">
               <i class="fa-solid fa-user-gear"></i>
             </div>
             <div>
               <h3 class="font-black text-xl text-navyDark font-poppins">Profil Saya</h3>
-              <p class="text-xs text-slateText font-medium">Informasi akun & target kampus pilihan.</p>
+              <p class="text-xs text-slateText font-medium">Peserta LockIn Edu × Beasiswa Bantu Teman.</p>
             </div>
           </div>
           <button type="button" onclick="closeProfileModal()" class="w-8 h-8 rounded-full bg-slateLight text-slateText hover:text-navyDark font-bold flex items-center justify-center transition cursor-pointer">✕</button>
@@ -408,7 +440,7 @@
             </div>
             <div class="flex justify-between items-center border-b border-slateSubtle pb-2.5">
               <span class="text-xs font-bold text-slateText">Kelas:</span>
-              <span id="profViewKelas" class="text-xs font-bold text-tealElectric bg-cyanLight px-2.5 py-0.5 rounded-md">-</span>
+              <span id="profViewKelas" class="text-xs font-bold text-bbtBlue bg-bbtBlueLight px-2.5 py-0.5 rounded-md">-</span>
             </div>
             <div class="flex justify-between items-center">
               <span class="text-xs font-bold text-slateText">Asal Sekolah:</span>
@@ -417,7 +449,7 @@
           </div>
 
           <div class="bg-creamWhite p-5 rounded-2xl border border-slateSubtle space-y-3">
-            <p class="text-xs font-extrabold text-tealElectric uppercase tracking-wider">Target Kampus Pilihan</p>
+            <p class="text-xs font-extrabold text-bbtBlue uppercase tracking-wider">Target Kampus Pilihan</p>
             <div class="p-3 bg-white rounded-xl border border-slateSubtle">
               <p class="text-[10px] font-bold text-slateText">Pilihan 1 (Utama):</p>
               <p id="profViewPilihan1" class="text-xs font-extrabold text-navyDark mt-0.5">-</p>
@@ -428,7 +460,7 @@
             </div>
           </div>
 
-          <button type="button" onclick="enableProfileEditMode()" class="w-full bg-tealElectric hover:bg-tealElectric/90 py-3 rounded-xl font-bold text-xs text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+          <button type="button" onclick="enableProfileEditMode()" class="w-full bg-bbtBlue hover:bg-bbtBlueDark py-3 rounded-xl font-bold text-xs text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
             <i class="fa-solid fa-pen"></i> Edit Informasi Profil
           </button>
         </div>
@@ -452,7 +484,7 @@
             </div>
           </div>
           <div class="p-3 bg-creamWhite rounded-xl border border-slateSubtle space-y-2">
-            <p class="text-[11px] font-extrabold text-tealElectric uppercase">Pilihan 1</p>
+            <p class="text-[11px] font-extrabold text-bbtBlue uppercase">Pilihan 1</p>
             <div class="grid grid-cols-2 gap-2">
               <input type="text" id="editUniv1" placeholder="Univ 1" required class="bg-white border border-slateSubtle rounded-lg px-3 py-2 text-xs font-semibold">
               <input type="text" id="editJurusan1" placeholder="Jurusan 1" required class="bg-white border border-slateSubtle rounded-lg px-3 py-2 text-xs font-semibold">
@@ -467,17 +499,18 @@
           </div>
           <div class="flex gap-2 pt-2">
             <button type="button" onclick="cancelProfileEdit()" class="w-1/3 bg-slateLight text-navyDark font-bold py-2.5 rounded-xl text-xs cursor-pointer">Batal</button>
-            <button type="submit" class="w-2/3 bg-tealElectric hover:bg-tealElectric/90 text-white font-bold py-2.5 rounded-xl text-xs shadow-soft-glow cursor-pointer">Simpan Perubahan</button>
+            <button type="submit" class="w-2/3 bg-bbtBlue hover:bg-bbtBlueDark text-white font-bold py-2.5 rounded-xl text-xs shadow-soft-glow cursor-pointer">Simpan Perubahan</button>
           </div>
         </form>
       </div>
     </div>
 
+    <!-- 5. PRE-QUIZ MODAL -->
     <div id="preQuizModal" class="hidden fixed inset-0 bg-navyDark/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div class="bg-white max-w-md w-full p-6 sm:p-8 rounded-3xl border border-slateSubtle shadow-2xl space-y-6">
         <div class="flex justify-between items-start border-b border-slateSubtle pb-4">
           <div>
-            <span id="modalSubtes" class="font-black text-lg text-tealElectric font-poppins">Subtes</span>
+            <span id="modalSubtes" class="font-black text-lg text-bbtBlue font-poppins">Subtes</span>
             <p class="text-xs font-semibold text-slateText">Konfirmasi Pelaksanaan Tes</p>
           </div>
           <button type="button" onclick="closePreQuizModal()" class="w-8 h-8 rounded-full bg-slateLight text-slateText hover:text-navyDark font-bold flex items-center justify-center transition cursor-pointer">✕</button>
@@ -487,18 +520,19 @@
       </div>
     </div>
 
+    <!-- 6. QUIZ RUNNER INTERFACE -->
     <div id="quizSection" class="hidden max-w-3xl mx-auto space-y-6 my-4">
       <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slateSubtle shadow-card space-y-6">
         <div class="flex justify-between items-center border-b border-slateSubtle pb-4">
           <div>
-            <span id="quizSubtes" class="text-xs font-bold bg-navyDark text-cyanFresh px-3 py-1 rounded-lg uppercase tracking-wider">Subtes</span>
-            <h3 class="text-base font-extrabold text-navyDark mt-2">Soal No. <span id="quizCurrentNo" class="text-tealElectric">1</span> dari <span id="quizTotalNo">30</span></h3>
+            <span id="quizSubtes" class="text-xs font-bold bg-bbtBlue text-white px-3 py-1 rounded-lg uppercase tracking-wider">Subtes</span>
+            <h3 class="text-base font-extrabold text-navyDark mt-2">Soal No. <span id="quizCurrentNo" class="text-bbtBlue">1</span> dari <span id="quizTotalNo">30</span></h3>
           </div>
           <div class="flex items-center gap-3">
             <button type="button" onclick="backToDashboardDuringQuiz()" class="text-xs bg-slateLight hover:bg-slateSubtle text-navyDark font-bold px-3.5 py-2 rounded-xl transition cursor-pointer">
               <i class="fa-solid fa-house mr-1"></i> Dashboard
             </button>
-            <div class="text-right bg-amberLight px-4 py-2 rounded-2xl border border-amberWarm/40">
+            <div class="text-right bg-bbtGoldLight px-4 py-2 rounded-2xl border border-bbtGold/50">
               <p class="text-[10px] text-amber-900 font-extrabold uppercase tracking-wider">Sisa Waktu</p>
               <p id="quizTimer" class="font-mono text-2xl font-black text-amber-600">30:00</p>
             </div>
@@ -523,30 +557,31 @@
           <button type="button" id="btnPrev" onclick="prevQuestion()" class="px-5 py-3 rounded-xl text-xs font-bold bg-slateLight hover:bg-slateSubtle text-navyDark transition flex items-center gap-2 cursor-pointer">
             <i class="fa-solid fa-arrow-left"></i> <span>Sebelumnya</span>
           </button>
-          <button type="button" id="btnNext" onclick="nextQuestion()" class="px-6 py-3 rounded-xl text-xs font-bold bg-tealElectric hover:bg-tealElectric/90 text-white shadow-soft-glow transition active:scale-95 flex items-center gap-2 cursor-pointer">
+          <button type="button" id="btnNext" onclick="nextQuestion()" class="px-6 py-3 rounded-xl text-xs font-bold bg-bbtBlue hover:bg-bbtBlueDark text-white shadow-soft-glow transition active:scale-95 flex items-center gap-2 cursor-pointer">
             <span>Berikutnya</span> <i class="fa-solid fa-arrow-right"></i>
           </button>
-          <button type="button" id="btnFinish" onclick="submitQuiz()" class="hidden px-6 py-3 rounded-xl text-xs font-extrabold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition active:scale-95 flex items-center gap-2 cursor-pointer">
+          <button type="button" id="btnFinish" onclick="submitQuiz()" class="hidden px-6 py-3 rounded-xl text-xs font-extrabold bg-bbtTeal hover:bg-teal-600 text-white shadow-teal-glow transition active:scale-95 flex items-center gap-2 cursor-pointer">
             <i class="fa-solid fa-check-circle"></i> <span>Selesai & Simpan Skor</span>
           </button>
         </div>
       </div>
     </div>
 
+    <!-- 7. HASIL & PEMBAHASAN -->
     <div id="resultSection" class="hidden max-w-3xl mx-auto space-y-6 my-4">
       <div class="bg-white p-6 rounded-3xl border border-slateSubtle shadow-card text-center flex flex-col sm:flex-row justify-between items-center gap-4">
         <div class="flex items-center gap-4 text-left">
-          <div class="w-14 h-14 rounded-2xl bg-tealElectric/10 text-tealElectric flex items-center justify-center text-2xl shadow-xs">
-            <i class="fa-solid fa-trophy text-amberWarm"></i>
+          <div class="w-14 h-14 rounded-2xl bg-bbtBlueLight text-bbtBlue flex items-center justify-center text-2xl shadow-xs">
+            <i class="fa-solid fa-trophy text-bbtGold"></i>
           </div>
           <div>
             <h2 class="text-xl font-black text-navyDark font-poppins">Hasil: <span id="reviewSubtesNama">Subtes</span></h2>
-            <p class="text-xs text-slateText font-medium">Jumlah Benar: <b id="resultCorrect" class="text-emerald-600">0</b> dari <span id="resultTotal">30</span> Soal</p>
+            <p class="text-xs text-slateText font-medium">Jumlah Benar: <b id="resultCorrect" class="text-teal-600">0</b> dari <span id="resultTotal">30</span> Soal</p>
           </div>
         </div>
         <div class="flex items-center gap-4">
-          <div class="text-3xl font-black text-tealElectric font-poppins" id="resultScore">0 / 100</div>
-          <button type="button" onclick="finishAndReturn()" class="bg-tealElectric hover:bg-tealElectric/90 px-5 py-2.5 rounded-xl font-bold text-xs text-white shadow-soft-glow transition active:scale-95 flex items-center gap-2 cursor-pointer">
+          <div class="text-3xl font-black text-bbtBlue font-poppins" id="resultScore">0 / 100</div>
+          <button type="button" onclick="finishAndReturn()" class="bg-bbtBlue hover:bg-bbtBlueDark px-5 py-2.5 rounded-xl font-bold text-xs text-white shadow-soft-glow transition active:scale-95 flex items-center gap-2 cursor-pointer">
             <i class="fa-solid fa-house"></i> <span>Dashboard</span>
           </button>
         </div>
@@ -556,7 +591,7 @@
         <div class="flex justify-between items-center border-b border-slateSubtle pb-4">
           <div>
             <span class="text-xs font-bold bg-slateLight text-navyDark px-3 py-1 rounded-lg uppercase tracking-wider">Mode Pembahasan</span>
-            <h3 class="text-base font-extrabold text-navyDark mt-2">Soal No. <span id="reviewCurrentNo" class="text-tealElectric">1</span> dari <span id="reviewTotalNo">30</span></h3>
+            <h3 class="text-base font-extrabold text-navyDark mt-2">Soal No. <span id="reviewCurrentNo" class="text-bbtBlue">1</span> dari <span id="reviewTotalNo">30</span></h3>
           </div>
           <div id="reviewStatusBadge"></div>
         </div>
@@ -565,7 +600,7 @@
           <div class="flex justify-between items-center text-xs font-bold text-slateText">
             <span>Pilih Nomor Pembahasan</span>
             <div class="flex items-center gap-3 text-[10px]">
-              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Benar</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-bbtTeal"></span> Benar</span>
               <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Salah</span>
             </div>
           </div>
@@ -575,9 +610,9 @@
         <div id="reviewQuestionText" class="text-base text-navyDark leading-relaxed font-semibold bg-creamWhite p-6 rounded-2xl border border-slateSubtle whitespace-pre-line">-</div>
         <div id="reviewOptionsBox" class="space-y-3"></div>
 
-        <div class="bg-cyanLight/40 p-6 rounded-2xl border border-tealElectric/30 text-navyDark leading-relaxed space-y-2">
-          <h4 class="font-extrabold text-sm text-tealElectric flex items-center gap-2">
-            <i class="fa-solid fa-lightbulb text-amberWarm"></i> Pembahasan Lengkap:
+        <div class="bg-bbtBlueLight/60 p-6 rounded-2xl border border-bbtBlue/25 text-navyDark leading-relaxed space-y-2">
+          <h4 class="font-extrabold text-sm text-bbtBlue flex items-center gap-2">
+            <i class="fa-solid fa-lightbulb text-bbtGold"></i> Pembahasan Lengkap:
           </h4>
           <div id="reviewExplanationText" class="text-sm font-medium whitespace-pre-line text-slateBlue">-</div>
         </div>
@@ -586,26 +621,27 @@
           <button type="button" id="btnReviewPrev" onclick="prevReviewQuestion()" class="px-5 py-3 rounded-xl text-xs font-bold bg-slateLight hover:bg-slateSubtle text-navyDark transition flex items-center gap-2 cursor-pointer">
             <i class="fa-solid fa-arrow-left"></i> <span>Sebelumnya</span>
           </button>
-          <button type="button" id="btnReviewNext" onclick="nextReviewQuestion()" class="px-6 py-3 rounded-xl text-xs font-bold bg-tealElectric hover:bg-tealElectric/90 text-white shadow-soft-glow transition active:scale-95 flex items-center gap-2 cursor-pointer">
+          <button type="button" id="btnReviewNext" onclick="nextReviewQuestion()" class="px-6 py-3 rounded-xl text-xs font-bold bg-bbtBlue hover:bg-bbtBlueDark text-white shadow-soft-glow transition active:scale-95 flex items-center gap-2 cursor-pointer">
             <span>Berikutnya</span> <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
       </div>
     </div>
 
+    <!-- 8. MODAL VIEWER PPT -->
     <div id="pptModal" class="hidden fixed inset-0 bg-navyDark/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div class="bg-white max-w-4xl w-full p-5 sm:p-6 rounded-3xl border border-slateSubtle shadow-2xl space-y-4 max-h-[92vh] flex flex-col">
         <div class="flex justify-between items-center border-b border-slateSubtle pb-3">
           <div>
             <h3 id="pptModalTitle" class="font-bold text-lg text-navyDark font-poppins">Slide Materi</h3>
-            <p class="text-xs text-slateText font-medium">Modul Pembelajaran PPT LockIn Edu</p>
+            <p class="text-xs text-slateText font-medium">Modul Pembelajaran PPT LockIn Edu × Beasiswa Bantu Teman</p>
           </div>
           <button type="button" onclick="closePPTModal()" class="w-8 h-8 rounded-full bg-slateLight text-slateText hover:text-navyDark font-bold flex items-center justify-center transition cursor-pointer">✕</button>
         </div>
         <div class="flex-grow w-full bg-slate-900 rounded-2xl overflow-hidden min-h-[450px] relative flex items-center justify-center">
           <div id="pptLoader" class="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center gap-3 z-10">
-            <div class="w-10 h-10 border-4 border-tealElectric border-t-transparent rounded-full animate-spin"></div>
-            <p class="text-xs font-bold text-cyanFresh font-poppins animate-pulse">Memuat Slide Presentasi...</p>
+            <div class="w-10 h-10 border-4 border-bbtBlue border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-xs font-bold text-bbtTeal font-poppins animate-pulse">Memuat Slide Presentasi...</p>
           </div>
           <iframe id="pptIframe" src="" onload="hidePPTLoader()" class="w-full h-full min-h-[450px] relative z-0" frameborder="0" allowfullscreen="true"></iframe>
         </div>
@@ -615,7 +651,7 @@
   </main>
 
   <footer class="text-center p-6 border-t border-slateSubtle text-xs text-slateText bg-white">
-    &copy; 2026 LockIn Edu. All rights reserved. Focus. Master. Conquer.
+    &copy; 2026 <strong class="text-navyDark">LockIn Edu</strong> × <strong class="text-bbtBlue">Forum Beasiswa Bantu Teman</strong>. All rights reserved. Focus. Master. Conquer.
   </footer>
 
   <script>
@@ -814,12 +850,12 @@
       if (tab === 'login') {
         document.getElementById('formLogin').classList.remove('hidden');
         document.getElementById('formRegister').classList.add('hidden');
-        document.getElementById('btnTabLogin').className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-tealElectric text-white shadow-soft-glow transition cursor-pointer";
+        document.getElementById('btnTabLogin').className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-bbtBlue text-white shadow-soft-glow transition cursor-pointer";
         document.getElementById('btnTabRegister').className = "flex-1 py-2.5 text-xs font-bold rounded-xl text-slateText hover:text-navyDark transition cursor-pointer";
       } else {
         document.getElementById('formLogin').classList.add('hidden');
         document.getElementById('formRegister').classList.remove('hidden');
-        document.getElementById('btnTabRegister').className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-tealElectric text-white shadow-soft-glow transition cursor-pointer";
+        document.getElementById('btnTabRegister').className = "flex-1 py-2.5 text-xs font-bold rounded-xl bg-bbtBlue text-white shadow-soft-glow transition cursor-pointer";
         document.getElementById('btnTabLogin').className = "flex-1 py-2.5 text-xs font-bold rounded-xl text-slateText hover:text-navyDark transition cursor-pointer";
       }
     }
@@ -966,14 +1002,14 @@
 
       subtesMasterData.forEach((st, idx) => {
         const div = document.createElement('div');
-        div.className = "bg-white p-5 rounded-2xl border border-slateSubtle hover:border-tealElectric shadow-xs transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+        div.className = "bg-white p-5 rounded-2xl border border-slateSubtle hover:border-bbtBlue shadow-xs transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
         div.innerHTML = `
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-wider text-tealElectric bg-cyanLight px-2.5 py-0.5 rounded-md mb-1 inline-block">Subtes ${idx + 1}</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-bbtBlue bg-bbtBlueLight px-2.5 py-0.5 rounded-md mb-1 inline-block">Subtes ${idx + 1}</span>
             <h4 class="font-extrabold text-navyDark text-base">${st.nama}</h4>
             <p class="text-xs text-slateText">2x Lockin Drill-Pack • ${st.tipe}</p>
           </div>
-          <button type="button" onclick="openLatsoSubBab('${st.id}')" class="w-full sm:w-auto bg-tealElectric hover:bg-tealElectric/90 px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+          <button type="button" onclick="openLatsoSubBab('${st.id}')" class="w-full sm:w-auto bg-bbtBlue hover:bg-bbtBlueDark px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
             <span>Pilih Paket Drill</span>
             <i class="fa-solid fa-chevron-right text-[10px]"></i>
           </button>
@@ -995,11 +1031,11 @@
         div.className = "bg-creamWhite p-5 rounded-2xl border border-slateSubtle shadow-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
         div.innerHTML = `
           <div>
-            <span class="text-[10px] font-bold text-tealElectric uppercase bg-cyanLight px-2 py-0.5 rounded-md mb-1 inline-block">Mandiri 24/7</span>
+            <span class="text-[10px] font-bold text-teal-800 uppercase bg-bbtTealLight px-2 py-0.5 rounded-md mb-1 inline-block">Mandiri 24/7</span>
             <h4 class="font-extrabold text-navyDark text-sm">${dp.judul}</h4>
             <p class="text-xs text-slateText font-medium mt-0.5">${dp.soalCount} Soal • Durasi: ${dp.durasi} Menit</p>
           </div>
-          <button type="button" onclick="openPreQuizModal('${dp.judul}', ${dp.soalCount}, ${dp.durasi})" class="w-full sm:w-auto bg-tealElectric hover:bg-tealElectric/90 px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 cursor-pointer">
+          <button type="button" onclick="openPreQuizModal('${dp.judul}', ${dp.soalCount}, ${dp.durasi})" class="w-full sm:w-auto bg-bbtBlue hover:bg-bbtBlueDark px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 cursor-pointer">
             Kerjakan Paket Ini
           </button>
         `;
@@ -1022,14 +1058,14 @@
 
       subtesMasterData.forEach((st, idx) => {
         const div = document.createElement('div');
-        div.className = "bg-white p-5 rounded-2xl border border-slateSubtle hover:border-tealElectric shadow-xs transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+        div.className = "bg-white p-5 rounded-2xl border border-slateSubtle hover:border-bbtBlue shadow-xs transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
         div.innerHTML = `
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-wider text-tealElectric bg-cyanLight px-2.5 py-0.5 rounded-md mb-1 inline-block">Modul ${idx + 1}</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-bbtBlue bg-bbtBlueLight px-2.5 py-0.5 rounded-md mb-1 inline-block">Modul ${idx + 1}</span>
             <h4 class="font-extrabold text-navyDark text-base">${st.nama}</h4>
             <p class="text-xs text-slateText">3 Bab PPT Ringkasan Material Available</p>
           </div>
-          <button type="button" onclick="openPPTSubBabList('${st.nama}')" class="w-full sm:w-auto bg-tealElectric hover:bg-tealElectric/90 px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+          <button type="button" onclick="openPPTSubBabList('${st.nama}')" class="w-full sm:w-auto bg-bbtBlue hover:bg-bbtBlueDark px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
             <span>Lihat Bab PPT</span>
             <i class="fa-solid fa-chevron-right text-[10px]"></i>
           </button>
@@ -1057,11 +1093,11 @@
             div.className = "bg-creamWhite p-5 rounded-2xl border border-slateSubtle shadow-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
             div.innerHTML = `
               <div>
-                <span class="text-[10px] font-bold text-tealElectric bg-cyanLight px-2.5 py-0.5 rounded-md mb-1 inline-block">${b.jumlahSlides || 'Slides'}</span>
+                <span class="text-[10px] font-bold text-bbtBlue bg-bbtBlueLight px-2.5 py-0.5 rounded-md mb-1 inline-block">${b.jumlahSlides || 'Slides'}</span>
                 <h4 class="font-extrabold text-navyDark text-sm">${b.judul}</h4>
                 <p class="text-xs text-slateText mt-0.5">${b.deskripsi || ''}</p>
               </div>
-              <button type="button" onclick="openPPTModalViewer('${subtesNama}', '${b.judul}', '${b.babId}')" class="w-full sm:w-auto bg-tealElectric hover:bg-tealElectric/90 px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+              <button type="button" onclick="openPPTModalViewer('${subtesNama}', '${b.judul}', '${b.babId}')" class="w-full sm:w-auto bg-bbtBlue hover:bg-bbtBlueDark px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-soft-glow transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
                 <i class="fa-solid fa-file-powerpoint"></i> Buka Slides PPT
               </button>
             `;
@@ -1134,8 +1170,8 @@
         div.innerHTML = `
           <div>
             <div class="flex items-center gap-2 mb-1">
-              <span class="text-[10px] font-extrabold uppercase bg-slateLight text-navyDark px-2.5 py-0.5 rounded-md">${s.week}</span>
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-md ${s.status === 'Selesai' ? 'bg-emerald-100 text-emerald-800' : 'bg-amberLight text-amber-900'}">${s.status}</span>
+              <span class="text-[10px] font-extrabold uppercase bg-bbtBlueLight text-bbtBlue px-2.5 py-0.5 rounded-md">${s.week}</span>
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-md ${s.status === 'Selesai' ? 'bg-bbtTealLight text-teal-800' : 'bg-bbtGoldLight text-amber-800'}">${s.status}</span>
             </div>
             <h4 class="font-extrabold text-navyDark text-base">${s.topik}</h4>
             <p class="text-xs text-slateText"><i class="fa-regular fa-clock mr-1"></i> ${s.jadwal}</p>
@@ -1172,11 +1208,11 @@
         modalBox.innerHTML = `
           <div class="flex justify-between items-center text-navyDark">
             <span class="font-semibold">Status Pengerjaan:</span>
-            <span class="font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-lg">Selesai</span>
+            <span class="font-bold text-teal-800 bg-bbtTealLight border border-bbtTeal/40 px-2.5 py-0.5 rounded-lg">Selesai</span>
           </div>
           <div class="flex justify-between items-center text-navyDark">
             <span class="font-semibold">Skor Terakhir:</span>
-            <span class="font-black text-tealElectric text-base font-poppins">${lastAttempt.skor} / 100</span>
+            <span class="font-black text-bbtBlue text-base font-poppins">${lastAttempt.skor} / 100</span>
           </div>
           <div class="flex justify-between items-center text-slateText text-[11px]">
             <span>Tanggal Pengerjaan:</span>
@@ -1186,13 +1222,13 @@
 
         actionBox.innerHTML = `
           <button type="button" onclick="reviewPastAnswers('${subtesJudul}')" class="flex-1 bg-slateLight hover:bg-slateSubtle text-navyDark font-bold py-3 rounded-xl text-xs transition cursor-pointer">Lihat Pembahasan</button>
-          <button type="button" onclick="confirmStartQuiz()" class="flex-1 bg-tealElectric hover:bg-tealElectric/90 text-white font-bold py-3 rounded-xl text-xs shadow-soft-glow transition cursor-pointer">Kerjakan Ulang</button>
+          <button type="button" onclick="confirmStartQuiz()" class="flex-1 bg-bbtBlue hover:bg-bbtBlueDark text-white font-bold py-3 rounded-xl text-xs shadow-soft-glow transition cursor-pointer">Kerjakan Ulang</button>
         `;
       } else {
         modalBox.innerHTML = `
           <div class="flex justify-between items-center text-navyDark">
             <span class="font-semibold">Status Pengerjaan:</span>
-            <span class="font-bold text-amber-900 bg-amberLight border border-amberWarm/30 px-2.5 py-0.5 rounded-lg">Belum Dikerjakan</span>
+            <span class="font-bold text-amber-800 bg-bbtGoldLight border border-bbtGold/50 px-2.5 py-0.5 rounded-lg">Belum Dikerjakan</span>
           </div>
           <div class="flex justify-between items-center text-navyDark">
             <span class="font-semibold">Jumlah Soal:</span>
@@ -1206,7 +1242,7 @@
 
         actionBox.innerHTML = `
           <button type="button" onclick="closePreQuizModal()" class="w-1/3 bg-slateLight hover:bg-slateSubtle text-navyDark font-bold py-3 rounded-xl text-xs transition cursor-pointer">Batal</button>
-          <button type="button" onclick="confirmStartQuiz()" class="w-2/3 bg-tealElectric hover:bg-tealElectric/90 text-white font-bold py-3 rounded-xl text-xs shadow-soft-glow transition cursor-pointer">Mulai Latihan</button>
+          <button type="button" onclick="confirmStartQuiz()" class="w-2/3 bg-bbtBlue hover:bg-bbtBlueDark text-white font-bold py-3 rounded-xl text-xs shadow-soft-glow transition cursor-pointer">Mulai Latihan</button>
         `;
       }
 
@@ -1360,13 +1396,13 @@
           btn.type = "button";
           btn.className = `w-full text-left p-4 rounded-2xl border text-sm font-semibold flex items-center gap-3.5 transition cursor-pointer ${
             isSelected 
-              ? 'bg-tealElectric/10 border-tealElectric text-tealElectric font-bold shadow-xs' 
-              : 'bg-creamWhite border-slateSubtle text-navyDark hover:border-slate-300'
+              ? 'bg-bbtBlueLight border-bbtBlue text-bbtBlue font-bold shadow-xs' 
+              : 'bg-creamWhite border-slateSubtle text-navyDark hover:border-bbtBlue/50'
           }`;
           
           btn.onclick = () => selectOption(optKey);
           btn.innerHTML = `
-            <span class="w-8 h-8 rounded-xl ${isSelected ? 'bg-tealElectric text-white' : 'bg-slateLight text-navyDark'} flex items-center justify-center font-bold text-xs">${optKey}</span> 
+            <span class="w-8 h-8 rounded-xl ${isSelected ? 'bg-bbtBlue text-white' : 'bg-slateLight text-navyDark'} flex items-center justify-center font-bold text-xs">${optKey}</span> 
             <span>${q.options[optKey]}</span>
           `;
           optsBox.appendChild(btn);
@@ -1395,9 +1431,9 @@
         const isAnswered = userAnswers[idx] !== undefined;
         const isCurrent = idx === currentIndex;
 
-        let btnClass = "bg-creamWhite text-navyDark border-slateSubtle hover:border-slate-300";
-        if (isAnswered) btnClass = "bg-tealElectric text-white font-bold border-tealElectric shadow-xs";
-        if (isCurrent) btnClass += " ring-2 ring-tealElectric border-tealElectric font-bold bg-cyanLight text-teal-900";
+        let btnClass = "bg-creamWhite text-navyDark border-slateSubtle hover:border-bbtBlue/50";
+        if (isAnswered) btnClass = "bg-bbtBlue text-white font-bold border-bbtBlue shadow-xs";
+        if (isCurrent) btnClass += " ring-2 ring-bbtGold border-bbtGold font-bold bg-bbtBlueLight text-bbtBlue";
 
         const btn = document.createElement('button');
         btn.type = "button";
@@ -1559,7 +1595,7 @@
 
       const badgeBox = document.getElementById('reviewStatusBadge');
       if (isCorrect) {
-        badgeBox.innerHTML = `<span class="bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1.5 rounded-xl text-xs"><i class="fa-solid fa-circle-check"></i> Jawaban Benar</span>`;
+        badgeBox.innerHTML = `<span class="bg-bbtTealLight text-teal-800 font-extrabold px-3 py-1.5 rounded-xl text-xs"><i class="fa-solid fa-circle-check"></i> Jawaban Benar</span>`;
       } else {
         badgeBox.innerHTML = `<span class="bg-red-100 text-red-800 font-extrabold px-3 py-1.5 rounded-xl text-xs"><i class="fa-solid fa-circle-xmark"></i> Jawaban Salah / Kosong</span>`;
       }
@@ -1576,8 +1612,8 @@
           let badgeText = "";
 
           if (isKeyChoice) {
-            optionStyle = "bg-emerald-50 border-emerald-500 text-emerald-950 font-bold";
-            badgeText = `<span class="ml-auto text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-md">Kunci Jawaban</span>`;
+            optionStyle = "bg-bbtTealLight border-bbtTeal text-teal-950 font-bold";
+            badgeText = `<span class="ml-auto text-xs font-bold text-teal-800 bg-white px-2.5 py-0.5 rounded-md border border-bbtTeal/40">Kunci Jawaban</span>`;
           } else if (isUserChoice && !isCorrect) {
             optionStyle = "bg-red-50 border-red-400 text-red-950 font-bold";
             badgeText = `<span class="ml-auto text-xs font-bold text-red-700 bg-red-100 px-2.5 py-0.5 rounded-md">Jawaban Kamu</span>`;
@@ -1586,7 +1622,7 @@
           const div = document.createElement('div');
           div.className = `w-full text-left p-4 rounded-2xl border text-sm font-semibold flex items-center gap-3.5 ${optionStyle}`;
           div.innerHTML = `
-            <span class="w-8 h-8 rounded-xl ${isKeyChoice ? 'bg-emerald-600 text-white' : (isUserChoice ? 'bg-red-600 text-white' : 'bg-slateLight text-navyDark')} flex items-center justify-center font-bold text-xs">${optKey}</span> 
+            <span class="w-8 h-8 rounded-xl ${isKeyChoice ? 'bg-bbtTeal text-white' : (isUserChoice ? 'bg-red-600 text-white' : 'bg-slateLight text-navyDark')} flex items-center justify-center font-bold text-xs">${optKey}</span> 
             <span>${q.options[optKey]}</span>
             ${badgeText}
           `;
@@ -1610,7 +1646,7 @@
         const isCorrect = userAns === q.kunci;
         const isCurrent = idx === reviewIndex;
 
-        let btnClass = isCorrect ? "bg-emerald-500 text-white font-bold border-emerald-500" : "bg-red-500 text-white font-bold border-red-500";
+        let btnClass = isCorrect ? "bg-bbtTeal text-white font-bold border-bbtTeal" : "bg-red-500 text-white font-bold border-red-500";
         if (isCurrent) btnClass += " ring-4 ring-navyDark border-navyDark";
 
         const btn = document.createElement('button');
@@ -1663,12 +1699,12 @@
         item.className = "p-4 bg-creamWhite rounded-2xl flex justify-between items-center border border-slateSubtle";
         item.innerHTML = `
           <div>
-            <p class="font-extrabold text-tealElectric text-sm">${res.subtes}</p>
+            <p class="font-extrabold text-bbtBlue text-sm">${res.subtes}</p>
             <p class="text-[11px] text-slateText mt-0.5">${res.benar} Benar dari ${res.total} Soal • ${res.waktu}</p>
           </div>
           <div class="flex items-center gap-3">
-            <span class="bg-navyDark text-cyanFresh border border-tealElectric/30 px-3 py-1.5 rounded-xl font-bold text-xs">Skor: ${res.skor}</span>
-            <button type="button" onclick="reviewPastAnswers('${res.subtes}')" class="bg-tealElectric hover:bg-tealElectric/90 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs transition cursor-pointer">Pembahasan</button>
+            <span class="bg-navyDark text-bbtGold border border-bbtBlue/30 px-3 py-1.5 rounded-xl font-bold text-xs">Skor: ${res.skor}</span>
+            <button type="button" onclick="reviewPastAnswers('${res.subtes}')" class="bg-bbtBlue hover:bg-bbtBlueDark text-white font-bold px-3.5 py-1.5 rounded-xl text-xs transition cursor-pointer">Pembahasan</button>
           </div>
         `;
         container.appendChild(item);
@@ -1678,11 +1714,11 @@
     function switchMenu(menu) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.menu-btn').forEach(el => {
-        el.className = "menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-slateLight hover:text-navyDark transition cursor-pointer";
+        el.className = "menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 text-slateText hover:bg-bbtBlueLight/60 hover:text-bbtBlue transition cursor-pointer";
       });
 
       document.getElementById(`tab-${menu}`).classList.remove('hidden');
-      document.getElementById(`btn-${menu}`).className = "menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 bg-tealElectric text-white shadow-soft-glow transition cursor-pointer";
+      document.getElementById(`btn-${menu}`).className = "menu-btn w-full text-left px-4 py-3 rounded-2xl font-bold text-xs flex items-center gap-3 bg-bbtBlue text-white shadow-soft-glow transition cursor-pointer";
     }
 
     function logout() {
